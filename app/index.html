@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>E2E - Encrypted Ethereum Messaging</title>
+  <link href="./app.css" rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <h1>E2E - </h1>
+  <h2>Proof of Concept</h2>
+  <h3>Current Account:<h3> <span id="account"></span><br>
+  <h3>You have <span class="black"><span id="msgs"></span> unread messages</span></h3>
+  <br>
+  <h1>Send Message</h1>
+  <br><label for="Recepient">Recepient:</label><input type="text" id="recepient" placeholder="0x93e66d9baea28c17d9fc393b53e3fbdd76899da"></input>
+  <br><label for="msg">Message:</label><input type="text" id="msg" placeholder="Type some message"></input> <input type="checkbox" id='encryptbox' Name="Encrypt?"  checked><span> Encrypt?</span>
+  <br><br><button id="send" onclick="sendMessage()">Send Message</button>
+  <br><br>
+
+  <h1>Find my Public Key</h1><br>
+  <span><p>Input a wallet file to find a public key, to allow someone else to send you messages</p></span>
+  <input type="file"  id="wallet-file"/> <br><br>
+  <span>Found Public Key:</span><span id="pubkey"></span>
+
+
+  <h1>Read Messages</h1>
+
+  <br><br><select id="msgNo"></select><button id="read" onclick="readMessage()">Read Message</button>
+  <br><br>
+
+  <h1>Clear Messages</h1>
+  <br><button id="clear" onclick="clearMessages()">Clear Messages</button>
+  <br><br>
+  <h3> Decrypted Message: </h3>
+  <span id="msgText"></span>
+</body>
+</html>
