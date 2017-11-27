@@ -1,0 +1,21 @@
+{
+  "name": "E2E",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "lint": "./node_modules/.bin/eslint ."
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "eslint-plugin-react": "^7.5.1",
+    "meteor-node-stubs": "^0.3.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-templates": "^0.6.1",
+    "web3": "^1.0.0-beta.24"
+  },
+  "devDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-config-google": "^0.9.1"
+  }
+}

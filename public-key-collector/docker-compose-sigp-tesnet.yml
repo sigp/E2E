@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+    geth:
+      build:
+         context: ./testnet
+         dockerfile: sigp-geth.docker
+      volumes:
+            - ./testnet-chaindata:/root/.ethereum
+
+    mongodb:
+      image: mongo
+      volumes:
+        - ./db-storage:/data/db
+      ports:
+          - "27017:27017"
+
+    pkcollector:
+         build:
+            context: ./pubkey-collector
+            dockerfile: pubkey-collector.docker
+         environment:
+           - CHAINID=1337
+           - RPCADDR=/chaindata/geth.ipc
+         volumes:
+           - ./testnet-chaindata:/chaindata
+         links:
+            - geth
+            - mongodb
+         depends_on:
+            - "geth"
+            - "mongodb"
+
+    api:
+        build:
+          context: ./api
+          dockerfile: api.docker
+        ports:
+          - "80:5000"
+        links:
+          - mongodb

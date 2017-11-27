@@ -1,0 +1,743 @@
+/* CSS declarations go here */
+@import '{ethereum:dapp-styles}/dapp-styles.less';
+
+* {
+    transition: 0.2s all ease-in-out;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+.clear {
+    clear: both;
+}
+
+.dapp-header {
+    background: #5C6BC0;
+    color: #fff;
+
+    h1 {
+        margin-bottom: 16px;
+        color: #fff;
+        font-weight: 300;
+    }
+}
+
+#main-target {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main-container {
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 95px;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+}
+
+.dapp-flex-content {
+    flex: 1;
+}
+
+.dapp-aside {
+    flex: 1;
+    max-width: 30%;
+    background: #fcfcfc;
+    padding: 0px;
+    overflow: hidden;
+    box-shadow: inset -10px 0px 3px -10px rgba(0,0,0,0.2);
+}
+
+.dapp-content {
+    flex: 1;
+    max-width: 70%;
+    background: #fff;
+}
+
+#messages-content {
+    max-width: 70%;
+    background: #fff;
+    flex: 1;
+}
+
+.messages {
+    width: 100%;
+    height: 85%;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 20px;
+    overflow-y: scroll;
+    word-wrap: break-word;
+}
+
+.messageBox {
+    width: 100%;
+    height: 15%;
+}
+
+.messageBox .left {
+    width: 80%;
+    height: 100%;
+    background: #fff;
+    float:left;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+}
+
+.messageBox .left .recipient {
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 20px;
+    margin-top: 0px;
+    background: #fff;
+    flex: 0 1;
+}
+
+.messageBox .left .sendmessage {
+    margin-top: 0px;
+    width: 100%;
+    background: #fff;
+    height: 77%;
+    resize: none;
+    flex: 1 1;
+}
+
+.messageBox .right {
+    width: 20%;
+    height: 100%;
+    background: #fff;
+    float: right;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+}
+
+.encrypt {
+    line-height: 20px;
+    padding: 10px 10px;
+    position: relative;
+    background: #e0e0e0;
+    cursor: pointer;
+    flex: 0 1;
+    max-height: 60%;
+}
+
+.encrypt p {
+    margin: 0px;
+}
+
+.encrypt-true {
+    color: #fff;
+    background: #58b954;
+}
+
+.encrypt-true:after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    transform: scaleX(-1) rotate(135deg);
+  }
+.encrypt-true:after {
+    opacity: 1;
+    height: 100%;
+    width: 20%; 
+    transform-origin: left top;
+    border-right: 2px solid #fff;
+    border-top: 2px solid #fff;
+    content: '';
+    right: 40px;
+    top: 21px;
+    position: absolute;
+    max-width: 20px;
+    max-height: 50px;
+}
+
+.sendButton {
+    text-align: center;
+    flex: 1 1;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    display: flex;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.sendButton:hover {
+    color: #555;
+}
+
+#footer {
+    height: 30px;
+    box-sizing: border-box;
+    line-height: 30px;
+    background: #2c2c2c;
+    color: #bcbcbc;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#whoami {
+    width: 100%;
+    background: #fff;
+    border-bottom:1px solid #f5f5f5;
+
+    span {
+        display: block;
+        text-align: center;
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 400;
+        font-family: monospace;
+    }
+}
+
+.web3-connect {
+    color: #00bb04
+}
+
+.web3-noconnect {
+    background: #f03a3a;
+    
+    span {
+        color: #FFF;
+    }
+}
+
+/* Messages */
+.chat {
+    font-family: monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 13px;
+    background: #fcfcfc;
+    width: 100%;
+    border-bottom: 1px solid #f7f7f7;
+    /*border-right: 1px solid #f7f7f7;*/
+    box-sizing: border-box;
+    box-shadow: inset -10px 0px 3px -10px rgba(0,0,0,0.2);
+
+    &:hover {
+        cursor: pointer;
+        background: #fafafa;
+    }
+
+    &.selected {
+        border-left: 5px solid #bb22FF;
+        border-right: none;
+        border-bottom: none;
+        background: #FFF;
+        box-shadow: none;
+    }
+}
+
+.message {
+    padding: 3px;
+    margin: 1px;
+    border-bottom: 1px solid #eee;
+}
+.message-info {
+    position: relative;
+}
+
+.sending {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border-radius: 20px;
+    border: 1px solid #eee;
+    border-left: 1px solid #58b954;
+    animation: rotate-circle;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+}
+
+.message header, .message header .from-addr, .message header .to-addr, .message header .message-info, .message .message-content {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.message header {
+    font-family: monospace;
+    font-weight: 600;
+    width: 227px;
+    display: block;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.from-addr, .to-addr {
+    width: 95px;
+    display: inline-block;
+    height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.message .message-content {
+    clear: both;
+    line-height: 24px;
+}
+
+.message-from header {
+    float: right;
+}
+
+.message-from .message-content {
+    text-align: right;
+    width: 100%;
+}
+
+.newAccountChat {
+    padding: 10px;
+    background: #fefefe;
+    border: 1px dashed #ccc;
+    cursor: pointer;
+}
+
+.newAccountChat:hover {
+    background: #ffffff;
+}
+
+/* Account Modal */
+.close-button {
+    position: absolute;
+    right: 5px;
+    top:1px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.account-modal {
+    width: 700px;
+    height: 400px;
+    background: #FAFAFA;
+    z-index: 5;
+    position: absolute;
+    left: 50%;
+    margin-left: -350px;
+    box-sizing: border-box;
+    top: 50%;
+    margin-top: -200px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.account-modal header {
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 30px;
+    padding: 5px;
+    background: #fefefe;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.account-modal .accounts-list {
+    padding: 0px;
+    list-style-type: none;
+    margin: 0px;
+    height: 310px;
+    overflow-y: scroll;
+}
+
+.accounts-list li {
+    position: relative;
+    line-height: 30px;
+    font-size:20px;
+    padding: 15px;
+    border: 1px solid #eaeaea;
+    background: #fff;
+    margin: 8px auto;
+    width: 80%;
+    box-sizing: border-box;
+    /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
+    cursor: pointer;
+}
+.oplus {
+    width: 35px;
+    border: 2px solid #d0d0d0;
+    height: 35px;
+    border-radius: 50%;
+    position: relative;
+    margin: auto;
+}
+
+.oplus:after {
+    content: '+';
+    position: absolute;
+    font-weight: 400;
+    color: #d0d0d0;
+    font-size: 35px;
+    line-height: 35px;
+    left: 50%;
+    margin-left: -8px;
+    top: -1px;
+}
+
+.go-back {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    float: left;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.backArrow {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    transform: rotate(-45deg);
+}
+
+.newaccount-header {
+    background: #455a65 !important;
+    color: #fff;
+}
+
+
+.account-modal button {
+    float: right;
+    margin-right: 20px;
+    line-height: 40px;
+    margin-top: 5px;
+    padding: 0px 40px;
+    background: #d0ffd3;
+    color: #004712;
+    font-weight: 400;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.account-modal button:enabled {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+}
+
+.account-modal button:enabled:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.account-modal button:disabled {
+    background: #ddd;
+    cursor: not-allowed;
+    color: #333;
+}
+
+.toggled {
+    background: #9af7a2 !important;
+
+    &:after {
+        animation-duration: 800ms;
+        animation-timing-function: ease;
+        animation-name: checkmark;
+        transform: scaleX(-1) rotate(135deg);
+      }
+      
+     &:after {
+        opacity: 1;
+        height: 50px;
+        width: 20px; 
+        transform-origin: left top;
+        border-right: 2px solid #fff;
+        border-top: 2px solid #fff;
+        content: '';
+        right: 40px;
+        top: 32px;
+        position: absolute;
+      }
+}
+
+.account-modal .spinner {
+    position: absolute;
+    left: 50%;
+    margin-left: -40px;
+    top: 50%;
+    margin-top: -50px;
+}
+
+#fadedbg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 2
+}
+
+.sk-folding-cube {
+  margin: 20px auto;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1); 
+}
+
+.sk-folding-cube .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+          animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+          transform-origin: 100% 100%;
+}
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+          transform: scale(1.1) rotateZ(90deg);
+}
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+          transform: scale(1.1) rotateZ(180deg);
+}
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+          transform: scale(1.1) rotateZ(270deg);
+}
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s; 
+}
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+          animation-delay: 0.9s;
+}
+
+.newAccount {
+    background: #f8f8f8 !important;
+    border: 2px dashed #d0d0d0 !important;
+
+}
+
+.newAccount:hover {
+    background: #fefefe !important;
+}
+
+/* New account form */
+
+.new-account-form {
+    list-style-type: none;
+    padding: 0;
+    margin: 60px 0px;
+    width: 100%;
+}
+
+.new-account-form li {
+    width: 80%;
+    display: block;
+    margin: 20px auto;
+}
+
+.group { 
+  position:relative; 
+  margin-bottom:45px; 
+    input 				{
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:100%;
+    border:none;
+    background: transparent;
+    border-bottom:1px solid #757575;
+    }
+    input:focus 		{ outline:none; }
+
+    /* LABEL ======================================= */
+    label 				 {
+    color:#999; 
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+    }
+
+    /* active state */
+    input:focus ~ label, input:valid ~ label 		{
+    top:-20px;
+    font-size:14px;
+    color:#455a65   
+}
+
+    /* BOTTOM BARS ================================= */
+    .bar 	{
+        position:relative;
+        display:block;
+        width:100%; 
+    }
+    .bar:before, .bar:after 	{
+    content:'';
+    height:2px; 
+    width:0;
+    bottom:1px; 
+    position:absolute;
+    background:#455a65; 
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+    }
+    .bar:before {
+    left:50%;
+    }
+    .bar:after {
+    right:50%; 
+    }
+
+    /* active state */
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width:50%;
+    }
+
+    /* HIGHLIGHTER ================================== */
+    .highlight {
+    position:absolute;
+    height:60%; 
+    width:100%; 
+    top:25%; 
+    left:0;
+    pointer-events:none;
+    opacity:0.5;
+    }
+
+    /* active state */
+    input:focus ~ .highlight {
+    -webkit-animation:inputHighlighter 0.3s ease;
+    -moz-animation:inputHighlighter 0.3s ease;
+    animation:inputHighlighter 0.3s ease;
+    }
+
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+	from { background:#455a65; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#455a65; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#455a65; }
+  to 	{ width:0; background:transparent; }
+}
+
+
+
+
+/** Keyframes **/
+@-webkit-keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  } 
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  }
+}
+@keyframes checkmark {
+    0% {
+      height: 0;
+      width: 0;
+      opacity: 1;
+    }
+    20% {
+      height: 0;
+      width: 20px;
+      opacity: 1;
+    }
+    40% {
+      height: 50px;
+      width: 20px;
+      opacity: 1;
+    }
+    100% {
+      height: 50px;
+      width: 20px;
+      opacity: 1;
+    }
+  }
+
+@keyframes rotate-circle {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100%{
+        transform: rotate(360deg)
+    }
+}
+
+
+/***** MEDIA QUERIES *****/
+
+@media(max-width: 920px) {
+    .encrypt-true:after {
+        height: 100%;
+        width: 20%;
+    }
+}
