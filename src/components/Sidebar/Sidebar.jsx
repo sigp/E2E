@@ -21,47 +21,47 @@ const Sidebar = ({ ...props }) => {
     return props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
   const { classes, color, logo, image, logoText, routes } = props;
-  var links //= (
-    // <List className={classes.list}>
-    //   {routes.map((prop, key) => {
-    //     if (prop.redirect) return null;
-    //     var activePro = " ";
-    //     var listItemClasses;
-    //     if(prop.path === "/upgrade-to-pro"){
-    //       activePro = classes.activePro + " ";
-    //       listItemClasses = classNames({
-    //         [" " + classes[color]]: true
-    //       });
-    //     } else {
-    //       listItemClasses = classNames({
-    //         [" " + classes[color]]: activeRoute(prop.path)
-    //       });
-    //     }
-    //     const whiteFontClasses = classNames({
-    //       [" " + classes.whiteFont]: activeRoute(prop.path)
-    //     });
-    //     return (
-    //       <NavLink
-    //         to={prop.path}
-    //         className={activePro + classes.item}
-    //         activeClassName="active"
-    //         key={key}
-    //       >
-    //         <ListItem button className={classes.itemLink + listItemClasses}>
-    //           <ListItemIcon className={classes.itemIcon + whiteFontClasses}>
-    //             <prop.icon />
-    //           </ListItemIcon>
-    //           <ListItemText
-    //             primary={prop.sidebarName}
-    //             className={classes.itemText + whiteFontClasses}
-    //             disableTypography={true}
-    //           />
-    //         </ListItem>
-    //       </NavLink>
-    //     );
-    //   })}
-    // </List>
-  //);
+  var links = (
+    <List className={classes.list}>
+      {routes.map((prop, key) => {
+        if (prop.redirect) return null;
+        var activePro = " ";
+        var listItemClasses;
+        if(prop.path === "/upgrade-to-pro"){
+          activePro = classes.activePro + " ";
+          listItemClasses = classNames({
+            [" " + classes[color]]: true
+          });
+        } else {
+          listItemClasses = classNames({
+            [" " + classes[color]]: activeRoute(prop.path)
+          });
+        }
+        const whiteFontClasses = classNames({
+          [" " + classes.whiteFont]: activeRoute(prop.path)
+        });
+        return (
+          <NavLink
+            to={prop.path}
+            className={activePro + classes.item}
+            activeClassName="active"
+            key={key}
+          >
+            <ListItem button className={classes.itemLink + listItemClasses}>
+              <ListItemIcon className={classes.itemIcon + whiteFontClasses}>
+                <prop.icon />
+              </ListItemIcon>
+              <ListItemText
+                primary={prop.sidebarName}
+                className={classes.itemText + whiteFontClasses}
+                disableTypography={true}
+              />
+            </ListItem>
+          </NavLink>
+        );
+      })}
+    </List>
+  );
   var brand = (
     <div className={classes.logo}>
       <a href="/" className={classes.logoLink}>

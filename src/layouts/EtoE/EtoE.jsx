@@ -11,8 +11,8 @@ import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 
-// import dashboardRoutes from "routes/dashboard.jsx";
-import dashboardStyle from "assets/jss/layouts/dashboardStyle.jsx";
+import eToERoutes from "routes/e2e.jsx";
+import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
@@ -20,11 +20,11 @@ import 'assets/css/global.css'
 
 const switchRoutes = (
   <Switch>
-    {/*dashboardRoutes.map((prop, key) => {
+    {eToERoutes.map((prop, key) => {
       if (prop.redirect)
         return <Redirect from={prop.path} to={prop.to} key={key} />;
       return <Route path={prop.path} component={prop.component} key={key} />;
-    })*/
+    })
   }
   </Switch>
 );
@@ -33,12 +33,10 @@ class App extends React.Component {
   state = {
     mobileOpen: false
   };
+
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-  getRoute() {
-    return this.props.location.pathname !== "/maps";
-  }
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       const ps = new PerfectScrollbar(this.refs.mainPanel);
@@ -58,7 +56,7 @@ class App extends React.Component {
       <div className={classes.wrapper}>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
         <Sidebar
-          //routes={dashboardRoutes}
+          routes={eToERoutes}
           logoText={"E2E"}
           logo={logo}
           image={image}
@@ -69,7 +67,7 @@ class App extends React.Component {
         />
         <div className={classes.mainPanel} ref="mainPanel">
           <Header
-            routes={[]}
+            routes={eToERoutes}
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}
           />
@@ -78,14 +76,12 @@ class App extends React.Component {
             // not possible if the content and conatiner classes are present
             // because they have some paddings which would make the map smaller
           }
-          {this.getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
-            </div>
-          ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
-          {this.getRoute() ? <Footer /> : null}
+          {
+          <div className={classes.content}>
+            <div className={classes.container}>{switchRoutes}</div>
+          </div>
+          }
+          <Footer />
         </div>
       </div>
     );
@@ -96,4 +92,4 @@ App.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(App);
+export default withStyles(eToEStyle)(App);
