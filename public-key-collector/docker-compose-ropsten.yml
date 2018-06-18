@@ -2,28 +2,28 @@ version: '3'
 
 services:
     geth:
-      build:
-         context: ./testnet
-         dockerfile: sigp-geth.docker
+      image: ethereum/client-go
       volumes:
-            - ./testnet-chaindata:/root/.ethereum
+        - $HOME/.ethereum:/root/.ethereum
+      command:
+        --rpc --rpcaddr "0.0.0.0" --testnet
 
     mongodb:
       image: mongo
       volumes:
         - ./db-storage:/data/db
-      ports:
-          - "27017:27017"
+      #ports:
+      #  - "27017:27017"
 
-    pkcollector:
+      pkcollector:
          build:
             context: ./pubkey-collector
             dockerfile: pubkey-collector.docker
          environment:
-           - CHAINID=1337
+           - CHAINID=1
            - RPCADDR=/chaindata/geth.ipc
          volumes:
-           - ./testnet-chaindata:/chaindata
+           - $HOME/.ethereum:/chaindata
          links:
             - geth
             - mongodb
@@ -31,7 +31,7 @@ services:
             - "geth"
             - "mongodb"
 
-    api:
+      api:
         build:
           context: ./api
           dockerfile: api.docker

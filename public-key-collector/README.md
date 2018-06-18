@@ -11,7 +11,7 @@ Extracts
 
 Stores in mongodb
 
-## How do I run this shit?
+## How do I run this?
 
 Install `docker` and `docker-compose`. 
 

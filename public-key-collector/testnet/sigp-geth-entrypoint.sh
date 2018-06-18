@@ -1,5 +1,0 @@
-#! /bin/sh
-
-geth init sigmaprime.json
-
-geth --networkid=1337 --cache=1024 --syncmode=full --ethstats='pk-collector:badsecretpassword@testnet-stats.sigmapri.me' --bootnodes=enode://98ace1390dedc54ac7cf59bffe5aaf22dc22cd3faced8ab64759a4fae68888041587392e19c0e13592b7ab0a3f4aae2b1ffbe805ac4c5c6b5c58425a16499892@172.22.40.10:30303,enode://98ace1390dedc54ac7cf59bffe5aaf22dc22cd3faced8ab64759a4fae68888041587392e19c0e13592b7ab0a3f4aae2b1ffbe805ac4c5c6b5c58425a16499892@172.22.40.10:30303,enode://98ace1390dedc54ac7cf59bffe5aaf22dc22cd3faced8ab64759a4fae68888041587392e19c0e13592b7ab0a3f4aae2b1ffbe805ac4c5c6b5c58425a16499892@172.22.40.10:30303,enode://98ace1390dedc54ac7cf59bffe5aaf22dc22cd3faced8ab64759a4fae68888041587392e19c0e13592b7ab0a3f4aae2b1ffbe805ac4c5c6b5c58425a16499892@172.22.40.10:30303
