@@ -5,6 +5,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import EncryptSwitch from "containers/EncryptSwitch.js";
 
 const style = {
   typo: {
@@ -51,6 +52,7 @@ function TypographyPage(props) {
       </CardHeader>
       <CardBody>
       </CardBody>
+    <EncryptSwitch />
     </Card>
   );
 }
