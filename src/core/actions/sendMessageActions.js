@@ -8,6 +8,7 @@ export const ENCRYPT_TOGGLE = 'ENCRYPT_TOGGLE';
  */
 
 export function sendMessage(rawData) {
+  console.log("SendMessage Action:" + rawData);
   return {
     type: SEND_MSG, 
     rawData

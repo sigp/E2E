@@ -3,7 +3,7 @@ import Message from '@material-ui/icons/Message'
 import Forum from '@material-ui/icons/Forum'
 
 // Views
-import Messages from 'views/Messages.jsx'
+import Messages from 'views/Messages/Messages.jsx'
 
 const eToERoutes = [
   {
