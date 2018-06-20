@@ -25,8 +25,6 @@ const theme = createMuiTheme({
   },
 })
 
-
-
 const primary = lightBlue;
 const store = configureStore();
 const hist = createBrowserHistory();

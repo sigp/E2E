@@ -1,9 +1,12 @@
 // @material-ui/icons
 import Message from '@material-ui/icons/Message'
 import Forum from '@material-ui/icons/Forum'
+import Contacts from '@material-ui/icons/Contacts'
+
 
 // Views
 import Messages from 'views/Messages/Messages.jsx'
+import ContactsView from 'views/Contacts/Contacts.jsx'
 
 const eToERoutes = [
   {
@@ -19,6 +22,13 @@ const eToERoutes = [
     navbarName: "Messages",
     icon: Forum,
     component: Messages,
+  },
+  {
+    path: "/contacts",
+    sidebarName: "Contacts",
+    navbarName: "Contacts",
+    icon: Contacts,
+    component: ContactsView,
   },
 //   {
 //     path: "/dashboard",

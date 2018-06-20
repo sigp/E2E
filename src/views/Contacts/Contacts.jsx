@@ -10,21 +10,14 @@ import SendButton from "core/containers/SendButton.js"
 import TextField from "components/TextFields/MultiLineText.jsx"
 
 
-import style from "./style.css";
+// import style from "./style.css";
 
-function TypographyPage(props) {
+function ContactsView(props) {
   const { classes } = props;
   return (
-    <Card>
-      <CardHeader color="primary">
-        <h4 className={classes.cardTitleWhite}>Messages</h4>
-      </CardHeader>
-      <CardBody>
-      <TextField /> 
-      </CardBody>
-   <span> <EncryptSwitch /> <SendButton /></span>
-    </Card>
+      <Card /> 
   );
 }
 
-export default withStyles(style)(TypographyPage);
+//export default withStyles(style)(ContactsView);
+export default ContactsView;
