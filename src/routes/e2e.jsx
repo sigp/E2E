@@ -2,11 +2,13 @@
 import Message from '@material-ui/icons/Message'
 import Forum from '@material-ui/icons/Forum'
 import Contacts from '@material-ui/icons/Contacts'
-
+import AccountCircle from '@material-ui/icons/AccountCircle'
 
 // Views
 import Messages from 'views/Messages/Messages.jsx'
 import ContactsView from 'views/Contacts/Contacts.jsx'
+import Accounts from 'views/Accounts/Accounts.jsx'
+
 
 const eToERoutes = [
   {
@@ -29,6 +31,13 @@ const eToERoutes = [
     navbarName: "Contacts",
     icon: Contacts,
     component: ContactsView,
+  },
+  {
+    path: "/accounts",
+    sidebarName: "Accounts",
+    navbarName: "Accounts",
+    icon: AccountCircle,
+    component: Accounts,
   },
 //   {
 //     path: "/dashboard",
