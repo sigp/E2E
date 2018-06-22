@@ -77,7 +77,7 @@ const Sidebar = ({ ...props }) => {
       <Hidden mdUp>
         <Drawer
           variant="temporary"
-          anchor="right"
+          anchor="left"
           open={props.open}
           classes={{
             paper: classes.drawerPaper
