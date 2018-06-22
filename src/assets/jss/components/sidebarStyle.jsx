@@ -34,7 +34,7 @@ const sidebarStyle = theme => ({
       top: "0",
       height: "100vh",
       left: "0",
-      left: "auto",
+      right: "auto",
       zIndex: "1032",
       visibility: "visible",
       overflowY: "visible",
@@ -42,7 +42,7 @@ const sidebarStyle = theme => ({
       textAlign: "left",
       paddingRight: "0px",
       paddingLeft: "0",
-      transform: `translate3d(${drawerWidth}px, 0, 0)`,
+      transform: `translate3d(-${drawerWidth}px, 0, 0)`,
       ...transition
     }
   },

@@ -103,8 +103,11 @@ const infoCardHeader = {
   ...infoBoxShadow
 };
 const primaryCardHeader = {
-  background: "linear-gradient(60deg, #ab47bc, #8e24aa)",
-  ...primaryBoxShadow
+  //#20909e, #c9eaee
+  // background: "linear-gradient(60deg, #ab47bc, #8e24aa)",
+  background: "#20909e"
+  //background: "linear-gradient(60deg, #20909e, #c9eaee)",
+  //...infoBoxShadow
 };
 const roseCardHeader = {
   background: "linear-gradient(60deg, #ec407a, #d81b60)",

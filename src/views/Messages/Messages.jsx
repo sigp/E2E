@@ -20,11 +20,7 @@ function MessagesPage(props) {
         <h4 className={classes.cardTitleWhite}>Messages</h4>
       </CardHeader>
       <CardBody>
-      <TextField
-        title="Messages"
-      />
       </CardBody>
-   <span> <EncryptSwitch /> <SendButton /></span>
     </Card>
   );
 }

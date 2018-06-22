@@ -11,7 +11,7 @@ import {
 
 const headerStyle = theme => ({
   appBar: {
-    backgroundColor: "transparent",
+    backgroundColor: "#c9eaee",
     boxShadow: "none",
     borderBottom: "0",
     marginBottom: "0",
@@ -29,24 +29,25 @@ const headerStyle = theme => ({
   },
   container: {
     ...container,
-    minHeight: "50px"
+    minHeight: "50px",
   },
   flex: {
     flex: 1
   },
   title: {
     ...defaultFont,
-    lineHeight: "30px",
+    lineHeight: "48px",
     fontSize: "18px",
     borderRadius: "3px",
     textTransform: "none",
     color: "inherit",
     "&:hover,&:focus": {
       background: "transparent"
-    }
+    },
+    margin: "0",
   },
   appResponsive: {
-    top: "8px"
+    marginRight: "25px"
   },
   primary: {
     backgroundColor: primaryColor,
