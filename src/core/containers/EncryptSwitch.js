@@ -18,7 +18,7 @@ let EncryptSwitch = ({checked, onChange}) => {
 
 const mapStateToProps = state => {
   return {
-    checked: state.sendMessage.encrypt 
+    checked: state.sendMessage.encrypt
   }
 }
 
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 EncryptSwitch = connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps)(EncryptSwitch)
 
 export default EncryptSwitch

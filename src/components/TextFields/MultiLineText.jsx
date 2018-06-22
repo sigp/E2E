@@ -4,43 +4,34 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  menu: {
-    width: 200,
-  },
-});
+// const styles = theme => ({
+//   container: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+// });
 
 class TextFields extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, title } = this.props;
 
     return (
-      <form className={classes.container} noValidate autoComplete="off">
         <TextField
           id="multiline-static"
-          label="Message"
+          label={title}
           multiline
           rows="10"
           defaultValue=""
           className={classes.textField}
           margin="normal"
         />
-      </form>
     );
   }
 }
 
 TextFields.propTypes = {
   classes: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(TextFields);
+export default withStyles()(TextFields);

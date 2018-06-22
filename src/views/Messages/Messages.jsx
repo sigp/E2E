@@ -10,9 +10,9 @@ import SendButton from "core/containers/SendButton.js"
 import TextField from "components/TextFields/MultiLineText.jsx"
 
 
-import style from "./style.css";
+import style from "assets/css/messagestyle.css";
 
-function TypographyPage(props) {
+function MessagesPage(props) {
   const { classes } = props;
   return (
     <Card>
@@ -20,11 +20,13 @@ function TypographyPage(props) {
         <h4 className={classes.cardTitleWhite}>Messages</h4>
       </CardHeader>
       <CardBody>
-      <TextField /> 
+      <TextField
+        title="Messages"
+      />
       </CardBody>
    <span> <EncryptSwitch /> <SendButton /></span>
     </Card>
   );
 }
 
-export default withStyles(style)(TypographyPage);
+export default withStyles(style)(MessagesPage);
