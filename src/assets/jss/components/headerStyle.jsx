@@ -18,7 +18,7 @@ const headerStyle = theme => ({
     position: "absolute",
     width: "100%",
     paddingTop: "10px",
-    zIndex: "1029",
+    zIndex: '8',
     color: "#555555",
     border: "0",
     borderRadius: "3px",

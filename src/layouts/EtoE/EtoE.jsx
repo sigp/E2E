@@ -10,6 +10,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
+import Dialog from 'components/Dialog/Dialog.jsx'
 
 import eToERoutes from "routes/e2e.jsx";
 import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
@@ -31,8 +32,13 @@ const switchRoutes = (
 
 class App extends React.Component {
   state = {
-    mobileOpen: false
+    mobileOpen: false,
+    dialogOpen: false,
   };
+
+  handleDialogToggle = () => {
+    this.setState({ dialogOpen: !this.state.dialogOpen })
+  }
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
@@ -77,7 +83,16 @@ class App extends React.Component {
           </div>
           }
           <Footer />
+          <button onClick={this.handleDialogToggle}>Dialog</button>
         </div>
+
+      <Dialog
+          onClose={this.handleDialogToggle}
+          show={this.state.dialogOpen}
+          title='Hello'
+        >
+          <h4>This is a test</h4>
+      </Dialog>
       </div>
     );
   }

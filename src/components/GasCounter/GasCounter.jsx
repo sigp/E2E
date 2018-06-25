@@ -21,6 +21,7 @@ function GasCounter(props) {
 
 GasCounter.propTypes = {
   classes: PropTypes.object.isRequired,
+  id: PropTypes.object.isRequired,
 };
 
 export default GasCounter
