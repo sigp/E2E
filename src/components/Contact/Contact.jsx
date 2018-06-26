@@ -31,7 +31,7 @@ const Contact = ({...props}) => {
 Contact.propTypes = {
   contactName: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
-  pubkey: PropTypes.string.isRequired,
+  pubkey: PropTypes.string,
   classes: PropTypes.object.isRequired,
 }
 

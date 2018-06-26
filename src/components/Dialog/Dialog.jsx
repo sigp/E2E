@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FontAwesome from 'react-fontawesome'
+import Close from '@material-ui/icons/Close'
 
 import withStyles from '@material-ui/core/styles/withStyles'
 
 import DialogStyles from 'assets/jss/components/dialogStyle'
 
 const Dialog = ({...props}) => {
-  const { classes, onClose, show, title, children } = props;
+  const { classes, onClose, show, header, children } = props;
 
   if (!show) {
     return (
@@ -20,14 +20,11 @@ const Dialog = ({...props}) => {
         onClick={onClose}></div>
         <div class={classes.dialog}>
             <header className={classes.dialogHeader}>
-                <h4>{title}</h4>
+                {header}
                 <button
                   className={classes.closebutton}
                   onClick={onClose}>
-                    <FontAwesome
-                      name="window-close"
-                      size="2x"
-                    />
+                    <Close />
                   </button>
                   <div className={classes.clear}></div>
             </header>
@@ -42,7 +39,7 @@ const Dialog = ({...props}) => {
 Dialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     show: PropTypes.bool,
-    title: PropTypes.string.isRequired,
+    header: PropTypes.element.isRequired,
     children: PropTypes.node,
 }
 

@@ -19,6 +19,10 @@ import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 import 'assets/css/global.css'
 
+// TODO remove
+import Blockies from 'react-blockies'
+import ContactDialogContent from 'components/Contact/DialogContent.jsx'
+
 const switchRoutes = (
   <Switch>
     {eToERoutes.map((prop, key) => {
@@ -58,6 +62,34 @@ class App extends React.Component {
   }
   render() {
     const { classes, ...rest } = this.props;
+// width: 48px; height: 48px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 1px 6px #e8e8e8
+    let testHeaderSection = {
+        'display': 'flex',
+        'align-items': 'center',
+        padding: '10px',
+    }
+    let headerIconStyle = {
+      width: '48px',
+      height: '48px',
+      borderRadius: '50%',
+      overflow: 'hidden',
+      boxShadow: '0 0 1px 6px #e8e8e8',
+      margin: '0px 20px'
+    }
+    let testHeader = (
+      <section style={testHeaderSection}>
+        <div style={headerIconStyle}>
+          <Blockies
+            seed='0xfaaaaaaaaaf78d2fd8726fd827687268f722f878'
+            size={12}
+          />
+        </div>
+        <div>
+          Thomas Sellino
+        </div>
+      </section>
+    )
+
     return (
       <div className={classes.wrapper}>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -90,8 +122,13 @@ class App extends React.Component {
           onClose={this.handleDialogToggle}
           show={this.state.dialogOpen}
           title='Hello'
+          header={testHeader}
         >
-          <h4>This is a test</h4>
+        <ContactDialogContent
+            name='Thomas Sellino'
+            address='0x1337000000000000000000000000000000001337'
+            pubkey='0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
+        />
       </Dialog>
       </div>
     );
