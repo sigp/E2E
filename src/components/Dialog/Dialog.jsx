@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 import DialogStyles from 'assets/jss/components/dialogStyle'
 
-function Dialog({...props}) {
+const Dialog = ({...props}) => {
   const { classes, onClose, show, title, children } = props;
 
   if (!show) {

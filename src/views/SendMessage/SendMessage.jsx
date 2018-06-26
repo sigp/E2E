@@ -15,7 +15,7 @@ import GasCounter from 'components/GasCounter/GasCounter.jsx'
 // styles
 import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx"
 
-function SendMessagePage(props) {
+const SendMessagePage = (props) => {
   const { classes } = props;
   const smallGC = classNames({
     [classes.gasCounter]: true,

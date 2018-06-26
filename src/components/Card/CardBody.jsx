@@ -10,7 +10,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import cardBodyStyle from "assets/jss/components/cardBodyStyle.jsx";
 
-function CardBody({ ...props }) {
+const CardBody = ({ ...props }) => {
   const { classes, className, children, plain, profile, ...rest } = props;
   const cardBodyClasses = classNames({
     [classes.cardBody]: true,

@@ -9,7 +9,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
 
 import buttonStyle from "assets/jss/components/buttonStyle.jsx";
-function RegularButton({ ...props }) {
+const RegularButton = ({ ...props }) => {
   const {
     classes,
     color,

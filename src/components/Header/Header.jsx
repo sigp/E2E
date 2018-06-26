@@ -15,8 +15,8 @@ import Button from "components/Custom/Button.jsx";
 
 import headerStyle from "assets/jss/components/headerStyle.jsx";
 
-function Header({ ...props }) {
-  function makeBrand() {
+const Header = ({ ...props }) => {
+  const makeBrand = () => {
     var name;
     props.routes.map((prop, key) => {
       if (prop.path === props.location.pathname) {

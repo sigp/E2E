@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { withStyles }  from '@material-ui/core/styles'
 import Hidden from '@material-ui/core/Hidden'
 
-function GasCounter(props) {
+const GasCounter = (props) => {
     // TODO: add the handler to props
     const { classes, id } = props
 

@@ -10,7 +10,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import cardHeaderStyle from "assets/jss/components/cardHeaderStyle.jsx";
 
-function CardHeader({ ...props }) {
+const CardHeader = ({ ...props }) => {
   const {
     classes,
     className,

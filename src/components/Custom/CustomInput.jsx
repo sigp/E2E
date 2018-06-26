@@ -12,7 +12,7 @@ import Check from "@material-ui/icons/Check";
 // core components
 import customInputStyle from "assets/jss/components/customInputStyle.jsx";
 
-function CustomInput({ ...props }) {
+const CustomInput = ({ ...props }) => {
   const {
     classes,
     formControlProps,

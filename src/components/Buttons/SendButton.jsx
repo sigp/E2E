@@ -10,7 +10,7 @@ import Hidden from '@material-ui/core/Hidden'
 // const styles = theme => ({
 // });
 
-function SendButton(props) {
+const SendButton = (props) => {
   const { classes, sendMessageHandler } = props;
   let smallStyle = classNames({
     [classes.button]: true,
