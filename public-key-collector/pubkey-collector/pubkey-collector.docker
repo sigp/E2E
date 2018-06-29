@@ -13,5 +13,6 @@ RUN npm install -g forever
 
 ADD ./pubkey-collector.js ./
 ADD ./pubkey-collector-entrypoint.sh ./
+RUN chmod +x ./pubkey-collector-entrypoint.sh
 
 ENTRYPOINT ["./pubkey-collector-entrypoint.sh"]

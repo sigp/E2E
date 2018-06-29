@@ -15,27 +15,28 @@ services:
       #ports:
       #  - "27017:27017"
 
-      pkcollector:
-         build:
-            context: ./pubkey-collector
-            dockerfile: pubkey-collector.docker
-         environment:
-           - CHAINID=1
-           - RPCADDR=/chaindata/geth.ipc
-         volumes:
-           - $HOME/.ethereum:/chaindata
-         links:
-            - geth
-            - mongodb
-         depends_on:
-            - "geth"
-            - "mongodb"
-
-      api:
-        build:
-          context: ./api
-          dockerfile: api.docker
-        ports:
-          - "80:5000"
-        links:
+    pkcollector:
+       build:
+          context: ./pubkey-collector
+          dockerfile: pubkey-collector.docker
+       environment:
+         - CHAINID=3
+         - RPCADDR=/chaindata/geth.ipc
+         - DBADDR=mongodb://mongodb/e2e
+       volumes:
+         - $HOME/.ethereum/testnet:/chaindata
+       links:
+          - geth
           - mongodb
+       depends_on:
+          - "geth"
+          - "mongodb"
+
+    api:
+      build:
+        context: ./api
+        dockerfile: api.docker
+      ports:
+        - "80:5000"
+      links:
+        - mongodb

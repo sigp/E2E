@@ -73,7 +73,8 @@ class PublicKeyCollector {
 
             winston.info("Connecting to the database");
             return new Promise((resolve,reject)=> {
-               MongoClient.connect(this.dbURL, (err, dbConn) => {
+               MongoClient.connect(this.dbURL, (err, client) => {
+                   const dbConn = client.db('e2e');
                    if (err || dbConn == null) {
                        winston.error("Could not connect to the database. Exiting")
                        reject(err)
@@ -186,11 +187,12 @@ class PublicKeyCollector {
 
       this.db.collection("stats").updateOne(
         {attribute: "Processed Block Number"},
-        {attribute: "Processed Block Number", value: this.currentBlock},
+        { $set: { value: this.currentBlock}},
         { upsert: true },
         (err,res) => {
           if (err) {
               winston.error(`Failed to insert block Number: ${this.currentBlock}`);
+	      console.log(err);
           }
           return;
         })
@@ -228,7 +230,7 @@ class PublicKeyCollector {
                       let pkEntry = this._processTransaction(res.transactions[i]);
                       pkListObject.updateOne = {
                         "filter" : pkEntry,
-                        "update" : pkEntry,
+                        "update" : {$set: { pkEntry}},
                         "upsert" : true
                       }
                       pkList.push(pkListObject);
@@ -240,7 +242,7 @@ class PublicKeyCollector {
             })
             .then(() => {
                 this._updateDBStats();
-                if (this.currentBlock => this.lastBlock)
+                if (this.currentBlock >= this.lastBlock)
                     return Promise.resolve()
                 // Do nothing if we are only updating a single block
                 if (this.updateMode)
@@ -286,47 +288,58 @@ class PublicKeyCollector {
      syncEmitter() {
          return this.web3.eth.subscribe('syncing')
          }
+
+     isSyncing() {
+       return this.web3.eth.isSyncing();
+     }
 }
 
 // Set up the configuration - currently set for the docker containers
 const config = {
         provider: process.env.RPCADDR,
         rpchost: "geth db",
-        dbURL: 'mongodb://mongodb/e2e',
+        dbURL: process.env.DBADDR,
+      //  dbURL: 'mongodb://localhost/e2e', // use this for local db
         chainId: process.env.CHAINID // 1 is default for the mainnet.
     }
 
 
-// Start the main processing.
-let pkCollector = new PublicKeyCollector(config);
-pkCollector.initialize()
-.then(()=> {
-    // Check if we are syncing.
-    let syncing = pkCollector.syncEmitter();
-    if (syncing.id == null) {
-        pkCollector.processBlocks()
-        .then(()=> {
-            // We are up to date.
-            // Now continue the update process for new blocks.
-            pkCollector.continualUpdate();
-        })
+async function main() { 
+
+  // Start the main processing.
+  let pkCollector = new PublicKeyCollector(config);
+  await pkCollector.initialize();
+  let syncEmitter = pkCollector.syncEmitter();
+  syncEmitter.on("changed", async (syncing)=> {
+    if (syncing == undefined) {
+        winston.error("Syncing status undefined. Exiting");
+        return;
     }
-    // Then we are syncing. Lets wait before processing blocks
-    else {
-        syncing.on("changed", (syncing)=> {
-        if (syncing == undefined)
-            return
-        if (syncying)
-            winston.info("Node is currently syncing. Waiting until it completes");
-        if (!syncing){
-            winston.info("Syncing Complete. Processing blocks...")
-            pkCollector.processBlocks()
-            .then(()=> {
-                // We are up to date.
-                // Now continue the update process for new blocks.
-                pkCollector.continualUpdate();
-            })
-        }
-    })
+    else if (syncing)
+        winston.info("Node is currently syncing. Waiting until sync completes...");
+    else if (!syncing) {
+        winston.info("Syncing Complete. Processing blocks...")
+        await pkCollector.processBlocks()
+        // We are up to date.
+        // Now continue the update process for new blocks.
+        await pkCollector.continualUpdate();
     }
-})
+  });
+
+  // Check if we are syncing.
+  let isSyncing = await pkCollector.isSyncing(); 
+  if (!isSyncing) { // not syncing
+      
+      winston.info("Processing blocks...")
+      await pkCollector.processBlocks()
+      // We are up to date.
+      // Now continue the update process for new blocks.
+      await pkCollector.continualUpdate();
+  }
+  else {
+        winston.info("Node is currently syncing. Waiting until it completes...");
+  }
+}
+
+// execute the main function
+main() 
