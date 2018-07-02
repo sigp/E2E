@@ -54,7 +54,7 @@ MessageListItem.propTypes = {
   sender: propTypes.string.isRequired,
   message: propTypes.string.isRequired,
   address: propTypes.string.isRequired,
-  onClick: propTypes.func.isRequired,
+//  onClick: propTypes.func.isRequired,
   //TODO future: give etherscan tx url etc.
 }
 

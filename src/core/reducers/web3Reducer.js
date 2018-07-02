@@ -2,13 +2,14 @@
 
 import { 
   WEB3_FOUND,
-  WEB3_LOADED
+  WEB3_LOADED,
+  WEB3_LOADACCOUNTS
 } from 'core/actions/web3Actions';
 
 const initialState = {
   web3Found: false, 
   web3:   undefined,
-  accounts: []
+  accounts: { status: 'UNKNOWN', value:  [] } 
 }
 
 const web3Reducer = (state = initialState, action) => {
@@ -25,8 +26,32 @@ const web3Reducer = (state = initialState, action) => {
         web3Found: action.value
       })
 
+    case WEB3_LOADACCOUNTS: 
+      return loadAccountReducer(state, action)
+
     default: 
       return state; 
+   }
+};
+
+
+const loadAccountReducer = (state, action) => { 
+
+  switch (action.status) { 
+    case 'FAIL': 
+      return Object.assign({}, state,  {
+        accounts : {status: 'FAIL'}
+      })
+
+    case 'SUCCESS': 
+      return Object.assign({}, state,  {
+        accounts : {status: 'SUCCESS', value: action.value}
+      })
+
+   default: 
+      return Object.assign({}, state,  {
+        accounts : {status: 'PENDING'}
+      })
    }
 };
 

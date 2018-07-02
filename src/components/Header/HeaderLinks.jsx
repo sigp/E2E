@@ -24,61 +24,32 @@ import headerLinksStyle from "assets/jss/components/headerLinksStyle";
 class HeaderLinks extends React.Component {
 
   state = {
-    open: false,
-    open2: false
-  };
-  handleClick = () => {
-    this.setState({ open: !this.state.open });
+    notificationOpen: false,
+    accountOpen: false
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-  handleClick2 = () => {
-    this.setState({ open2: !this.state.open2 });
+  handleNotificationClick = () => {
+      this.setState({ notificationOpen: !this.state.notificationOpen });
   };
 
-  handleClose2 = () => {
-    this.setState({ open2: false });
+  handleAccountClick = () => {
+      this.setState({ accountOpen: !this.state.accountOpen });
   };
+
+  handleNotificationClose = () => {
+      this.setState({ notificationOpen : false });
+      this.setState({ accountOpen : false });
+  };
+
+  handleAccountClose = () => {
+      this.setState({ accountOpen : false });
+  };
+
   render() {
     const { classes, accounts } = this.props;
-    const { open, open2 } = this.state;
+    const { notificationOpen, accountOpen } = this.state;
 
-    // Generate the account list
-    let renderedAccountList
-    if (typeof(accounts.then) !== "function")
-    {
-      renderedAccountList = ( 
-
-        accounts.map((value, key) => {
-          return (
-                <MenuItem
-                  key={key}
-                  onClick={this.handleClose2}
-                  className={classes.dropdownItem}
-                >
-                  Account: {key},{value}
-                </MenuItem>
-          )
-        })
-    )
-    } else {
-      let acc = ["0x123"]
-      renderedAccountList = ( 
-        acc.map((value, key) => {
-          return (
-            <MenuItem
-            key={key}
-            onClick={this.handleClose2}
-            className={classes.dropdownItem}
-            >
-            Account: {key},{value}
-            </MenuItem>
-          )
-        })
-      )
-    }
+    
     return (
       <div>
         <Manager className={classes.manager}>
@@ -88,15 +59,15 @@ class HeaderLinks extends React.Component {
               justIcon={window.innerWidth > 959}
               simple={!(window.innerWidth > 959)}
               aria-label="Notifications"
-              aria-owns={open ? "menu-list" : null}
+              aria-owns={notificationOpen ? "menu-list" : null}
               aria-haspopup="true"
-              onClick={this.handleClick}
+              onClick={this.handleNotificationClick}
               className={classes.buttonLink}
             >
               <Notifications className={classes.icons} />
               <span className={classes.notifications}>5</span>
               <Hidden mdUp>
-                <p onClick={this.handleClick} className={classes.linkText}>
+                <p onClick={this.handleNotificationClick} className={classes.linkText}>
                   Notifications
                 </p>
               </Hidden>
@@ -104,47 +75,47 @@ class HeaderLinks extends React.Component {
           </Target>
           <Popper
             placement="bottom-start"
-            eventsEnabled={open}
+            eventsEnabled={notificationOpen}
             className={
-              classNames({ [classes.popperClose]: !open }) +
+              classNames({ [classes.popperClose]: !notificationOpen }) +
               " " +
               classes.pooperResponsive
             }
           >
-            <ClickAwayListener onClickAway={this.handleClose}>
+            <ClickAwayListener onClickAway={this.handleNotificationClose}>
               <Grow
-                in={open}
+                in={notificationOpen}
                 id="menu-list"
                 style={{ transformOrigin: "0 0 0" }}
               >
                 <Paper className={classes.dropdown}>
                   <MenuList role="menu">
                     <MenuItem
-                      onClick={this.handleClose}
+                      onClick={this.handleNotificationClose}
                       className={classes.dropdownItem}
                     >
                       Mike John responded to your email
                     </MenuItem>
                     <MenuItem
-                      onClick={this.handleClose}
+                      onClick={this.handleNotificationClose}
                       className={classes.dropdownItem}
                     >
                       You have 5 new tasks
                     </MenuItem>
                     <MenuItem
-                      onClick={this.handleClose}
+                      onClick={this.handleNotificationClose}
                       className={classes.dropdownItem}
                     >
                       You're now friend with Andrew
                     </MenuItem>
                     <MenuItem
-                      onClick={this.handleClose}
+                      onClick={this.handleNotificationClose}
                       className={classes.dropdownItem}
                     >
                       Another Notification
                     </MenuItem>
                     <MenuItem
-                      onClick={this.handleClose}
+                      onClick={this.handleNotificationClose}
                       className={classes.dropdownItem}
                     >
                       Another One
@@ -163,7 +134,7 @@ class HeaderLinks extends React.Component {
               simple={!(window.innerWidth > 959)}
               aria-label="Person"
               className={classes.buttonLink}
-              onClick={this.handleClick2}
+              onClick={this.handleAccountClick}
             >
               <Person className={classes.icons} />
               <Hidden mdUp>
@@ -173,22 +144,39 @@ class HeaderLinks extends React.Component {
           </Target>
           <Popper
             placement="bottom-start"
-            eventsEnabled={open2}
+            eventsEnabled={accountOpen}
             className={
-              classNames({ [classes.popperClose]: !open2 }) +
+              classNames({ [classes.popperClose]: !accountOpen }) +
               " " +
               classes.pooperResponsive
             }
           >
-            <ClickAwayListener onClickAway={this.handleClose2}>
+            <ClickAwayListener onClickAway={this.handleAccountClose}>
               <Grow
-                in={open2}
+                in={accountOpen}
                 id="menu-list-2"
                 style={{ transformOrigin: "0 0 0" }}
               >
                 <Paper className={classes.dropdown}>
                   <MenuList role="menu">
-                    {renderedAccountList}
+                    { accounts.status === "PENDING" && 
+                      <p> Loading put Spinner here </p> }
+                    { accounts.status === "FAILURE" && 
+                      <p> Couldnt get accounts </p> }
+                    { (accounts.status === "UNKNOWN" || (accounts.status === "SUCCESS" && accounts.value.length === 0)) &&
+                      <p> No Accounts Loaded Yet </p> }
+                    { accounts.status === "SUCCESS" && accounts.value.length > 0 &&
+                      accounts.value.map((value, key) => {
+                        return (
+                          <MenuItem
+                            key={key}
+                            onClick={this.handleAccountClose}
+                            className={classes.dropdownItem}
+                          >
+                          Account: {key},{value}
+                          </MenuItem>
+                        )})
+                   }
                   </MenuList>
                 </Paper>
               </Grow>
@@ -201,6 +189,12 @@ class HeaderLinks extends React.Component {
 }
 
 const headerLinks = withStyles(headerLinksStyle)(HeaderLinks);
+
+// add redux state
+
+
+
+
 
 const mapStateToProps = state => {
   return {
