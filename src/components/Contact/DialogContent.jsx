@@ -6,6 +6,8 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import LocationOn from '@material-ui/icons/LocationOn'
 import VpnKey from '@material-ui/icons/VpnKey'
 
+import contactDialogStyles from 'assets/jss/components/contactDialogStyle.jsx'
+
 const ContactDialogContent = ({...props})  => {
 
   const { name, address, pubkey, classes } = props
@@ -17,16 +19,16 @@ const ContactDialogContent = ({...props})  => {
               {
                 // address
               }
-              <div>
-                <div><LocationOn/></div>
-                <div>{address}</div>
+              <div className={classes.detailContainer}>
+                <div className={classes.icons}><LocationOn/></div>
+                <div className={classes.details}>{address}</div>
               </div>
               {
                 // pubkey
               }
-              <div>
-                <div><VpnKey /></div>
-                <div>{pubkey}</div>
+              <div className={classes.detailContainer}>
+                <div className={classes.icons}><VpnKey /></div>
+                <div className={classes.details}>{pubkey}</div>
               </div>
           </div>
       </section>
@@ -42,4 +44,4 @@ ContactDialogContent.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles()(ContactDialogContent)
+export default withStyles(contactDialogStyles)(ContactDialogContent)
