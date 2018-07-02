@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
 // @material-ui/core components
@@ -21,8 +22,10 @@ import Button from "components/Custom/Button.jsx";
 import headerLinksStyle from "assets/jss/components/headerLinksStyle";
 
 class HeaderLinks extends React.Component {
+
   state = {
-    open: false
+    open: false,
+    open2: false
   };
   handleClick = () => {
     this.setState({ open: !this.state.open });
@@ -31,9 +34,51 @@ class HeaderLinks extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  handleClick2 = () => {
+    this.setState({ open2: !this.state.open2 });
+  };
+
+  handleClose2 = () => {
+    this.setState({ open2: false });
+  };
   render() {
-    const { classes } = this.props;
-    const { open } = this.state;
+    const { classes, accounts } = this.props;
+    const { open, open2 } = this.state;
+
+    // Generate the account list
+    let renderedAccountList
+    if (typeof(accounts.then) !== "function")
+    {
+      renderedAccountList = ( 
+
+        accounts.map((value, key) => {
+          return (
+                <MenuItem
+                  key={key}
+                  onClick={this.handleClose2}
+                  className={classes.dropdownItem}
+                >
+                  Account: {key},{value}
+                </MenuItem>
+          )
+        })
+    )
+    } else {
+      let acc = ["0x123"]
+      renderedAccountList = ( 
+        acc.map((value, key) => {
+          return (
+            <MenuItem
+            key={key}
+            onClick={this.handleClose2}
+            className={classes.dropdownItem}
+            >
+            Account: {key},{value}
+            </MenuItem>
+          )
+        })
+      )
+    }
     return (
       <div>
         <Manager className={classes.manager}>
@@ -110,21 +155,66 @@ class HeaderLinks extends React.Component {
             </ClickAwayListener>
           </Popper>
         </Manager>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Person"
-          className={classes.buttonLink}
-        >
-          <Person className={classes.icons} />
-          <Hidden mdUp>
-            <p className={classes.linkText}>Profile</p>
-          </Hidden>
-        </Button>
+        <Manager className={classes.manager}>
+          <Target>
+            <Button
+              color={window.innerWidth > 959 ? "transparent" : "white"}
+              justIcon={window.innerWidth > 959}
+              simple={!(window.innerWidth > 959)}
+              aria-label="Person"
+              className={classes.buttonLink}
+              onClick={this.handleClick2}
+            >
+              <Person className={classes.icons} />
+              <Hidden mdUp>
+                <p className={classes.linkText}>Profile</p>
+              </Hidden>
+            </Button>
+          </Target>
+          <Popper
+            placement="bottom-start"
+            eventsEnabled={open2}
+            className={
+              classNames({ [classes.popperClose]: !open2 }) +
+              " " +
+              classes.pooperResponsive
+            }
+          >
+            <ClickAwayListener onClickAway={this.handleClose2}>
+              <Grow
+                in={open2}
+                id="menu-list-2"
+                style={{ transformOrigin: "0 0 0" }}
+              >
+                <Paper className={classes.dropdown}>
+                  <MenuList role="menu">
+                    {renderedAccountList}
+                  </MenuList>
+                </Paper>
+              </Grow>
+            </ClickAwayListener>
+          </Popper>
+        </Manager>
       </div>
     );
   }
 }
 
-export default withStyles(headerLinksStyle)(HeaderLinks);
+const headerLinks = withStyles(headerLinksStyle)(HeaderLinks);
+
+const mapStateToProps = state => {
+  return {
+    accounts: state.web3.accounts
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // do nothing
+    }
+}
+
+export default HeaderLinks = connect(
+  mapStateToProps,
+  mapDispatchToProps)(headerLinks)
+

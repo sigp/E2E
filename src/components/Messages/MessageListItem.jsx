@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import propTypes from 'prop-types'
 import Blockies from 'react-blockies'
 import classNames from 'classnames'
 
@@ -49,12 +49,12 @@ const MessageListItem = ({ ...props }) => {
   )
 }
 
-MessageListItem.PropTypes = {
-  classes: PropTypes.object.isRequired,
-  sender: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+MessageListItem.propTypes = {
+  classes: propTypes.object.isRequired,
+  sender: propTypes.string.isRequired,
+  message: propTypes.string.isRequired,
+  address: propTypes.string.isRequired,
+  onClick: propTypes.func.isRequired,
   //TODO future: give etherscan tx url etc.
 }
 

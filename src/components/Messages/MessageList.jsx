@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import propTypes from 'prop-types'
 // @ material
 import withStyles from '@material-ui/core/styles/withStyles'
 import MessageListStyles from 'assets/jss/components/messageListStyles.jsx'
@@ -15,6 +15,7 @@ const MessageList = ({ ...props}) => {
       messages.map((value, key) => {
         return (
             <MessageListItem
+                key={key}
                 sender={value.sender}
                 message={value.message}
                 address={value.address}
@@ -29,9 +30,9 @@ const MessageList = ({ ...props}) => {
   )
 }
 
-MessageList.PropTypes = {
-  classes: PropTypes.object.isRequired,
-  messages: PropTypes.array.isRequired,
+MessageList.propTypes = {
+  classes: propTypes.object.isRequired,
+  messages: propTypes.array.isRequired,
 }
 
 

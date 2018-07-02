@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { encryptToggle} from '../actions/sendMessageActions.js';
+import { encryptToggle } from '../actions/sendMessageActions.js';
 import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

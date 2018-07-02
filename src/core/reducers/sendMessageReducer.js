@@ -9,7 +9,7 @@ const initialState = {
   encrypt: true
 }
 
-const sendMessage = (state = initialState, action) => {
+const sendMessageReducer = (state = initialState, action) => {
   switch (action.type) { 
 
     case SEND_MSG: 
@@ -27,4 +27,4 @@ const sendMessage = (state = initialState, action) => {
    }
 };
 
-export default sendMessage;
+export default sendMessageReducer;
