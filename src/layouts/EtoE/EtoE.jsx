@@ -23,6 +23,9 @@ import 'assets/css/global.css'
 import Blockies from 'react-blockies'
 import ContactDialogContent from 'components/Contact/DialogContent.jsx'
 
+// TEST
+import EthLoader from 'components/EthLoader/Loader.jsx'
+
 const switchRoutes = (
   <Switch>
     {eToERoutes.map((prop, key) => {
@@ -121,7 +124,6 @@ class App extends React.Component {
       <Dialog
           onClose={this.handleDialogToggle}
           show={this.state.dialogOpen}
-          title='Hello'
           header={testHeader}
         >
         <ContactDialogContent
@@ -130,8 +132,21 @@ class App extends React.Component {
             pubkey='0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
         />
       </Dialog>
+      {
+      /*
+       *  Test Loader if needed
+       *
+      <EthLoader
+        height='300px'
+        width='180px'
+        other={{position: 'fixed', bottom: '0', left: '50%', 'z-index': 999}}
+      />
+      */
+      }
       </div>
     );
+
+
   }
 }
 
