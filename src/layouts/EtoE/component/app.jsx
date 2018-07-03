@@ -10,7 +10,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-import Dialog from 'components/Dialog/Dialog.jsx'
+import ContactDialog from 'components/Dialogs/ContactDialog.jsx'
 
 import eToERoutes from "routes/e2e.jsx";
 import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
@@ -126,16 +126,16 @@ class App extends React.Component {
         </div>
 
       { (accounts.status === 'UNKNOWN' || accounts.status === 'PENDING') && 
-      <Dialog
+      <ContactDialog
         show={true}
           onClose={this.handleDialogToggle}
 //          header={testHeader}
         >
       <p>Blah</p>
-      </Dialog>
+      </ContactDialog>
       }
 
-      <Dialog
+      <ContactDialog
           onClose={this.handleDialogToggle}
           show={this.state.dialogOpen}
           header={testHeader}
@@ -145,7 +145,7 @@ class App extends React.Component {
             address='0x1337000000000000000000000000000000001337'
             pubkey='0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
         />
-      </Dialog>
+      </ContactDialog>
       {
       /*
        *  Test Loader if needed
