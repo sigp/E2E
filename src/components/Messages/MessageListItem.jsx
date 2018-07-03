@@ -8,45 +8,60 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 import messageItemStyle from 'assets/jss/components/messageItemStyle.jsx'
 
-const MessageListItem = ({ ...props }) => {
-  const { classes, sender, message, address, open, onClick } = props
+class MessageListItem extends React.Component {
+  constructor(props) {
+    super(props)
 
-  let contentClass
-
-  if (open) {
-      contentClass = classNames({
-        [classes.messageContent]: true,
-      })
-  } else {
-    contentClass = classNames({
-      [classes.messageContent]: true,
-      [classes.contentClosed]: true
-    })
+    this.state = {
+      open: false,
+    }
   }
 
-  return (
-    <div
-      className={classes.messageContainer}
-      onClick={onClick}
-      >
-      <section className={classes.icon}>
-        <section className={classes.iconWrapper}>
-          <Blockies
-            seed={address}
-            size={8}
-          />
+  handleClick = () => {
+    this.setState({ open: !this.state.open})
+  }
+
+  render() {
+    // const MessageListItem = ({ ...props }) => {
+    const { classes, sender, message, address } = this.props
+
+    let contentClass
+
+    if (this.state.open) {
+        contentClass = classNames({
+          [classes.messageContent]: true,
+        })
+    } else {
+      contentClass = classNames({
+        [classes.messageContent]: true,
+        [classes.contentClosed]: true
+      })
+    }
+
+    return (
+      <div
+        className={classes.messageContainer}
+        onClick={this.handleClick}
+        >
+        <section className={classes.icon}>
+          <section className={classes.iconWrapper}>
+            <Blockies
+              seed={address}
+              size={8}
+            />
+          </section>
         </section>
-      </section>
-      <section className={classes.messageRight}>
-        <section className={classes.messageSender}>
-            {sender}
+        <section className={classes.messageRight}>
+          <section className={classes.messageSender}>
+              {sender}
+          </section>
+          <section className={contentClass}>
+              {message}
+          </section>
         </section>
-        <section className={contentClass}>
-            {message}
-        </section>
-      </section>
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 MessageListItem.propTypes = {
