@@ -163,7 +163,7 @@ class HeaderLinks extends React.Component {
                       <p> Loading put Spinner here </p> }
                     { accounts.status === "FAILURE" && 
                       <p> Couldnt get accounts </p> }
-                    { (accounts.status === "UNKNOWN" || (accounts.status === "SUCCESS" && accounts.value.length === 0)) &&
+                    { accounts.status === "UNKNOWN" &&
                       <p> No Accounts Loaded Yet </p> }
                     { accounts.status === "SUCCESS" && accounts.value.length > 0 &&
                       accounts.value.map((value, key) => {

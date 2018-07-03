@@ -15,8 +15,8 @@ const Contact = ({...props}) => {
           <section className={classes.contactId}>
             <section className={classes.circleHolder}>
               <Blockies
-                seed={address}
-                size={12}
+                seed={address.toLowerCase()}
+                size={8}
               />
             </section>
           </section>

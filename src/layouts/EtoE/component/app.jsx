@@ -64,11 +64,11 @@ class App extends React.Component {
     }
   }
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes, accounts, ...rest } = this.props;
 // width: 48px; height: 48px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 1px 6px #e8e8e8
     let testHeaderSection = {
         'display': 'flex',
-        'align-items': 'center',
+        'alignItems': 'center',
         padding: '10px',
     }
     let headerIconStyle = {
@@ -77,14 +77,18 @@ class App extends React.Component {
       borderRadius: '50%',
       overflow: 'hidden',
       boxShadow: '0 0 1px 6px #e8e8e8',
-      margin: '0px 20px'
+      margin: '0px 20px',
+      '& .identicon': {
+        width: '48px !important',
+        height: '48px !important',
+      }
     }
     let testHeader = (
       <section style={testHeaderSection}>
         <div style={headerIconStyle}>
           <Blockies
-            seed='0xfaaaaaaaaaf78d2fd8726fd827687268f722f878'
-            size={12}
+            seed="0x2b62150ffbfefddaab1fff0e41378e5b13fdd77f"
+            size={8}
           />
         </div>
         <div>
@@ -120,6 +124,16 @@ class App extends React.Component {
           <Footer />
           <button onClick={this.handleDialogToggle}>Dialog</button>
         </div>
+
+      { (accounts.status === 'UNKNOWN' || accounts.status === 'PENDING') && 
+      <Dialog
+        show={true}
+          onClose={this.handleDialogToggle}
+//          header={testHeader}
+        >
+      <p>Blah</p>
+      </Dialog>
+      }
 
       <Dialog
           onClose={this.handleDialogToggle}

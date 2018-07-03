@@ -1,4 +1,4 @@
-import EtoE from "layouts/EtoE/EtoE.jsx"
+import EtoE from "layouts/EtoE/container/app.js"
 
 const indexRoutes = [{ path: "/", component: EtoE}]
 

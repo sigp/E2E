@@ -44,8 +44,13 @@ const loadAccountReducer = (state, action) => {
       })
 
     case 'SUCCESS': 
-      return Object.assign({}, state,  {
-        accounts : {status: 'SUCCESS', value: action.value}
+      if (action.value.length > 0)
+        return Object.assign({}, state,  {
+          accounts : {status: 'SUCCESS', value: action.value}
+      })
+      else 
+        return Object.assign({}, state,  {
+          accounts : {status: 'UNKNOWN', value: action.value}
       })
 
    default: 
