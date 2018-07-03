@@ -12,7 +12,7 @@ const contactDialogStyles = {
     flex: 1,
     'flex-grow': 0,
     'flex-shrink': 0,
-    'border-right': '1px solid #e2e2e2',
+    //'border-right': '1px solid #e2e2e2',
     color: '#ccc',
   },
   details: {
