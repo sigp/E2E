@@ -13,12 +13,7 @@ const mapStateToProps = state => {
 }; 
 
 const mapDispatchToProps = dispatch => {
-  return {
-/*
-    sendMessageHandler: (rawData) => { 
-      dispatch(sendMessage(rawData))
-  */
-  }
+  return { }
 }
 
 export default connect(

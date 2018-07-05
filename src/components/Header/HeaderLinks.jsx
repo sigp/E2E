@@ -36,22 +36,99 @@ class HeaderLinks extends React.Component {
       this.setState({ accountOpen: !this.state.accountOpen });
   };
 
+  handleNetworkClick = () => {
+      this.setState({ networkOpen: !this.state.networkOpen });
+  };
+
   handleNotificationClose = () => {
       this.setState({ notificationOpen : false });
       this.setState({ accountOpen : false });
   };
 
   handleAccountClose = () => {
+      this.setState({ notificationOpen : false });
       this.setState({ accountOpen : false });
   };
 
-  render() {
-    const { classes, accounts } = this.props;
-    const { notificationOpen, accountOpen } = this.state;
+  handleNetworkClose = () => {
+      this.setState({ networkOpen : false });
+      this.setState({ notificationOpen : false });
+      this.setState({ accountOpen : false });
+  };
 
-    
+  handleNetwork = network => { 
+    console.log(network) 
+    this.setState({networkOpen: false});
+  };
+
+  infuraAvailableNetworks = [
+    'MAINNET',
+    'RINKEBY',
+    'ROPSTEN',
+    'KOVAN'
+  ]
+  // set default network lists
+  renderNetworkList() { 
+
+    const { classes, network }  = this.props;
+    return this.infuraAvailableNetworks.map((value,key) => {
+      if (network !== value){
+        return (
+            <MenuItem
+              key = {key}
+              onClick={this.handleNetwork.bind(this,value)}
+              className={classes.dropdownItem}
+            >
+              { value }
+            </MenuItem>
+        )
+      }
+    })
+  }
+
+  render() {
+    const { classes, accounts, network, provider } = this.props;
+    const { notificationOpen, accountOpen, networkOpen } = this.state;
     return (
       <div>
+        <Manager className={classes.manager}>
+          <Target>
+            <Button
+              color={window.innerWidth > 959 ? "transparent" : "white"}
+              disabled={ provider !== 'INFURA' }
+              aria-label="Network"
+              aria-owns={networkOpen ? "menu-list" : null}
+              aria-haspopup="true"
+              onClick={this.handleNetworkClick}
+              className={classes.buttonLink}
+            >
+            Network: { network }
+            </Button>
+          </Target>
+          <Popper
+            placement="bottom-start"
+            eventsEnabled={networkOpen}
+            className={
+              classNames({ [classes.popperClose]: !networkOpen }) +
+              " " +
+              classes.pooperResponsive
+            }
+          >
+            <ClickAwayListener onClickAway={this.handleNetworkClose}>
+              <Grow
+                in={networkOpen}
+                id="menu-list"
+                style={{ transformOrigin: "0 0 0" }}
+              >
+                <Paper className={classes.dropdown}>
+                  <MenuList role="menu">
+                    { this.renderNetworkList() }
+                  </MenuList>
+                </Paper>
+              </Grow>
+            </ClickAwayListener>
+          </Popper>
+        </Manager>
         <Manager className={classes.manager}>
           <Target>
             <Button
@@ -188,27 +265,4 @@ class HeaderLinks extends React.Component {
   }
 }
 
-const headerLinks = withStyles(headerLinksStyle)(HeaderLinks);
-
-// add redux state
-
-
-
-
-
-const mapStateToProps = state => {
-  return {
-    accounts: state.web3.accounts
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    // do nothing
-    }
-}
-
-export default HeaderLinks = connect(
-  mapStateToProps,
-  mapDispatchToProps)(headerLinks)
-
+export default withStyles(headerLinksStyle)(HeaderLinks);

@@ -3,14 +3,17 @@
 import { 
   WEB3_FOUND,
   WEB3_LOADED,
-  WEB3_LOADACCOUNTS,
-  WEB3_ACCOUNT_CHECK
+  WEB3_UPDATE_ACCOUNTS,
+  WEB3_UPDATE_NETWORK,
+  WEB3_UPDATE_PROVIDER
 } from 'actions/web3Actions';
 
 const initialState = {
   web3Found: false, 
   web3:   undefined,
-  accounts: { status: 'UNKNOWN', value:  [] } 
+  accounts: { status: 'UNKNOWN', value:  [] },
+  network: 'UNKNOWN',
+  provider: 'UNKNOWN'
 }
 
 const web3Reducer = (state = initialState, action) => {
@@ -27,16 +30,22 @@ const web3Reducer = (state = initialState, action) => {
         web3Found: action.value
       })
 
-    case WEB3_LOADACCOUNTS: 
-      return loadAccountReducer(state, action)
+    case WEB3_UPDATE_ACCOUNTS: 
+      return updateAccountReducer(state, action)
+
+    case WEB3_UPDATE_NETWORK: 
+      return updateNetworkReducer(state, action)
+
+    case WEB3_UPDATE_PROVIDER: 
+      return Object.assign({}, state,  {
+        provider: action.value})
 
     default: 
       return state; 
    }
 };
 
-const loadAccountReducer = (state, action) => { 
-
+const updateAccountReducer = (state, action) => { 
   switch (action.status) { 
     case 'FAIL': 
       return Object.assign({}, state,  {
@@ -56,6 +65,43 @@ const loadAccountReducer = (state, action) => {
    default: 
       return Object.assign({}, state,  {
         accounts : {status: 'PENDING'}
+      })
+   }
+};
+
+const updateNetworkReducer = (state, action) => { 
+  switch (action.status) { 
+    case 'FAIL': 
+      return Object.assign({}, state,  {
+        network : 'FAIL' 
+      })
+
+    case 'SUCCESS': 
+      let curNetwork = 'UNKNOWN'
+      switch (action.value) {
+        case 1:
+          curNetwork = 'MAINNET'
+          break
+        case 2:
+          curNetwork = 'MORDEN'
+          break
+        case 3:
+          curNetwork = 'ROPSTEN'
+          break
+        case 4:
+          curNetwork = 'RINKEBY'
+          break
+        case 42:
+          curNetwork = 'KOVAN'
+          break
+        default:
+          curNetwork = 'UNKNOWN'
+      }
+      return Object.assign({}, state, {network: curNetwork})
+
+   default: 
+      return Object.assign({}, state,  {
+        network : 'PENDING'
       })
    }
 };

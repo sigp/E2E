@@ -7,7 +7,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import indexRoutes from "./routes/index.jsx";
 import configureStore from 'store/configureStore';
 import { encryptToggle } from "actions/sendMessageActions.js";
-import { WEB3_FOUND, WEB3_LOADED, WEB3_ACCOUNT_CHECK, loadAccounts } from 'actions/web3Actions.js';
+import { WEB3_FOUND, WEB3_LOADED, WEB3_UPDATE_PROVIDER, updateAccounts, updateNetwork } from 'actions/web3Actions.js';
 
 // material ui colouring and theme
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -42,17 +42,22 @@ window.addEventListener('load', function() {
     var web3 = new Web3(window.web3.currentProvider); 
     store.dispatch({type: WEB3_LOADED, value: web3});
     store.dispatch({type: WEB3_FOUND, value: web3Found});
-    store.dispatch(loadAccounts(web3, false));
+    store.dispatch({type: WEB3_UPDATE_PROVIDER, value: 'METAMASK'});
+    store.dispatch(updateAccounts(web3, false));
+    store.dispatch(updateNetwork(web3, false));
   }
   startApp()
 })
 
-// set up a listener to see if accounts get updated. Metamask doesn't have
+// set up a listener to keep track of the network. Metamask doesn't have
 // subscribe events yet 
 setInterval( () => { 
   let state = store.getState()
   if (state.web3.web3Found) {
-    store.dispatch(loadAccounts(state.web3.web3, true));
+    // check if our accounts have changed
+    store.dispatch(updateAccounts(state.web3.web3, true));
+    // check if the network has changed
+    store.dispatch(updateNetwork(state.web3.web3, true));
   }
 }, 100000)
 
