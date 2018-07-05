@@ -11,7 +11,7 @@ import {
 
 const headerStyle = theme => ({
   appBar: {
-    backgroundColor: "#c9eaee",
+    backgroundColor: theme.palette.primary.main, //"#c9eaee",
     boxShadow: "none",
     borderBottom: "0",
     marginBottom: "0",
@@ -50,7 +50,7 @@ const headerStyle = theme => ({
     marginRight: "25px"
   },
   primary: {
-    backgroundColor: primaryColor,
+    backgroundColor: theme.palette.primary.main,
     color: "#FFFFFF",
     ...defaultBoxShadow
   },

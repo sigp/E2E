@@ -62,9 +62,7 @@ const Web3LoaderDialog = ({...props}) => {
 }
 
 Web3LoaderDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
     show: PropTypes.bool,
-    header: PropTypes.element.isRequired,
     children: PropTypes.node,
 }
 

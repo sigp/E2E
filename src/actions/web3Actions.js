@@ -1,4 +1,6 @@
 
+import { UPDATE_THEME} from 'actions/appActions';
+
 export const WEB3_LOADED = 'WEB3_LOADED';
 export const WEB3_FOUND = 'WEB3_FOUND';
 export const WEB3_UPDATE_ACCOUNTS = 'WEB3_UPDATE_ACCOUNTS';
@@ -36,7 +38,10 @@ export function updateNetwork(web3, updateCheck) {
 
     return web3.eth.net.getId()
      .then(
-       netId => dispatch({type: WEB3_UPDATE_NETWORK, status: 'SUCCESS', value: netId}),
+       netId => {
+         dispatch({type: WEB3_UPDATE_NETWORK, status: 'SUCCESS', value: netId})
+         dispatch({type: UPDATE_THEME, value: netId})
+       },
        err => dispatch({type: WEB3_UPDATE_NETWORK, status: 'FAIL'}) 
      )
   }

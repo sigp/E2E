@@ -6,32 +6,14 @@ import { Router, Route, Switch } from "react-router-dom";
 //import "assets/css/material-dashboard-react.css?v=1.3.0";
 import indexRoutes from "./routes/index.jsx";
 import configureStore from 'store/configureStore';
+import E2EThemeProvider from 'containers/Themes/ThemeProviderWrapper';
 import { encryptToggle } from "actions/sendMessageActions.js";
 import { WEB3_FOUND, WEB3_LOADED, WEB3_UPDATE_PROVIDER, updateAccounts, updateNetwork } from 'actions/web3Actions.js';
 
-// material ui colouring and theme
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import lightBlue from '@material-ui/core/colors/lightBlue';
-import blue from '@material-ui/core/colors/blue';
-import indigo from '@material-ui/core/colors/indigo';
-import red from '@material-ui/core/colors/red';
-
 var Web3 = require('web3'); 
 
-const theme = createMuiTheme({
-  palette: {
-    primary: blue,
-    secondary: indigo,
-    error: red,
-    contrastThreshold: 3,
-    tonalOffset: 0.2,
-  },
-})
-
-const primary = lightBlue;
 const store = configureStore();
 const hist = createBrowserHistory();
-
 
 /* Check for injected web3 */
 let web3Found = false;
@@ -61,11 +43,10 @@ setInterval( () => {
   }
 }, 100000)
 
-
 function startApp() {
   render(
     <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
+    <E2EThemeProvider>
     <Router history={hist}>
       <Switch>
         {indexRoutes.map((prop, key) => {
@@ -73,7 +54,7 @@ function startApp() {
         })}
       </Switch>
     </Router>
-    </MuiThemeProvider>
+    </E2EThemeProvider>
     </Provider>,
     document.getElementById("root")
   );
