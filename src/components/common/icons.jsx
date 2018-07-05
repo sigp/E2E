@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export const Ledger = (
   <svg id="851e3d33-36d6-418a-b807-c2fa479dc650" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
     <defs>
@@ -118,5 +117,23 @@ export const MetaMask = (
         </g>
       </g>
     </g>
+  </svg>
+)
+
+export const Infura = (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 24">
+    <defs>
+      <style>
+        {
+          `.infura-svg {
+            fill: none;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+          }`
+        }
+      </style>
+    </defs>
+    <polygon className="infura-svg" fill="#000000" fill-rule="evenodd" points=".825 0 .825 3.651 9.549 2.754 12.769 2.754 12.769 8.665 7.347 10.323 0 12.095 1.091 15.666 8.131 12.961 12.769 11.543 12.769 21.247 9.549 21.247 .825 20.348 .825 24 27.468 24 27.468 20.348 18.744 21.247 15.523 21.247 15.523 11.543 20.138 12.953 27.203 15.666 28.293 12.095 20.965 10.328 15.523 8.665 15.523 2.754 18.744 2.754 27.468 3.651 27.468 0">
+    </polygon>
   </svg>
 )

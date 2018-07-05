@@ -3,7 +3,8 @@
 import { 
   WEB3_FOUND,
   WEB3_LOADED,
-  WEB3_LOADACCOUNTS
+  WEB3_LOADACCOUNTS,
+  WEB3_ACCOUNT_CHECK
 } from 'actions/web3Actions';
 
 const initialState = {
@@ -33,7 +34,6 @@ const web3Reducer = (state = initialState, action) => {
       return state; 
    }
 };
-
 
 const loadAccountReducer = (state, action) => { 
 

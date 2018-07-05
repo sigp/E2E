@@ -11,7 +11,7 @@ import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import ContactDialog from 'components/Dialogs/ContactDialog.jsx'
-import Web3LoaderDialog from 'components/Dialogs/Web3LoaderDialog.jsx'
+import Web3LoaderDialog from 'containers/Dialogs/Web3LoaderDialog.jsx'
 
 import eToERoutes from "routes/e2e.jsx";
 import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
@@ -126,16 +126,7 @@ class App extends React.Component {
           <button onClick={this.handleDialogToggle}>Dialog</button>
         </div>
 
-      { (accounts.status === 'UNKNOWN' || accounts.status === 'PENDING')  && 
-        
-      <Web3LoaderDialog
-        show={true}
-          onClose={this.handleDialogToggle}
-        >
-      <p>Blah</p>
-      </Web3LoaderDialog>
-      }
-
+      <Web3LoaderDialog />
       <ContactDialog
           onClose={this.handleDialogToggle}
           show={this.state.dialogOpen}

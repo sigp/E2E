@@ -12,11 +12,11 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";
 import pillsStyle from "assets/jss/components/pillsStyle.jsx";
+import EthLoader from "components/EthLoader/Loader.jsx";
 
 // icons
-import { MetaMask, Ledger, Trezor, Keystore } from "components/common/icons.jsx"
 const Web3LoaderDialog = ({...props}) => {
-  const { classes, show } = props;
+  const { classes, show, accountStatus } = props;
 
   // do nothing if our accounts are loaded correctly
   if (!show) {
@@ -24,14 +24,37 @@ const Web3LoaderDialog = ({...props}) => {
       null
     )
   }
+  
+  let content = { 
+    connecting: (
+      <div>
+        <div className={classes.title}>
+            <h2>Loading Accounts... </h2>
+        </div>
+        <EthLoader width="100px" height="200px" />
+      </div>
+    ),
+    noAccounts: (
+      <div>
+        <div className={classes.title}>
+          <h2>Connect Accounts</h2>
+        </div>
+          <AccountOptions />
+      </div>
+    )
+  }
+
   return(
       <div className={classes.darkbg}>
         <div class={classes.dialog}>
             <section className={classes.dialogBody}>
-              <div className={classes.title}>
-              <h2>Connect Accounts</h2>
-              </div>
-              <AccountOptions />
+              { accountStatus == "PENDING" && 
+                content.connecting 
+              }
+              { accountStatus != "PENDING" && 
+                content.noAccounts
+                
+              }
             </section>
         </div>
       </div>

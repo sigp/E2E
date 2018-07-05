@@ -10,7 +10,7 @@ import NavPills from "components/NavPills/NavPills.jsx";
 import pillsStyle from "assets/jss/components/pillsStyle.jsx";
 
 // icons
-import { MetaMask, Ledger, Trezor, Keystore } from "components/common/icons.jsx"
+import { MetaMask, Ledger, Trezor, Keystore, Infura } from "components/common/icons.jsx"
 
 class AccountOptions extends React.Component {
   render() {
@@ -93,15 +93,15 @@ class AccountOptions extends React.Component {
           tabContent: defaultContent.trezor
         },
         {
+          tabButton: "Infura",
+          tabIcon: Infura,
+          tabContent: defaultContent.infura
+        },
+        {
           tabButton: "Custom",
           tabIcon: Keystore,
           tabContent: defaultContent.custom
         },
-        {
-          tabButton: "Infura",
-          tabIcon: Keystore,
-          tabContent: defaultContent.infura
-        }
       ]}
       />
       </GridItem>
