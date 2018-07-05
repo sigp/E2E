@@ -71,7 +71,7 @@ class AccountOptions extends React.Component {
       <GridContainer>
       <GridItem xs={12} sm={12} md={12} lg={6}>
       <NavPills
-      color="primary2"
+      color="primary"
       horizontal={{
         tabsGrid: { xs: 12, sm: 4, md: 4 },
         contentGrid: { xs: 12, sm: 8, md: 8 }
@@ -92,11 +92,13 @@ class AccountOptions extends React.Component {
           tabIcon: Trezor,
           tabContent: defaultContent.trezor
         },
+        
         {
           tabButton: "Infura",
           tabIcon: Infura,
           tabContent: defaultContent.infura
         },
+        
         {
           tabButton: "Custom",
           tabIcon: Keystore,
@@ -112,7 +114,5 @@ class AccountOptions extends React.Component {
     );
   }
 }
-
-
 
 export default withStyles(pillsStyle)(AccountOptions);

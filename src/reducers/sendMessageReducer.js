@@ -1,12 +1,11 @@
 // Reducers relating to sending messages
 
 import { 
-  SEND_MSG,
-  ENCRYPT_TOGGLE
+  SEND_MSG
 } from 'actions/sendMessageActions';
 
 const initialState = {
-  encrypt: true
+  
 }
 
 const sendMessageReducer = (state = initialState, action) => {
@@ -15,11 +14,6 @@ const sendMessageReducer = (state = initialState, action) => {
     case SEND_MSG: 
       return Object.assign({}, state,  {
         rawData: action.rawData
-      })
-
-    case ENCRYPT_TOGGLE:
-      return Object.assign({}, state,  {
-        encrypt: !state.encrypt
       })
 
     default: 

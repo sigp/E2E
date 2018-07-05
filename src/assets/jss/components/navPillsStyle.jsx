@@ -77,7 +77,7 @@ const navPillsStyle = theme => ({
   contentWrapper: {
     marginTop: "20px"
   },
-  primary2: {
+  primary: {
     "&,&:hover": {
       color: "#FFFFFF",
       backgroundColor: theme.palette.primary.main,
