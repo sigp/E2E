@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SendButton from 'components/Buttons/SendButton.jsx';
-import { sendMessage } from 'core/actions/sendMessageActions.js';
+import { sendMessage } from 'actions/sendMessageActions.js';
 
 const mapStateToProps = state => {return {} }; // do nothing
 

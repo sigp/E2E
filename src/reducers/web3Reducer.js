@@ -4,7 +4,7 @@ import {
   WEB3_FOUND,
   WEB3_LOADED,
   WEB3_LOADACCOUNTS
-} from 'core/actions/web3Actions';
+} from 'actions/web3Actions';
 
 const initialState = {
   web3Found: false, 

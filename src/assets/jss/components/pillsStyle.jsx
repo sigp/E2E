@@ -32,7 +32,7 @@ const container = {
 
 const pillsStyle = {
   section: {
-    padding: "70px 0"
+    padding: "70px 0px",
   },
   container,
   title: {

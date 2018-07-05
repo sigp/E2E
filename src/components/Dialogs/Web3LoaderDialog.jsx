@@ -4,43 +4,45 @@ import Close from '@material-ui/icons/Close'
 
 import withStyles from '@material-ui/core/styles/withStyles'
 
-import DialogStyles from 'assets/jss/components/dialogStyle'
+import AccountOptions from "components/Accounts/AccountOptions.jsx";
+import Web3LoaderDialogStyles from './web3LoaderDialogStyle'
 
-const Dialog = ({...props}) => {
-  const { classes, onClose, show, header, children } = props;
+// core components
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import NavPills from "components/NavPills/NavPills.jsx";
+import pillsStyle from "assets/jss/components/pillsStyle.jsx";
 
+// icons
+import { MetaMask, Ledger, Trezor, Keystore } from "components/common/icons.jsx"
+const Web3LoaderDialog = ({...props}) => {
+  const { classes, show } = props;
+
+  // do nothing if our accounts are loaded correctly
   if (!show) {
     return (
       null
     )
   }
   return(
-      <div>
-      <div className={classes.darkbg}
-        onClick={onClose}></div>
+      <div className={classes.darkbg}>
         <div class={classes.dialog}>
-            <header className={classes.dialogHeader}>
-                {header}
-                <button
-                  className={classes.closebutton}
-                  onClick={onClose}>
-                    <Close />
-                  </button>
-                  <div className={classes.clear}></div>
-            </header>
             <section className={classes.dialogBody}>
-            {children}
+              <div className={classes.title}>
+              <h2>Connect Accounts</h2>
+              </div>
+              <AccountOptions />
             </section>
         </div>
       </div>
   )
 }
 
-Dialog.propTypes = {
+Web3LoaderDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     show: PropTypes.bool,
     header: PropTypes.element.isRequired,
     children: PropTypes.node,
 }
 
-export default withStyles(DialogStyles)(Dialog)
+export default withStyles(Web3LoaderDialogStyles)(Web3LoaderDialog)

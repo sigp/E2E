@@ -7,9 +7,6 @@ import Save from '@material-ui/icons/Save'
 import Icon from '@material-ui/core/Icon'
 import Hidden from '@material-ui/core/Hidden'
 
-// const styles = theme => ({
-// });
-
 const SendButton = (props) => {
   const { classes, sendMessageHandler } = props;
   let smallStyle = classNames({
@@ -38,5 +35,4 @@ SendButton.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-//export default withStyles(styles)(SendButton);
 export default SendButton

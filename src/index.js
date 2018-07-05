@@ -5,9 +5,9 @@ import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 //import "assets/css/material-dashboard-react.css?v=1.3.0";
 import indexRoutes from "./routes/index.jsx";
-import configureStore from 'core/store/configureStore';
-import { encryptToggle } from "core/actions/sendMessageActions.js";
-import { WEB3_FOUND, WEB3_LOADED, loadAccounts } from 'core/actions/web3Actions.js';
+import configureStore from 'store/configureStore';
+import { encryptToggle } from "actions/sendMessageActions.js";
+import { WEB3_FOUND, WEB3_LOADED, loadAccounts } from 'actions/web3Actions.js';
 
 // material ui colouring and theme
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';

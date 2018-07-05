@@ -15,57 +15,92 @@ import { MetaMask, Ledger, Trezor, Keystore } from "components/common/icons.jsx"
 class AccountOptions extends React.Component {
   render() {
     const { classes } = this.props;
+
+    let defaultContent = { 
+      metamask: (
+      <div>
+        <span>
+          MetaMask is a secure identity vault that allows you to manage your identities across different dApps.
+        </span>
+        <span>
+          Install the browser plugin at <a href="https://metamask.io/">metamask.io</a>.
+        </span>
+        <hr />
+        <span>
+          Note: If MetaMask is installed & unlocked, you will be logged in automatically.
+        </span>
+      </div>
+    ),
+    ledger: ( 
+      <div> 
+        <span> Connect your ledger device and click connect. </span>
+        <span> Put Button here </span> 
+        <hr />
+        <span> This will use infura as the node </span>
+      </div>
+    ),
+    trezor: ( 
+      <div> 
+        <span> Connect your trezor device and click connect. </span>
+        <span> Put Button here </span> 
+        <hr />
+        <span> This will use infura as the node </span>
+      </div>
+    ), 
+    custom: ( 
+      <div> 
+        <span> Connect your own node. </span>
+        <span> Hostname and RPC ports go here. </span> 
+        <span> This will use infura as the node </span>
+      </div>
+    ), 
+    infura: ( 
+      <div> 
+        <span> Connect via infura and upload your own keys via the accounts tab. </span>
+        <span> Connect button here  </span>
+      </div>
+    ) 
+    }
+
+
+
     return (
       <div className={classes.section}>
       <div className={classes.container}>
       <div id="navigation-pills">
-      <div className={classes.title}>
-      <h3>Connect Accounts</h3>
-      </div>
       <GridContainer>
       <GridItem xs={12} sm={12} md={12} lg={6}>
       <NavPills
-      color="primary"
+      color="primary2"
       horizontal={{
         tabsGrid: { xs: 12, sm: 4, md: 4 },
-          contentGrid: { xs: 12, sm: 8, md: 8 }
+        contentGrid: { xs: 12, sm: 8, md: 8 }
       }}
       tabs={[
         {
           tabButton: "Metamask",
           tabIcon: MetaMask,
-          tabContent: (
-            <div>
-            <span>
-            MetaMask is a secure identity vault that allows you to manage your identities across different dApps.
-            </span>
-            <span>
-            Install the browser plugin at <a href="https://metamask.io/">metamask.io</a>.
-            </span>
-            <hr />
-            <span>
-            Note: If MetaMask is installed & unlocked, you will be logged in automatically.
-            </span>
-            </div>
-          )
+          tabContent: defaultContent.metamask
         },
         {
           tabButton: "Ledger",
           tabIcon: Ledger,
-          tabContent: (
-            <span>
-            Connect Ledger Button Here
-            </span>
-          )
+          tabContent: defaultContent.ledger
         },
         {
           tabButton: "Trezor",
           tabIcon: Trezor,
-          tabContent: (
-            <span>
-            Connect Trezor Button Here
-            </span>
-          )
+          tabContent: defaultContent.trezor
+        },
+        {
+          tabButton: "Custom",
+          tabIcon: Keystore,
+          tabContent: defaultContent.custom
+        },
+        {
+          tabButton: "Infura",
+          tabIcon: Keystore,
+          tabContent: defaultContent.infura
         }
       ]}
       />
@@ -77,5 +112,7 @@ class AccountOptions extends React.Component {
     );
   }
 }
+
+
 
 export default withStyles(pillsStyle)(AccountOptions);

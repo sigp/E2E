@@ -6,14 +6,9 @@ import Hidden from '@material-ui/core/Hidden'
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import EncryptSwitch from "core/containers/EncryptSwitch.js";
-import SendButton from "core/containers/SendButton.js"
 import TextField from "components/TextFields/MultiLineText.jsx"
 import MessageList from 'components/Messages/MessageList.jsx'
-
 import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx'
-
-
 
 const MessagesPage = (props) => {
   const { classes } = props;

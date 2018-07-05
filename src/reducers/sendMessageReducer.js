@@ -3,7 +3,7 @@
 import { 
   SEND_MSG,
   ENCRYPT_TOGGLE
-} from '../actions/sendMessageActions';
+} from 'actions/sendMessageActions';
 
 const initialState = {
   encrypt: true
