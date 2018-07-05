@@ -65,6 +65,7 @@ class SendMessagePage extends React.Component {
           <div className={classes.actionContainers}>
             <span>Encrypt
             <Switch 
+              color="primary"
               checked={this.state.encryptToggle}
               onChange={this.handleEncryptToggleChange}
             />
@@ -83,6 +84,7 @@ class SendMessagePage extends React.Component {
             </div>
             <span>Encrypt
             <Switch 
+              color="primary"
               checked={this.state.encryptToggle}
               onChange={this.handleChange}
             />
