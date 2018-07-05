@@ -254,6 +254,12 @@ class HeaderLinks extends React.Component {
                           </MenuItem>
                         )})
                    }
+                        <MenuItem
+                          onClick={this.handleAccountClose}
+                          className={classes.dropdownItem}
+                        >
+                          Change Web3 Provider 
+                        </MenuItem>
                   </MenuList>
                 </Paper>
               </Grow>

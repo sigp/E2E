@@ -41,7 +41,7 @@ setInterval( () => {
     // check if the network has changed
     store.dispatch(updateNetwork(state.web3.web3, true));
   }
-}, 100000)
+}, 10000)
 
 function startApp() {
   render(
