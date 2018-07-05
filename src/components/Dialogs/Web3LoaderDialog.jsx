@@ -46,7 +46,7 @@ const Web3LoaderDialog = ({...props}) => {
 
   return(
       <div className={classes.darkbg}>
-        <div class={classes.dialog}>
+        <div className={classes.dialog}>
             <section className={classes.dialogBody}>
               { accountStatus == "PENDING" && 
                 content.connecting 
