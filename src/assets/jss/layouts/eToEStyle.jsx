@@ -22,6 +22,8 @@ const appStyle = theme => ({
     width: "100%",
     overflowScrolling: "touch",
     position: 'relative',
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.primary
   },
   content: {
     marginTop: "70px",

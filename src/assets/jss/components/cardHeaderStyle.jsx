@@ -6,7 +6,7 @@ import {
   primaryCardHeader,
   roseCardHeader,
 } from "assets/jss/material-dashboard-react.jsx";
-const cardHeaderStyle = {
+const cardHeaderStyle = theme => ({
   cardHeader: {
     padding: "0.75rem 1.25rem",
     marginBottom: "0",
@@ -17,7 +17,7 @@ const cardHeaderStyle = {
       margin: "0 15px",
       padding: "0",
       position: "relative",
-      color: "#FFFFFF"
+      color: theme.palette.text.primary,// "#FFFFFF"
     },
     "&:first-child": {
       borderRadius: "calc(.25rem - 1px) calc(.25rem - 1px) 0 0"
@@ -106,7 +106,7 @@ const cardHeaderStyle = {
   primaryCardHeader: {
     color: "#FFFFFF",
     "&:not($cardHeaderIcon)": {
-      ...primaryCardHeader
+      background: theme.palette.primary.main 
     }
   },
   roseCardHeader: {
@@ -115,6 +115,6 @@ const cardHeaderStyle = {
       ...roseCardHeader
     }
   }
-};
+});
 
 export default cardHeaderStyle;

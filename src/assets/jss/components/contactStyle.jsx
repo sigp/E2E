@@ -1,6 +1,6 @@
-const contactStyle = {
+const contactStyle = theme => ({
   contactContainer: {
-      background: '#fff',
+      background: theme.palette.background.paper,
       display: 'table',
       height: '58px',
       padding: '10px',
@@ -8,7 +8,7 @@ const contactStyle = {
       width: '100%',
       'table-layout': 'fixed',
       '&:hover': {
-        background: '#f5f5f5',
+        background: theme.palette.primary.main, //'#f5f5f5',
         cursor: 'pointer',
       }
   },
@@ -63,6 +63,6 @@ const contactStyle = {
       width: '450px'
     }
   }
-}
+})
 
 export default contactStyle

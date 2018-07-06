@@ -117,7 +117,7 @@ const MessagesPage = (props) => {
   return (
     <div>
       <Hidden xsDown>
-      <Card>
+      <Card className={classes.card}>
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Messages</h4>
         </CardHeader>

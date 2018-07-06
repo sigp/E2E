@@ -43,10 +43,11 @@ const navPillsStyle = theme => ({
     height: "auto",
     opacity: "1",
     maxWidth: "80%",
-    margin: "0 5px"
+    margin: "0 5px",
+    stroke: theme.palette.text.primary // for svg icons
   },
   pillsWithIcons: {
-    borderRadius: "5px"
+    borderRadius: "5px",
   },
   tabIcon: {
     width: "30px",
@@ -63,7 +64,7 @@ const navPillsStyle = theme => ({
   },
   labelContainer: {
     padding: "0!important",
-    color: "inherit"
+    color: theme.palette.text.primary,
   },
   label: {
     lineHeight: "24px",

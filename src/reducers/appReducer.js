@@ -18,6 +18,7 @@ const themes = {
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    type: "dark",
   },}), 
   ROPSTEN: createMuiTheme({
   palette: {
@@ -50,6 +51,7 @@ const themes = {
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    type: "dark"
   },}) 
 }
 

@@ -1,4 +1,4 @@
-export default {
+const web3LoaderStyle = theme => ({
   darkbg: {
     position: 'fixed',
     top: '0',
@@ -13,8 +13,8 @@ export default {
   },
 
   dialog: {
-    background: '#333',
-    color: '#fff',
+    background: theme.palette.background.paper,// '#333',
+    color: theme.palette.text.primary, //'#fff',
     borderRadius: '3px',
     //boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
     boxShadow: '0 12px 15px 0 rgba(0,0,0,0.24)',
@@ -31,24 +31,12 @@ export default {
     margin: 'auto',
     transform: 'translateY(-50%)',
   },
-  dialogHeader: {
-    boxSizing: 'border-box',
-    borderBottom: '1px solid #eee',
-    padding: '10px',
-    fontSize: '18px',
-    fontWeight: '100',
-    color: '#444',
-    background: '#f7f7f7',
-
-    '& h4': {
-      float: 'left',
-      width: '80%',
-    }
-  },
   dialogBody: {
     padding: '10px 50px 10px 30px',
   },
   clear: {
     clear: 'both',
   },
-}
+});
+
+export default web3LoaderStyle;

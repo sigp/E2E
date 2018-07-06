@@ -7,7 +7,6 @@ export const Ledger = (
         {
           `.\\32 c7d4756-5441-4b6b-b846-659c95fc7d51 {
             fill: none;
-            stroke: #fff;
             stroke-miterlimit: 10;
           }`
         }
@@ -32,7 +31,6 @@ export const Trezor = (
         {
           `.\\33 e03130b-26ad-44ba-9a96-afce36420a03 {
             fill: none;
-            stroke: #fff;
           }`
         }
       </style>
@@ -91,7 +89,6 @@ export const MetaMask = (
         {`
           .\\36 2c8b009-d5dc-4d34-b47d-9b2663c59e03, .a77395d2-2c0c-4381-9940-a909fb55ffd3 {
             fill: none;
-            stroke: #fff;
             strokeLinejoin: round;
           }
           .a77395d2-2c0c-4381-9940-a909fb55ffd3 {
@@ -127,7 +124,6 @@ export const Infura = (
         {
           `.infura-svg {
             fill: none;
-            stroke: #fff;
             stroke-miterlimit: 10;
           }`
         }

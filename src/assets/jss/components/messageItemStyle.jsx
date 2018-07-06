@@ -1,15 +1,27 @@
-const messageItemStyle = {
+const messageItemStyle = theme =>  ({
     messageContainer: {
         padding: '10px',
-        borderBottom: '1px solid #eee',
+        borderBottom: '1px solid ' + theme.palette.primary[300],
         display: 'block',
         position: 'relative',
         width: '100%',
         boxSizing: 'border-box',
+        // lol this shadow
+      
+        "&:hover": {
+          cursor: 'pointer',
+          backgroundColor: theme.palette.primary.main,
+          boxShadow:
+            "0 12px 20px -10px " + theme.palette.primary[600] + ", 0 4px 20px 0 rgba(0,0,0,.12),  0 7px 8px -5px " + theme.palette.primary[900],
+          opacity: 0.8,
+        }
+        /*
         '&:hover': {
             cursor: 'pointer',
-            background: '#f5f5f5',
+            background: theme.palette.secondary['300'] //'#f5f5f5',
+        
         },
+        */
     },
     messageSender: {
         fontWeight: 'bold',
@@ -17,6 +29,7 @@ const messageItemStyle = {
         textOverflow: 'ellipsis',
         overflow: 'hidden',
         wordWrap: 'normal',
+        color: theme.palette.text.primary
     },
     icon: {
         width: '5%',
@@ -33,7 +46,7 @@ const messageItemStyle = {
     },
     messageContent: {
         maxHeight: '1000px',
-        color: '#1e212b',
+        color: theme.palette.text.secondary, //'#1e212b',
         fontWeight: '200',
         overflow: 'hidden',
         transition: 'all 0.4s linear',
@@ -53,6 +66,6 @@ const messageItemStyle = {
             width: '85%',
         }
     }
-}
+})
 
 export default messageItemStyle

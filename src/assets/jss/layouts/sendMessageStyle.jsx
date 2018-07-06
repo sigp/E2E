@@ -1,4 +1,7 @@
 const sendMessageStyle = theme => ({
+  card: {
+    backgroundColor: theme.palette.background.paper,
+  },
   inputFieldContainer: {
     width: "100%",
   },
@@ -15,13 +18,14 @@ const sendMessageStyle = theme => ({
       display: "block",
       margin: "auto",
       position: "relative",
+      backgroundColor: "inherit"
   },
   actionContainers: {
     float: "right",
+    color: theme.palette.text.primary,
   },
   button: {
     margin: theme.spacing.unit,
-
     "&.sm": {
       width: "100%",
       margin: "0 auto"
@@ -39,7 +43,7 @@ const sendMessageStyle = theme => ({
   gasCounter: {
     float: "left",
     fontSize: "12px",
-    color: "#aaa",
+    color: theme.palette.text.secondary, // "#aaa",
     margin: "10px 0px",
     "&.sm": {
       float: "none",

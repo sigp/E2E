@@ -34,7 +34,7 @@ class SendMessagePage extends React.Component {
     })
 
     return (
-      <Card>
+      <Card className={classes.card}>
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>New Message</h4>
         </CardHeader>
