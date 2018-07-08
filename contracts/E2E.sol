@@ -14,19 +14,19 @@ import "SafeMathLib.sol"; // Imports the SigP safemath library.
  * @title E2E - The main contract.
  * @dev This contract behaves like an ERC20 utilizing a balanceOf which
  * represents unread messages. It simply fires an event when a message is sent.
- * No ethereum can be sent to this contracts
+ * No Ethereum can be sent to this contract
  */
 contract E2E {
   using SafeMath for uint256;
 
   // ERC20 Meta-data
   string public name = "E2E Message";
-  uint8 public decimals = 0;
+  uint8 public decimals; // set to 0, messages are not divisible
   string public symbol = "MSG";
-  string public version = "1.0";
+  // string public version = "1.0"; // leave versioning out for now
 
   // We keep total supply for ERC20 compatibility
-  uint256 public totalSupply = 0;
+  uint256 public totalSupply;
 
   /**
    * event Message(). This is the main event representing an encrypted message.
@@ -56,10 +56,11 @@ contract E2E {
    */
   function send(address _recipient, string _msg) public {
     require(_recipient != address(0));
-
-    messages[_recepient] = messages[_recipient].add(1);
+    // potentially give user the option to avoid the following to save gas and
+    // not modify storage
+    messages[_recipient] = messages[_recipient].add(1);
     totalSupply = totalSupply.add(1);
-    Message(_recepient, msg.sender, _msg);
+    emit Message(_recipient, msg.sender, _msg);
   }
 
   /**
