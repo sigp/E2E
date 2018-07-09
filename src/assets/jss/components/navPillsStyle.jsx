@@ -130,7 +130,24 @@ const navPillsStyle = theme => ({
   alignCenter: {
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  '@media(max-width: 700px)': {
+    pills: {
+      minWidth: "60px",
+      minHeight: "60px",
+      maxWidth: "80px",
+      maxHeight: "80px",
+
+      '& svg': {
+        height: '44px',
+      },
+    },
+
+    label: {
+      fontSize: '10px',
+      display: 'none',
+    },
+  },
 });
 
 export default navPillsStyle;

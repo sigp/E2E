@@ -69,12 +69,12 @@ class AccountOptions extends React.Component {
       <div className={classes.container}>
       <div id="navigation-pills">
       <GridContainer>
-      <GridItem xs={12} sm={12} md={12} lg={6}>
+      <GridItem xs={12} sm={12} md={12} lg={12}>
       <NavPills
       color="primary"
       horizontal={{
-        tabsGrid: { xs: 12, sm: 4, md: 4 },
-        contentGrid: { xs: 12, sm: 8, md: 8 }
+        tabsGrid: { xs: 4, sm: 3, md: 2, lg: 2 },
+        contentGrid: { xs: 8, sm: 9, md: 10, lg: 10 }
       }}
       tabs={[
         {

@@ -34,9 +34,18 @@ const web3LoaderStyle = theme => ({
   dialogBody: {
     padding: '10px 50px 10px 30px',
   },
+  '@media (max-width: 600px)': {
+    dialog: {
+      maxWidth: '90%',
+      width: '90%',
+    },
+    dialogBody: {
+      padding: '5px 10px 5px 5px'
+    }
+  },
   clear: {
     clear: 'both',
-  },
+  }, 
 });
 
 export default web3LoaderStyle;
