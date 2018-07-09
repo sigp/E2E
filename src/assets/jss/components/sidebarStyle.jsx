@@ -162,13 +162,10 @@ const sidebarStyle = theme => ({
   },
   primary: {
     backgroundColor: theme.palette.primary.main,
-    boxShadow:
-      "0 12px 20px -10px " + theme.palette.primary[600] + ", 0 4px 20px 0 rgba(0,0,0,.12),  0 7px 8px -5px " + theme.palette.primary[900],
     opacity: 0.8,
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
-      boxShadow:
-        "0 12px 20px -10px " + theme.palette.primary[100] + ", 0 4px 20px 0 rgba(0,0,0,.12),  0 7px 8px -5px " + theme.palette.primary[400]
+      boxShadow: `0 1px 3px ${theme.palette.primary[200]} , 0 1px 2px ${theme.palette.primary[400]}`,
     }
   },
   sidebarWrapper: {
