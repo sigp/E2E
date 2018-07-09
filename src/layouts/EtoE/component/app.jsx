@@ -90,6 +90,7 @@ class App extends React.Component {
           <Blockies
             seed="0x2b62150ffbfefddaab1fff0e41378e5b13fdd77f"
             size={8}
+            scale={6}
           />
         </div>
         <div>

@@ -1,19 +1,16 @@
 const messageItemStyle = theme =>  ({
     messageContainer: {
         padding: '10px',
-        borderBottom: '1px solid ' + theme.palette.primary[300],
+        borderBottom: '1px solid ' + theme.palette.primary[50],
         display: 'block',
         position: 'relative',
         width: '100%',
         boxSizing: 'border-box',
         // lol this shadow
-      
         "&:hover": {
           cursor: 'pointer',
-          backgroundColor: theme.palette.primary.main,
-          boxShadow:
-            "0 12px 20px -10px " + theme.palette.primary[600] + ", 0 4px 20px 0 rgba(0,0,0,.12),  0 7px 8px -5px " + theme.palette.primary[900],
-          opacity: 0.8,
+          //backgroundColor: theme.palette.primary[50],
+          //opacity: 0.8,
         }
         /*
         '&:hover': {
@@ -50,6 +47,11 @@ const messageItemStyle = theme =>  ({
         fontWeight: '200',
         overflow: 'hidden',
         transition: 'all 0.4s linear',
+    },
+    contentOpen: {
+        boxShadow:
+            `0 7px 2px -12px ${theme.palette.primary[100]}, 0 4px 20px 0 ${theme.palette.shadows},  0 7px 8px -5px ${theme.palette.primary[200]}`,
+        marginBottom: '10px',
     },
     contentClosed: {
         maxHeight: '25px',

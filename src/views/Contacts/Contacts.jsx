@@ -2,6 +2,9 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
 import ContactList from 'components/Contact/ContactsList.jsx'
 
 
@@ -33,11 +36,18 @@ const ContactsView = (props) => {
     }
   ]
   return (
+    <Card className={classes.card}>
+      <CardHeader color="primary">
+        <h4 className={classes.cardTitleWhite}>Contacts</h4>
+      </CardHeader>
+      <CardBody>
       <ContactList
         contacts={testingContacts}  
       />
+      </CardBody>
+    </Card>
   );
 }
 
-//export default withStyles(style)(ContactsView);
-export default ContactsView;
+export default withStyles()(ContactsView);
+//export default ContactsView;

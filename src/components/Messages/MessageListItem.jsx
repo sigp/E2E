@@ -25,22 +25,19 @@ class MessageListItem extends React.Component {
     // const MessageListItem = ({ ...props }) => {
     const { classes, sender, message, address } = this.props
 
-    let contentClass
-
-    if (this.state.open) {
-        contentClass = classNames({
-          [classes.messageContent]: true,
-        })
-    } else {
-      contentClass = classNames({
+    let contentClass = classNames({
         [classes.messageContent]: true,
-        [classes.contentClosed]: true
-      })
-    }
+        [classes.contentClosed]: !this.state.open
+    })
+
+    let containerClass = classNames({
+        [classes.messageContainer]: true,
+        [classes.contentOpen]: this.state.open
+    })
 
     return (
       <div
-        className={classes.messageContainer}
+        className={containerClass}
         onClick={this.handleClick}
         >
         <section className={classes.icon}>

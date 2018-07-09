@@ -17,6 +17,7 @@ const Contact = ({...props}) => {
               <Blockies
                 seed={address.toLowerCase()}
                 size={8}
+                scale={6}
               />
             </section>
           </section>

@@ -18,6 +18,7 @@ const themes = {
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    shadows: 'rgba(255,255,255,0.12)',
     type: "dark",
   },}), 
   ROPSTEN: createMuiTheme({
@@ -27,6 +28,7 @@ const themes = {
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    shadows: 'rgba(0,0,0,0.12)',
   },}), 
   KOVAN: createMuiTheme({
   palette: {
@@ -35,6 +37,7 @@ const themes = {
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    shadows: 'rgba(0,0,0,0.12)',
   },}), 
   RINKEBY: createMuiTheme({
   palette: {
@@ -43,6 +46,7 @@ const themes = {
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    shadows: 'rgba(0,0,0,0.12)',
   },}), 
   UNKNOWN: createMuiTheme({
   palette: {
@@ -51,6 +55,7 @@ const themes = {
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
+    shadows: 'rgba(255,255,255,0.12)',
     type: "dark"
   },}) 
 }
