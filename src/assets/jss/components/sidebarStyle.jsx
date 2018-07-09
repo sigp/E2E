@@ -136,6 +136,9 @@ const sidebarStyle = theme => ({
     display: "block",
     padding: "10px 15px",
     backgroundColor: "transparent",
+    '&:hover': {
+        background: 'rgba(255,255,255,0.1)'
+    },
     ...defaultFont
   },
   itemIcon: {
