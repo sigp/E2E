@@ -7,6 +7,7 @@ export const WEB3_UPDATE_ACCOUNTS = 'WEB3_UPDATE_ACCOUNTS';
 export const WEB3_UPDATE_NETWORK = 'WEB3_UPDATE_NETWORK';
 export const WEB3_UPDATE_PROVIDER = 'WEB3_UPDATE_PROVIDER';
 
+
 /* 
  * Action creators 
  *
@@ -46,3 +47,4 @@ export function updateNetwork(web3, updateCheck) {
      )
   }
 }
+

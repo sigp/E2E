@@ -14,7 +14,7 @@ const initialState = {
   accounts: { status: 'UNKNOWN', value:  [] },
   network: 'UNKNOWN',
   provider: 'UNKNOWN', 
-  contracts: { ROPSTEN: "0xF5D9E79FA73BF0ff34c5EC16Ca4BbC7eee5c69a0" } 
+  contracts: { ROPSTEN: {address: "0xF5D9E79FA73BF0ff34c5EC16Ca4BbC7eee5c69a0", startBlockNumber: '0x36d224' } } 
 }
 
 const web3Reducer = (state = initialState, action) => {

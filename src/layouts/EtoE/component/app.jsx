@@ -18,7 +18,7 @@ import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
-import 'assets/css/global.css'
+import 'assets/css/global.css';
 
 // TODO remove
 import Blockies from 'react-blockies'

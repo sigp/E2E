@@ -6,7 +6,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 
 // Views
 import SendMessages from 'views/SendMessage/SendMessage.jsx'
-import Messages from 'views/Messages/Messages.jsx'
+import MessagePage from 'containers/Views/Messages/Messages.jsx'
 import ContactsView from 'views/Contacts/Contacts.jsx'
 import Accounts from 'views/Accounts/Accounts.jsx'
 
@@ -24,7 +24,7 @@ const eToERoutes = [
     sidebarName: "Messages",
     navbarName: "Messages",
     icon: Forum,
-    component: Messages,
+    component: MessagePage,
   },
   {
     path: "/contacts",
