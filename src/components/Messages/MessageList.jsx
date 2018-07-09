@@ -18,7 +18,8 @@ const MessageList = ({ ...props}) => {
                 key={key}
                 sender={value.sender}
                 message={value.message}
-                address={value.address}
+                senderAddress={value.senderAddress}
+                recipientAddress={value.recipientAddress}
             />
         )
       })

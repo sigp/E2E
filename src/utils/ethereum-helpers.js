@@ -12,3 +12,7 @@ export function addressTo32Bytes(address) {
 }
 
 
+export function bytesToAddress(byteString) { 
+  return  '0x' + byteString.substr(26);
+}
+

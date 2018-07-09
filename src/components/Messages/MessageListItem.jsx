@@ -23,7 +23,7 @@ class MessageListItem extends React.Component {
 
   render() {
     // const MessageListItem = ({ ...props }) => {
-    const { classes, sender, message, address } = this.props
+    const { classes, sender, message, senderAddress, recipientAddress } = this.props
 
     let contentClass = classNames({
         [classes.messageContent]: true,
@@ -43,7 +43,7 @@ class MessageListItem extends React.Component {
         <section className={classes.icon}>
           <section className={classes.iconWrapper}>
             <Blockies
-              seed={address}
+              seed={senderAddress}
               size={8}
             />
           </section>
@@ -65,7 +65,7 @@ MessageListItem.propTypes = {
   classes: propTypes.object.isRequired,
   sender: propTypes.string.isRequired,
   message: propTypes.string.isRequired,
-  address: propTypes.string.isRequired,
+  senderAddress: propTypes.string.isRequired,
 //  onClick: propTypes.func.isRequired,
   //TODO future: give etherscan tx url etc.
 }
