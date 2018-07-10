@@ -5,6 +5,9 @@ const MessageListStyles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  dialogMessageBody: {
+    padding: '30px',
+  },
   '@media(max-width: 600px)': {
     topLine: {
       flexWrap: 'wrap',
