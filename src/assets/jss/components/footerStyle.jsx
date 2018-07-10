@@ -1,13 +1,25 @@
 import {
   defaultFont,
   container,
-  primaryColor
+  primaryColor,
+  drawerWidth,
 } from "assets/jss/material-dashboard-react.jsx";
 
-const footerStyle = {
+const footerStyle = theme => ({
   block: {
     color: "inherit",
     padding: "15px",
+    textTransform: "uppercase",
+    borderRadius: "3px",
+    textDecoration: "none",
+    position: "relative",
+    display: "block",
+    ...defaultFont,
+    fontWeight: "500",
+    fontSize: "12px"
+  },
+  rightblock: {
+    color: "inherit",
     textTransform: "uppercase",
     borderRadius: "3px",
     textDecoration: "none",
@@ -29,8 +41,12 @@ const footerStyle = {
   },
   footer: {
     bottom: "0",
+    left: drawerWidth,
+    right: 0,
+    position: 'fixed',
     borderTop: "1px solid #e7e7e7",
     padding: "15px 0",
+    background: theme.palette.background.paper,
     ...defaultFont
   },
   container,
@@ -48,6 +64,12 @@ const footerStyle = {
     display: "inline-block",
     paddingTop: "0px",
     width: "auto"
+  },
+  '@media(max-width: 960px)': {
+    footer: {
+      left: 0,
+      right: 0
+    }
   }
-};
+});
 export default footerStyle;

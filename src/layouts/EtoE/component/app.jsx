@@ -123,8 +123,12 @@ class App extends React.Component {
             <div className={classes.container}>{switchRoutes}</div>
           </div>
           }
-          <Footer />
-          <button onClick={this.handleDialogToggle}>Dialog</button>
+          <Footer
+            version="0.0.1"
+          />
+          {
+            //<button onClick={this.handleDialogToggle}>Dialog</button>
+          }
         </div>
 
       <Web3LoaderDialog />
