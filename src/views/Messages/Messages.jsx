@@ -2,6 +2,8 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Hidden from '@material-ui/core/Hidden'
+import Drafts from '@material-ui/icons/Drafts'
+import Sync from '@material-ui/icons/Sync'
 // core components
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
@@ -13,6 +15,42 @@ import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx'
 const MessagesPage = (props) => {
   const { classes, messages, messageStatus } = props;
 
+  let content;
+
+  switch(messageStatus) {
+    case "UNINITIALISED":
+      content = (
+        <div className={classes.emptyBody}>
+          <div className={classes.placeholderInner}>
+            <Drafts
+              style={{fontSize: 70}}
+            />
+            <p> You have no messages... </p>
+          </div>
+        </div>
+      )
+      break
+    case "PENDING":
+      content = (
+        <div className={classes.emptyBody}>
+          <div className={classes.placeholderInner}>
+            <Sync
+              style={{fontSize: 70}}
+              className={classes.syncIcon}
+            />
+            <p> Loading Messages... </p>
+          </div>
+        </div>
+      )
+      break
+    case "SUCCESS":
+      content = (
+      <MessageList
+        messages={messages}
+      />
+      )
+  }
+
   return (
     <div>
       <Hidden xsDown>
@@ -21,25 +59,13 @@ const MessagesPage = (props) => {
           <h4 className={classes.cardTitleWhite}>Messages</h4>
         </CardHeader>
         <CardBody >
-          { messageStatus === "UNINITIALISED" && 
-            <p>You have no messages...</p> // TODO: Make this pretty
-          }
-          { messageStatus === "PENDING" && 
-            <p>Loading Messages...</p> // TODO: Make this pretty
-          }
-          { messageStatus === "SUCCESS" && 
-            <MessageList
-              messages={messages}
-            />
-          }
+          { content }
         </CardBody>
       </Card>
     </Hidden>
     <Hidden smUp>
           <div className={classes.smallBody}>
-            <MessageList
-              messages={messages}
-            />
+            {content}
           </div>
     </Hidden>
   </div>
