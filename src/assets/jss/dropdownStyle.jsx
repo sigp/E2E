@@ -81,8 +81,8 @@ const dropdownStyle = theme => ({
         whiteSpace: 'nowrap',
         height: "unset",
         '&:hover': {
-            backgroundColor: primaryColor,
-            color: '#FFFFFF',
+            backgroundColor: theme.palette.primary[300],
+            color: theme.palette.text.primary,
             ...primaryBoxShadow,
         }
     },
