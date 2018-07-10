@@ -26,6 +26,18 @@ const MessageList = ({ ...props}) => {
 
   const { classes, messages } = props
 
+  let getColour = (str) => {
+    str = str.substr(2)
+    let h = 0;
+    for (var i = 0; i < str.length; i++) {
+      h = str.charCodeAt(i) + ((h << 5) - h)
+    }
+    const c = (h & 0x00FFFFFF).toString(16).toUpperCase()
+
+    return "000000".substring(0, 6-c.length) + c
+  }
+
+
   let renderedList = (
       messages.map((value, key) => {
         let topLine = (
@@ -39,7 +51,11 @@ const MessageList = ({ ...props}) => {
         )
 
         return (
-            <ListItem key={key} button divider={true} className={classes.listItem}>
+            <ListItem key={key} button divider={true} className={classes.listItem}
+                style={{
+                    borderLeft: `4px solid #${getColour(value.recipientAddress)}`
+                  }}
+              >
               <ListItemAvatar>
                 <Blockies
                   seed={value.senderAddress}
