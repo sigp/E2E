@@ -27,7 +27,7 @@ const Footer = ({ ...props }) => {
             </ListItem>
           </List>
         </div>
-        <p className={classes.right}>
+        <div className={classes.right}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
             <a href="https://github.com/sigp/E2E" className={classes.rightblock}>
@@ -39,7 +39,7 @@ const Footer = ({ ...props }) => {
             </a>
             </ListItem>
           </List>
-        </p>
+        </div>
       </div>
     </footer>
   );
