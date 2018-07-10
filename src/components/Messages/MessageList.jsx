@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider'
 import Forward from '@material-ui/icons/Forward'
 import Add from '@material-ui/icons/Add'
+import Tooltip from '@material-ui/core/Tooltip'
 // import Checkbox from '@material-ui/core/Checkbox';
 // import Avatar from '@material-ui/core/Avatar';
 import Blockies from 'react-blockies'
@@ -52,20 +53,23 @@ const MessageList = ({ ...props}) => {
               <ListItemSecondaryAction>
                   { value.sender === value.senderAddress &&
                   <Hidden smDown>
+                    <Tooltip id='tooltip-add' title='Add Contact'>
                     <IconButton
-                    tooltip="Add Contact"
                     aria-label="Add Contact"
                     >
                         <Add />
                     </IconButton>
+                    </Tooltip>
                   </Hidden>
                   }
+                  <Tooltip id='tooltip-reply' title='Reply'>
                   <IconButton
                     tooltip="Reply"
                     aria-label="Reply"
                   >
                       <Reply />
                   </IconButton>
+                  </Tooltip>
               </ListItemSecondaryAction>
             </ListItem>
         )
