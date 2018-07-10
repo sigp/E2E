@@ -49,9 +49,11 @@ const messageItemStyle = theme =>  ({
         transition: 'all 0.4s linear',
     },
     contentOpen: {
-        boxShadow:
-            `0 7px 2px -12px ${theme.palette.primary[100]}, 0 4px 20px 0 ${theme.palette.shadows},  0 7px 8px -5px ${theme.palette.primary[200]}`,
-        marginBottom: '10px',
+        // width: '100%',
+        // margin: '30px auto',
+        // border: `1px solid rgba(0,0,0,0.1)`,
+        // boxShadow: `0 3px 6px ${theme.palette.primary[100]}, 0 3px 6px ${theme.palette.shadows}`,
+        // marginBottom: '10px',
     },
     contentClosed: {
         maxHeight: '25px',

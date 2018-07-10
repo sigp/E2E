@@ -49,6 +49,7 @@ const MessagesPage = (props) => {
         messages={messages}
       />
       )
+    break
   }
 
   return (

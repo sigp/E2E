@@ -52,6 +52,9 @@ class MessageListItem extends React.Component {
           <section className={classes.messageSender}>
               {sender}
           </section>
+          <section className={classes.messageSender}>
+              {recipientAddress}
+          </section>
           <section className={contentClass}>
               {message}
           </section>
@@ -66,6 +69,7 @@ MessageListItem.propTypes = {
   sender: propTypes.string.isRequired,
   message: propTypes.string.isRequired,
   senderAddress: propTypes.string.isRequired,
+  recipientAddress: propTypes.string,
 //  onClick: propTypes.func.isRequired,
   //TODO future: give etherscan tx url etc.
 }
