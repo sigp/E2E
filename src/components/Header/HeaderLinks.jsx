@@ -57,7 +57,6 @@ class HeaderLinks extends React.Component {
   };
 
   handleNetwork = network => { 
-    console.log(network) 
     this.setState({networkOpen: false});
   };
 
@@ -77,7 +76,7 @@ class HeaderLinks extends React.Component {
             <MenuItem
               key = {key}
               onClick={this.handleNetwork.bind(this,value)}
-              className={classes.dropdownItem}
+              className={classes.networkItem}
             >
               { value }
             </MenuItem>
@@ -93,16 +92,16 @@ class HeaderLinks extends React.Component {
       <div>
         <Manager className={classes.manager}>
           <Target>
-            <Button
+            <Button className={classes.networkButton}
               color={window.innerWidth > 959 ? "transparent" : "white"}
-              disabled={ provider !== 'INFURA' }
+//              disabled={ provider === 'INFURA' }
               aria-label="Network"
               aria-owns={networkOpen ? "menu-list" : null}
               aria-haspopup="true"
               onClick={this.handleNetworkClick}
-              className={classes.buttonLink}
+              //className={classes.buttonLink}
             >
-            Network: { network }
+            { network }
             </Button>
           </Target>
           <Popper

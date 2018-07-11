@@ -8,7 +8,7 @@ import {
 const footerStyle = theme => ({
   block: {
     color: "inherit",
-    padding: "15px",
+    padding: "0px",
     textTransform: "uppercase",
     borderRadius: "3px",
     textDecoration: "none",
@@ -20,7 +20,7 @@ const footerStyle = theme => ({
   },
   rightblock: {
     color: "inherit",
-    textTransform: "uppercase",
+    //textTransform: "uppercase",
     borderRadius: "3px",
     textDecoration: "none",
     position: "relative",
@@ -34,7 +34,7 @@ const footerStyle = theme => ({
     display: "block"
   },
   right: {
-    padding: "15px 0",
+    padding: "0",
     margin: "0",
     fontSize: "14px",
     float: "right!important"
@@ -45,7 +45,7 @@ const footerStyle = theme => ({
     right: 0,
     position: 'fixed',
     borderTop: "1px solid #e7e7e7",
-    padding: "15px 0",
+    padding: "15px 0px 0px",
     background: theme.palette.background.paper,
     ...defaultFont
   },

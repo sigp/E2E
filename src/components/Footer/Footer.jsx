@@ -31,7 +31,7 @@ const Footer = ({ ...props }) => {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
             <a href="https://github.com/sigp/E2E" className={classes.rightblock}>
-              {version}&nbsp;
+              <span>v {version}&nbsp;&nbsp;&nbsp;&nbsp;</span>
               <FontAwesome
                 name="github"
                 size="2x"

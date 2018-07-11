@@ -97,6 +97,16 @@ const headerLinksStyle = theme => ({
       margin: "10px 15px 0",
     },
     display: "inline-block"
+  },
+  networkButton: {
+ //   backgroundColor: theme.palette.primary.main,
+   // color: theme.palette.text.primary,
+    color: theme.palette.primary.main,
+    padding: "11px 20px",
+    borderRadius: "8px",
+    fontSize:"18px",
+    //fontWeight:"bold",
+
   }
 });
 
