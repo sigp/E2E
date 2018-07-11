@@ -44,7 +44,7 @@ const footerStyle = theme => ({
     left: drawerWidth,
     right: 0,
     position: 'fixed',
-    borderTop: "1px solid #ccc",
+    borderTop: "1px solid " + theme.palette.primary.main, // #ccc",
     padding: "15px 0px 0px",
     background: theme.palette.background.paper,
     ...defaultFont

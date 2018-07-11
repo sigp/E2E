@@ -26,7 +26,7 @@ const headerStyle = theme => ({
     transition: "all 150ms ease 0s",
     minHeight: "50px",
     display: "block",
-    borderBottom: "1px solid #ccc",
+    borderBottom: "1px solid " + theme.palette.primary.main //#ccc",
   },
   container: {
     ...container,
