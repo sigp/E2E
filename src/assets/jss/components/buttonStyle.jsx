@@ -8,7 +8,7 @@ import {
   roseColor
 } from "assets/jss/material-dashboard-react.jsx";
 
-const buttonStyle = {
+const buttonStyle = theme => ({
   button: {
     minHeight: "auto",
     minWidth: "auto",
@@ -219,6 +219,9 @@ const buttonStyle = {
     height: "41px",
     minWidth: "41px",
     width: "41px",
+    "&:focus,&:hover": {
+      color: theme.palette.primary.main
+    },
     "& .fab,& .fas,& .far,& .fal,& svg": {
       marginRight: "0px"
     },
@@ -250,6 +253,6 @@ const buttonStyle = {
       }
     }
   }
-};
+});
 
 export default buttonStyle;

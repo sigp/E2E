@@ -70,14 +70,17 @@ const headerLinksStyle = theme => ({
       right: "4px",
       fontSize: "9px",
       background: dangerColor,
-      color: "#FFFFFF",
+      //color: "#FFFFFF",
       minWidth: "16px",
       height: "16px",
       borderRadius: "10px",
       textAlign: "center",
       lineHeight: "16px",
       verticalAlign: "middle",
-      display: "block"
+      display: "block",
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.primary.main,
+      
     },
     [theme.breakpoints.down("sm")]: {
       ...defaultFont,
@@ -99,12 +102,18 @@ const headerLinksStyle = theme => ({
     display: "inline-block"
   },
   networkButton: {
- //   backgroundColor: theme.palette.primary.main,
-   // color: theme.palette.text.primary,
+   
+    /* This...
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.text.primary,
+    */ 
+    // Or this:
     color: theme.palette.primary.main,
+    
     padding: "11px 20px",
     borderRadius: "8px",
-    fontSize:"18px",
+    fontSize:"15px",
+    textTransform: "none",
     //fontWeight:"bold",
 
   }

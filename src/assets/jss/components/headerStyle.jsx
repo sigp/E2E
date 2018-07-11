@@ -21,11 +21,12 @@ const headerStyle = theme => ({
     zIndex: '8',
     color: theme.palette.text.primary, //"#555555",
     border: "0",
-    borderRadius: "3px",
+    //borderRadius: "0",
     padding: "10px 0",
     transition: "all 150ms ease 0s",
     minHeight: "50px",
-    display: "block"
+    display: "block",
+    borderBottom: "1px solid #ccc",
   },
   container: {
     ...container,
