@@ -1,5 +1,8 @@
 // Reducers relating to web3
 
+// import contract details
+import contractDetails from 'utils/contractDetails.js';
+
 import { 
   WEB3_FOUND,
   WEB3_LOADED,
@@ -14,7 +17,8 @@ const initialState = {
   accounts: { status: 'UNKNOWN', value:  [] },
   network: 'UNKNOWN',
   provider: 'UNKNOWN', 
-  contracts: { ROPSTEN: {address: "0xF5D9E79FA73BF0ff34c5EC16Ca4BbC7eee5c69a0", startBlockNumber: '0x36d224' } } 
+  contracts: contractDetails, 
+  contractInstance: undefined
 }
 
 const web3Reducer = (state = initialState, action) => {
@@ -32,10 +36,20 @@ const web3Reducer = (state = initialState, action) => {
       })
 
     case WEB3_UPDATE_ACCOUNTS: 
-      return updateAccountReducer(state, action)
+      return updateAccountReducer(state, action);
 
     case WEB3_UPDATE_NETWORK: 
-      return updateNetworkReducer(state, action)
+      let networkState = updateNetworkReducer(state, action)
+      console.log(networkState)
+      if (networkState.network === state.network || networkState.contracts[networkState.network] === undefined)  
+        return networkState; 
+
+      // update the contract instance
+      let contractAddress = networkState.contracts[networkState.network].address
+      let contractObject = new networkState.web3.eth.Contract(networkState.contracts.contractABI, contractAddress)
+      return Object.assign({}, networkState, {
+        contractInstance: contractObject
+      })
 
     case WEB3_UPDATE_PROVIDER: 
       return Object.assign({}, state,  {

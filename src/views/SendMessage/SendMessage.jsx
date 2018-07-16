@@ -9,17 +9,59 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import Switch from '@material-ui/core/Switch';
 import SendButton from 'containers/Buttons/SendButton.js'
-import TextField from 'components/TextFields/MultiLineText.jsx'
+//import TextField from 'components/TextFields/MultiLineText.jsx'
 import InputField from 'components/InputField/InputField.jsx'
 import GasCounter from 'components/GasCounter/GasCounter.jsx'
+import TextField from '@material-ui/core/TextField';
 // styles
 import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx";
 
 class SendMessagePage extends React.Component {
 
   state = { 
-    encryptToggle: true
+    encryptToggle: true,
+    gasUse: "2100",
+    recipient: '',
+    message: ''
   };
+
+  // update state on-change
+  async handleChange(event) { 
+    await this.setState({[event.target.name]: event.target.value})
+    this.checkGasPrice() 
+  }
+
+  checkGasPrice() { 
+    const { network, contractInstance } = this.props; 
+
+    if (network === undefined || contractInstance.address === null) {
+      this.state.gasUse = "network unavailable"
+      return
+    }
+
+    let recipient = this.state.recipient;
+    if (recipient === '') {
+      //this.setState({gasUse: "no recipient"})
+      recipient = "0x1234567890123456789012345678901234567890"
+      //return
+    };
+     
+    // check the recipient checksum address 
+    if(!this.props.web3.utils.isAddress(recipient)) {
+      this.setState({gasUse: "invalid recipient address"})
+      return
+    }
+
+    contractInstance.methods.send(recipient, this.state.message)
+    .estimateGas({gas:1e6}, (err, gas) => { 
+      if (gas == 1e6){
+        this.setState({gasUse:'revert'});
+      }
+      else
+        this.setState({gasUse: gas});
+    });
+  }
+
 
   handleEncryptToggleChange = () => {
     this.setState({ encryptToggle: !this.state.encryptToggle });
@@ -46,12 +88,21 @@ class SendMessagePage extends React.Component {
             classes={classes}
             title="Recipient"
             id="to-recipient"
+            name="recipient"
+            onChange={this.handleChange.bind(this)}
           />
           </div>
           <div>
           <TextField
-            classes={classes}
-            title="Message"
+            id="multiline-static"
+            label="Message"
+            multiline
+            rows="10"
+            defaultValue=""
+            className={classes.textField}
+            margin="normal"
+            name="message"
+            onChange={this.handleChange.bind(this)}
           />
           </div>
           <section>
@@ -60,6 +111,7 @@ class SendMessagePage extends React.Component {
             <GasCounter
               classes={classes}
               id="gas-counter"
+              gas={this.state.gasUse} 
             />
           </div>
           <div className={classes.actionContainers}>

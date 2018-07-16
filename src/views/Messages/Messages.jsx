@@ -8,7 +8,6 @@ import Sync from '@material-ui/icons/Sync'
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import TextField from "components/TextFields/MultiLineText.jsx"
 import MessageList from 'components/Messages/MessageList.jsx'
 import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx'
 
