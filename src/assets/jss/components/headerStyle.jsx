@@ -11,7 +11,7 @@ import {
 
 const headerStyle = theme => ({
   appBar: {
-    backgroundColor: theme.palette.primary[500], //"#c9eaee",
+    backgroundColor: "#444" ,//theme.palette.primary[500], //"#c9eaee",
     boxShadow: "none",
     borderBottom: "0",
     marginBottom: "0",
@@ -21,11 +21,12 @@ const headerStyle = theme => ({
     zIndex: '8',
     color: theme.palette.text.primary, //"#555555",
     border: "0",
-    borderRadius: "3px",
+    //borderRadius: "0",
     padding: "10px 0",
     transition: "all 150ms ease 0s",
     minHeight: "50px",
-    display: "block"
+    display: "block",
+    borderBottom: "1px solid " + theme.palette.primary.main //#ccc",
   },
   container: {
     ...container,

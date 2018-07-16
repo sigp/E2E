@@ -13,7 +13,13 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const themes = { 
   MAINNET: createMuiTheme({
   palette: {
-    primary: blue,
+    
+    background: { 
+      default:  '#0d0d0d',
+      paper: '#333'
+    },
+    
+    primary: blue, //{ main: '#0d5a7f'},
     secondary: indigo,
     error: red,
     contrastThreshold: 3,
@@ -21,36 +27,56 @@ const themes = {
     shadows: 'rgba(255,255,255,0.12)',
     type: "dark",
   },}), 
+  // material-ui background { default: "#303030", paper: '#424242' }
   ROPSTEN: createMuiTheme({
   palette: {
-    primary: red,
+    background: { 
+      default:  '#0c0c0c',
+      paper: '#333'
+    },
+    primary: {main: '#851337'}, //'#fff' },
     secondary: indigo,
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
     shadows: 'rgba(0,0,0,0.12)',
+    type: "light"
   },}), 
   KOVAN: createMuiTheme({
   palette: {
-    primary: green,
+    background: { 
+      default:  '#0c0c0c',
+      paper: '#333'
+    },
+    primary: {main: '#5f144b'} ,
     secondary: indigo,
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
     shadows: 'rgba(0,0,0,0.12)',
+    type: "dark"
   },}), 
   RINKEBY: createMuiTheme({
   palette: {
-    primary: indigo,
+    background: { 
+      default:  '#0c0c0c',
+      paper: '#333'
+    },
+    primary: {main: '#267b6f'}, //'#fff' },
     secondary: indigo,
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
     shadows: 'rgba(0,0,0,0.12)',
+    type: "dark"
   },}), 
   UNKNOWN: createMuiTheme({
   palette: {
-    primary: yellow,
+    background: { 
+      default:  '#0c0c0c',
+      paper: '#333'
+    },
+    primary: {main: '#267b6f'}, //'#fff' },
     secondary: indigo,
     error: red,
     contrastThreshold: 3,
