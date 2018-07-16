@@ -18,8 +18,10 @@ import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "components/Custom/CustomInput.jsx";
 import Button from "components/Custom/Button.jsx";
+import Blockies from 'react-blockies'
 
 import headerLinksStyle from "assets/jss/components/headerLinksStyle";
+
 
 class HeaderLinks extends React.Component {
 
@@ -182,7 +184,7 @@ class HeaderLinks extends React.Component {
                       onClick={this.handleNotificationClose}
                       className={classes.dropdownItem}
                     >
-                      You're now friend with Andrew
+                      Youre now friend with Andrew
                     </MenuItem>
                     <MenuItem
                       onClick={this.handleNotificationClose}
@@ -212,7 +214,19 @@ class HeaderLinks extends React.Component {
               className={classes.buttonLink}
               onClick={this.handleAccountClick}
             >
-              <Person className={classes.icons} />
+              { accounts.status === "PENDING" &&
+              <Person className={classes.icons} /> }
+              { accounts.status === "FAILURE" &&
+              <Person className={classes.icons} /> }
+              { accounts.status === "SUCCESS" && accounts.value.length > 0 &&
+              <div className={classes.identiconHolder}>
+                <Blockies
+                  seed={accounts.value[0].toLowerCase()}
+                  size={8}
+                  scale={6}
+                />
+              </div>
+              }
               <Hidden mdUp>
                 <p className={classes.linkText}>Profile</p>
               </Hidden>

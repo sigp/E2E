@@ -116,6 +116,15 @@ const headerLinksStyle = theme => ({
     textTransform: "none",
     //fontWeight:"bold",
 
+  },
+  identiconHolder: {
+    width: '17px',
+    height: '17px',
+
+    '& > canvas': {
+      height: '17px !important',
+      width: '17px !important',
+    }
   }
 });
 
