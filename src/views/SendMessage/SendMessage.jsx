@@ -85,7 +85,6 @@ class SendMessagePage extends React.Component {
         <form className={classes.container} noValidate autoComplete="off">
           <div>
           <InputField
-            classes={classes}
             title="Recipient"
             id="to-recipient"
             name="recipient"

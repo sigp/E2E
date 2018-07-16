@@ -8,7 +8,7 @@ const mapStateToProps = state => {
     messages : state.messages.messages,
     network: state.web3.contracts[state.web3.network],
     contractInstance: state.web3.contractInstance,
-    web3: state.web3.web3
+    web3: state.web3.web3,
   } 
 }; 
 
