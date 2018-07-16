@@ -7,6 +7,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Hidden from '@material-ui/core/Hidden'
 // styles
 import contactStyle from 'assets/jss/components/contactStyle.jsx'
+import ethlogo from 'assets/img/ethlogo.png'
+import Typography from '@material-ui/core/Typography';
 
 const Contact = ({...props}) => {
   const { classes, contactName, address, pubkey } = props
@@ -21,9 +23,18 @@ const Contact = ({...props}) => {
               />
             </section>
           </section>
-          <section className={classes.contactName}>{contactName}</section>
+          <section className={classes.contactName}>
+              <Typography variant="headline">
+                  {contactName}
+              </Typography>
+          </section>
           <Hidden xsDown>
-          <section className={classes.contactAddr}>{address}</section>
+          <section className={classes.bottomRow}>
+            <section className={classes.ethlogo} 
+                style={{ backgroundImage: "url(" + ethlogo + ")" }}>
+            </section>
+            <section className={classes.contactAddr}>{address}</section>
+          </section>
           </Hidden>
       </section>
   )

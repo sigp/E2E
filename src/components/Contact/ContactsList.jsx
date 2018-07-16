@@ -5,6 +5,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import Contact from 'components/Contact/Contact.jsx'
+import ContactListStyles from 'assets/jss/components/contactListStyles.jsx'
 
 const ContactList = ({...props}) => {
   const { classes, contacts } = props
@@ -19,9 +20,13 @@ const ContactList = ({...props}) => {
       )
     })
   )
+
   return (
-    <div>
-      {contactItems}
+    <div className={classes.wrapper}>
+    {
+      contacts.length > 0 &&
+      contactItems
+    }
     </div>
   )
 }
@@ -31,4 +36,4 @@ ContactList.propTypes = {
   contacts: PropTypes.array.isRequired,
 }
 
-export default withStyles()(ContactList)
+export default withStyles(ContactListStyles)(ContactList)
