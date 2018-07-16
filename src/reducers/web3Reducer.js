@@ -14,7 +14,10 @@ import {
 const initialState = {
   web3Found: false, 
   web3:   undefined,
-  accounts: { status: 'UNKNOWN', value:  [] },
+  accounts: { 
+    status: 'UNKNOWN', 
+    value:  [],
+    active: '' },
   network: 'UNKNOWN',
   provider: 'UNKNOWN', 
   contracts: contractDetails, 
@@ -70,7 +73,10 @@ const updateAccountReducer = (state, action) => {
     case 'SUCCESS': 
       if (action.value.length > 0)
         return Object.assign({}, state,  {
-          accounts : {status: 'SUCCESS', value: action.value}
+          accounts : {status: 'SUCCESS',
+                      value: action.value,
+                      active: action.value[0]
+          }
       })
       else 
         return Object.assign({}, state,  {

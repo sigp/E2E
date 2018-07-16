@@ -8,7 +8,7 @@ import Icon from '@material-ui/core/Icon'
 import Hidden from '@material-ui/core/Hidden'
 
 const SendButton = (props) => {
-  const { classes, sendMessageHandler } = props;
+  const { classes, onClick } = props;
   let smallStyle = classNames({
     [classes.button]: true,
     "sm": true,
@@ -16,13 +16,13 @@ const SendButton = (props) => {
   return (
       <span>
       <Hidden mdUp>
-        <Button variant="contained" color="primary" className={smallStyle} onClick={() => sendMessageHandler("test")}>
+        <Button variant="contained" color="primary" className={smallStyle} onClick={onClick}>
           Send
           <Icon className={classes.rightIcon}>send</Icon>
         </Button>
       </Hidden>
       <Hidden smDown>
-        <Button variant="contained" color="primary" className={classes.button} onClick={() => sendMessageHandler("test")}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={onClick}>
           Send
           <Icon className={classes.rightIcon}>send</Icon>
         </Button>

@@ -8,8 +8,7 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import Switch from '@material-ui/core/Switch';
-import SendButton from 'containers/Buttons/SendButton.js'
-//import TextField from 'components/TextFields/MultiLineText.jsx'
+import SendButton from 'components/Buttons/SendButton.jsx'
 import InputField from 'components/InputField/InputField.jsx'
 import GasCounter from 'components/GasCounter/GasCounter.jsx'
 import TextField from '@material-ui/core/TextField';
@@ -20,7 +19,7 @@ class SendMessagePage extends React.Component {
 
   state = { 
     encryptToggle: true,
-    gasUse: "2100",
+    gasUse: "51000",
     recipient: '',
     message: ''
   };
@@ -32,7 +31,7 @@ class SendMessagePage extends React.Component {
   }
 
   checkGasPrice() { 
-    const { network, contractInstance } = this.props; 
+    const { network, contractInstance, account } = this.props; 
 
     if (network === undefined || contractInstance.address === null) {
       this.state.gasUse = "network unavailable"
@@ -53,7 +52,7 @@ class SendMessagePage extends React.Component {
     }
 
     contractInstance.methods.send(recipient, this.state.message)
-    .estimateGas({gas:1e6}, (err, gas) => { 
+    .estimateGas({from: account, gas:1e6}, (err, gas) => { 
       if (gas == 1e6){
         this.setState({gasUse:'revert'});
       }
@@ -62,6 +61,25 @@ class SendMessagePage extends React.Component {
     });
   }
 
+  // creates the sendMessage action
+  sendMessage() { 
+    const { network, contractInstance, account } = this.props; 
+    // ensure the recpient address is correct
+    if(!this.props.web3.utils.isAddress(this.state.recipient)) {
+      alert("Incorrect Address") 
+      return
+    }
+
+    // ensure the contract is known for this network
+    if (network === undefined || contractInstance.address === null) {
+      alert("network unavailable");
+      return
+    }
+
+    let recipient = this.state.recipient;
+    let message = this.state.message; 
+    this.props.sendMessage(contractInstance, recipient, message, account);
+  }
 
   handleEncryptToggleChange = () => {
     this.setState({ encryptToggle: !this.state.encryptToggle });
@@ -123,6 +141,7 @@ class SendMessagePage extends React.Component {
             </span>
             <SendButton
               classes={classes}
+              onClick={this.sendMessage.bind(this)}
              />
           </div>
           </Hidden>
@@ -137,11 +156,12 @@ class SendMessagePage extends React.Component {
             <Switch 
               color="primary"
               checked={this.state.encryptToggle}
-              onChange={this.handleChange}
+              onChange={this.handleEncryptToggleChange}
             />
             </span>
             <SendButton
               classes={classes}
+              onClick={this.sendMessage.bind(this)}
              />
           </Hidden>
           </section>
