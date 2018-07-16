@@ -41,11 +41,12 @@ const footerStyle = theme => ({
   },
   footer: {
     bottom: "0",
-    left: drawerWidth,
+    left: 0,
     right: 0,
     position: 'fixed',
     borderTop: "1px solid " + theme.palette.primary.main, // #ccc",
     padding: "15px 0px 0px",
+    zIndex: 999,
     background: theme.palette.background.paper,
     ...defaultFont
   },

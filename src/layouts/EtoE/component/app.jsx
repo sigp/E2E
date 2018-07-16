@@ -16,7 +16,7 @@ import Web3LoaderDialog from 'containers/Dialogs/Web3LoaderDialog.jsx'
 import eToERoutes from "routes/e2e.jsx";
 import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
 
-import image from "assets/img/sidebar-2.jpg";
+import image from "assets/img/Ethereum-homestead-background-26.jpg";
 import logo from "assets/img/reactlogo.png";
 import 'assets/css/global.css';
 

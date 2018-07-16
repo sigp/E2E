@@ -98,7 +98,7 @@ const sidebarStyle = theme => ({
     top: "0",
     left: "0",
     backgroundSize: "cover",
-    backgroundPosition: "center center",
+    backgroundPosition: "calc(50% - 134px) center",//"center center",
     "&:after": {
       position: "absolute",
       zIndex: "3",
