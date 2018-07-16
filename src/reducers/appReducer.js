@@ -34,13 +34,13 @@ const themes = {
       default:  '#0c0c0c',
       paper: '#333'
     },
-    primary: {main: '#851337'}, //'#fff' },
+    primary: {main: '#d32f2f'}, //'#fff' },
     secondary: indigo,
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
     shadows: 'rgba(0,0,0,0.12)',
-    type: "light"
+    type: "dark"
   },}), 
   KOVAN: createMuiTheme({
   palette: {
