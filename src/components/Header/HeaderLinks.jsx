@@ -15,6 +15,7 @@ import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
+import Add from "@material-ui/icons/Add"
 // core components
 import CustomInput from "components/Custom/CustomInput.jsx";
 import Button from "components/Custom/Button.jsx";
@@ -90,6 +91,14 @@ class HeaderLinks extends React.Component {
   render() {
     const { classes, accounts, network, provider } = this.props;
     const { notificationOpen, accountOpen, networkOpen } = this.state;
+
+
+    // TODO @ Age - pass currentAccount
+    let currentAccount;
+    if (accounts.status === "SUCCESS" && accounts.value.length > 0 ) {
+      currentAccount = accounts.value[0].toLowerCase()
+    }
+
     return (
       <div>
         <Manager className={classes.manager}>
@@ -211,7 +220,11 @@ class HeaderLinks extends React.Component {
               justIcon={window.innerWidth > 959}
               simple={!(window.innerWidth > 959)}
               aria-label="Person"
-              className={classes.buttonLink}
+              className={classNames({
+                  [classes.buttonLink]: true,
+                  [classes.menuIdenticonContainer]: true,
+              })}
+              // classNames={classes.buttonLink}
               onClick={this.handleAccountClick}
             >
               { accounts.status === "PENDING" &&
@@ -257,22 +270,57 @@ class HeaderLinks extends React.Component {
                       <p> No Accounts Loaded Yet </p> }
                     { accounts.status === "SUCCESS" && accounts.value.length > 0 &&
                       accounts.value.map((value, key) => {
+                        // TODO uncomment
+                        // if(value !== currentAccount)
+                        if (value.toLowerCase() === currentAccount) {
+                          return (
+                            <MenuItem
+                              button={false}
+                              key={key}
+                              className={classes.currentAccount}
+                            >
+                            <section className={classes.currentAccIdenticon}>
+                              <Blockies
+                                seed={value.toLowerCase()}
+                                size={8}
+                                scale={6}
+                              />
+                            </section>
+                            <section className={classes.currentAccAddress}>
+                              {value}
+                            </section>
+                            </MenuItem>
+                          )
+                        }
                         return (
                           <MenuItem
                             key={key}
                             onClick={this.handleAccountClose}
                             className={classes.dropdownItem}
                           >
-                          Account: {key},{value}
+                          <section className={classes.menuIdenticon}>
+                            <Blockies
+                              seed={value.toLowerCase()}
+                              size={8}
+                              scale={6}
+                            />
+                          </section>
+                          <section className={classes.menuItemAddress}>
+                            {value}
+                          </section>
                           </MenuItem>
-                        )})
+                        )
+                      })
                    }
-                        <MenuItem
-                          onClick={this.handleAccountClose}
-                          className={classes.dropdownItem}
-                        >
-                          Change Web3 Provider 
-                        </MenuItem>
+                    <MenuItem
+                        // TODO
+                        onClick={this.handleAccountClose}
+                        className={classes.addAccountContainer}
+                    >
+                    <section className={classes.addAccount}>
+                        <Add />
+                    </section>
+                    </MenuItem>
                   </MenuList>
                 </Paper>
               </Grow>

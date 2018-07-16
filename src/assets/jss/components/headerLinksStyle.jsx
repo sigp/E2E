@@ -118,14 +118,58 @@ const headerLinksStyle = theme => ({
 
   },
   identiconHolder: {
-    width: '17px',
-    height: '17px',
+    width: '25px',
+    height: '25px',
+    borderRadius: '50%',
+    overflow: 'hidden',
+    fontSize: 'initial',
 
     '& > canvas': {
-      height: '17px !important',
-      width: '17px !important',
+      height: '25px !important',
+      width: '25px !important',
     }
-  }
+  },
+  menuIdenticonContainer: {
+    boxSizing: 'content-box !important',
+    padding: '0px 10px',
+  },
+    currentAccount: {
+      height: 'auto',
+      background: '#5d5d5d',
+      borderBottom: `1px solid ${theme.palette.text.primary}`,
+      '&:hover': {
+        cursor: 'unset',
+        backgroundColor: '#5d5d5d',
+        background: '#5d5d5d',
+      }
+    },
+    currentAccIdenticon: {
+      width: '48px',
+      height: '48px',
+      borderRadius: '50%',
+      overflow: 'hidden',
+      margin: '0px 10px 0px 0px',
+    },
+    currentAccAddress: {
+
+    },
+    addAccountContainer: {
+      height: 'auto',
+      boxSizing: 'content-box',
+      padding: '12px 0px 10px',
+      background: '#333',
+      color: '#ccc',
+    },
+    addAccount: {
+      display: 'block',
+      margin: '0 auto',
+      padding: '2px',
+      border: '1px dashed #888',
+      borderRadius: '50%',
+      height: '26px',
+      width: '26px',
+      textAlign: 'center',
+    },
 });
 
 export default headerLinksStyle;

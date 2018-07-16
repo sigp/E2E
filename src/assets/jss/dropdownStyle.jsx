@@ -53,38 +53,59 @@ const dropdownStyle = theme => ({
         top: '100%',
         zIndex: '1000',
         minWidth: '160px',
-        padding: '5px 0',
-        margin: '2px 0 0',
+        padding: '0 0 5px 0',
+        margin: '0',
         fontSize: '14px',
         textAlign: 'left',
         listStyle: 'none',
-        backgroundColor: '#fff',
+        backgroundColor: theme.palette.background.paper,
         WebkitBackgroundClip: 'padding-box',
         backgroundClip: 'padding-box',
+
+        '& > ul': {
+          padding: '0',
+        }
     },
     dropdownItem: {
         ...defaultFont,
         fontSize: '13px',
         padding: '10px 20px',
-        margin: '0 5px',
+        margin: '0',
         borderRadius: '2px',
         WebkitTransition: 'all 150ms linear',
         MozTransition: 'all 150ms linear',
         OTransition: 'all 150ms linear',
         MsTransition: 'all 150ms linear',
         transition: 'all 150ms linear',
-        display: 'block',
+        //display: 'table',
+        tableLayout: 'fixed',
         clear: 'both',
         fontWeight: '400',
         lineHeight: '1.42857143',
-        color: '#333',
+        color: theme.palette.text.primary,
         whiteSpace: 'nowrap',
         height: "unset",
-        '&:hover': {
-            backgroundColor: theme.palette.primary[300],
-            color: theme.palette.text.primary,
-            ...primaryBoxShadow,
-        }
+        margin: '0px 5px',
+        // '&:hover': {
+        //     backgroundColor: theme.palette.primary[300],
+        //     color: theme.palette.text.primary,
+        //     ...primaryBoxShadow,
+        // }
+    },
+    menuIdenticon: {
+      width: '25px',
+      height: '25px',
+      borderRadius: '50%',
+      overflow: 'hidden',
+      margin: '0px 10px 0px 0px',
+      '& > canvas': {
+        width: '25px !important',
+        height: '25px !important',
+      }
+    },
+    menuItemAddress: {
+      display: 'table-cell',
+      verticalAlign: 'middle',
     },
 });
 
