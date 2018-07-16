@@ -19,7 +19,7 @@ const GasCounter = (props) => {
 
 GasCounter.propTypes = {
   classes: PropTypes.object.isRequired,
-  id: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default GasCounter

@@ -17,7 +17,7 @@ class InputField extends React.Component {
   render() {
     const { classes, title, id, name, onChange} = this.props;
     return (
-      <FormControl className={classes.inputFieldContainer}>
+      <FormControl>
         <InputLabel htmlFor={id}>
           { title }
         </InputLabel>
