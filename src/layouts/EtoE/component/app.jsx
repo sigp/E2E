@@ -12,6 +12,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import ContactDialog from 'components/Dialogs/ContactDialog.jsx'
 import Web3LoaderDialog from 'containers/Dialogs/Web3LoaderDialog.jsx'
+import NotificationSlider from 'components/NotificationSlider/NotificationSlider.jsx'
 
 import eToERoutes from "routes/e2e.jsx";
 import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
@@ -65,8 +66,23 @@ class App extends React.Component {
     }
   }
   render() {
-    const { classes, accounts, ...rest } = this.props;
+    const { classes, accounts, messages, ...rest } = this.props;
 // width: 48px; height: 48px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 1px 6px #e8e8e8
+
+    // Notifications
+    let txNotifications = (
+        (Object.keys(messages)).map((value, key) => {
+          return (
+            <NotificationSlider
+              //status="PENDING"
+              //status="AWAITING"
+              status={messages[value].status}
+              order={key}
+            />
+          )
+        })
+    )
+
     let testHeaderSection = {
         'display': 'flex',
         'alignItems': 'center',
@@ -143,6 +159,10 @@ class App extends React.Component {
             pubkey='0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
         />
       </ContactDialog>
+      <section className={classes.notificationDrawer}>
+        {txNotifications}
+        <div className={classes.clear}></div>
+      </section>
       {
       /*
        *  Test Loader if needed

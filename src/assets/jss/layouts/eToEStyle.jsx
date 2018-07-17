@@ -36,7 +36,20 @@ const appStyle = theme => ({
   container,
   map: {
     marginTop: '70px'
-  }
+  },
+  notificationDrawer: {
+    width: '100%',
+    overflow: 'hidden',
+    position: 'fixed',
+    zIndex: '999',
+    height: '200px',
+    bottom: '0px',
+    direction: 'rtl',
+    textAlign: 'right',
+  },
+  clear: {
+    clear: 'both',
+  },
 });
 
 export default appStyle;

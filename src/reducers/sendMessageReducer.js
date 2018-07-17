@@ -16,18 +16,20 @@ const sendMessageReducer = (state = initialState, action) => {
       switch (action.status) {       
         case 'HASH':
           return Object.assign({}, state,  {
-            sentMessages: { [action.value.hash]: {
-              status:  'PENDING',
+            sentMessages: { ...state.sentMessages,
+              [action.value.hash]: {
+              status:  'AWAITING',
               message: action.value.message,
               receipt: '',
               recipient: action.value.recipient
-              }
+              },
             },
             status: 'AWAITING'
           })
         case 'RECEIPT':
           return Object.assign({}, state,  {
-            sentMessages: { [action.value.hash]: {
+            sentMessages: { ...state.sentMessages,
+              [action.value.hash]: {
               receipt: action.value.receipt,
               status: 'CONFIRMED'
               }
