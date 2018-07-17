@@ -333,15 +333,6 @@ class HeaderLinks extends React.Component {
                         )
                       })
                    }
-                    <MenuItem
-                        // TODO
-                        onClick={this.handleAccountClose}
-                        className={classes.addAccountContainer}
-                    >
-                    <section className={classes.addAccount}>
-                        <Add />
-                    </section>
-                    </MenuItem>
                   </MenuList>
                 </Paper>
               </Grow>
