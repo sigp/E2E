@@ -67,25 +67,29 @@ const MessageList = ({ ...props}) => {
                 secondary={value.message}
               />
               <ListItemSecondaryAction>
-                  { value.sender === value.senderAddress &&
-                  <Hidden smDown>
-                    <Tooltip id='tooltip-add' title='Add Contact'>
+                  {
+                  // @NOTE: TOOLTIP removed until paging implemented
+                  //value.sender === value.senderAddress &&
+                  // <Hidden smDown>
+                    // <Tooltip id='tooltip-add' title='Add Contact'>
                     <IconButton
                     aria-label="Add Contact"
                     >
                         <Add />
                     </IconButton>
-                    </Tooltip>
-                  </Hidden>
+                    // </Tooltip>
+                  // </Hidden>
                   }
-                  <Tooltip id='tooltip-reply' title='Reply'>
+                  {
+                  // <Tooltip id='tooltip-reply' title='Reply'>
                   <IconButton
                     tooltip="Reply"
                     aria-label="Reply"
                   >
                       <Reply />
                   </IconButton>
-                  </Tooltip>
+                  // </Tooltip>
+                  }
               </ListItemSecondaryAction>
             </ListItem>
         )

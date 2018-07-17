@@ -22,7 +22,7 @@ export function retrieveMessages (web3, accounts, contractInfo) {
         topics: ['0xb3dbe9e9894ca2c11cb6c80bd0b0bccb9f5b41d612dbeeda0d5474de40b874fe', addressTo32Bytes(accounts[0]), null]
       })
      .then(
-       messages => dispatch({type: RETRIEVE_MESSAGES, status: 'SUCCESS', value:  messages}),
+       messages => dispatch({type: RETRIEVE_MESSAGES, status: 'SUCCESS', value:  messages.reverse()}),
        err => {dispatch({type: RETRIEVE_MESSAGES, status: 'FAIL', value: err}) }
      )
   }
