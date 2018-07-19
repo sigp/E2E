@@ -227,9 +227,7 @@ class HeaderLinks extends React.Component {
               // classNames={classes.buttonLink}
               onClick={this.handleAccountClick}
             >
-              { accounts.status === "PENDING" &&
-              <Person className={classes.icons} /> }
-              { accounts.status === "FAILURE" &&
+              { ["PENDING", "UNKNOWN", "FAILURE"].indexOf(accounts.status) >= 0  &&
               <Person className={classes.icons} /> }
               { accounts.status === "SUCCESS" && accounts.value.length > 0 &&
               <div className={classes.identiconHolder}>
