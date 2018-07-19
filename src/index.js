@@ -7,7 +7,6 @@ import { Router, Route, Switch } from "react-router-dom";
 import indexRoutes from "./routes/index.jsx";
 import configureStore from 'store/configureStore';
 import E2EThemeProvider from 'containers/Themes/ThemeProviderWrapper';
-import { encryptToggle } from "actions/sendMessageActions.js";
 import { WEB3_FOUND, WEB3_LOADED, WEB3_UPDATE_PROVIDER, updateAccounts, updateNetwork } from 'actions/web3Actions.js';
 import { retrieveMessages } from 'actions/messageActions.js';
 
@@ -38,9 +37,9 @@ export function updateMessages() {
   let curState = store.getState();
   let web3Data = curState.web3;
   if (web3Data.accounts.status === 'SUCCESS') { 
-    if (curState.messages.status === 'UNINITIALISED' && web3Data.contracts[web3Data.network] !== undefined && web3Data.accounts.value.length > 0) {
+    if (curState.messages.status === 'UNINITIALISED' && web3Data.contracts[web3Data.network] !== undefined && web3Data.accounts.active !== '' && web3Data.contractInstance._address !== undefined) {
       unsubscribe();
-      store.dispatch(retrieveMessages(web3Data.web3, web3Data.accounts.value, web3Data.contracts[web3Data.network]));
+      store.dispatch(retrieveMessages(web3Data.web3, web3Data.accounts.active, web3Data.contracts[web3Data.network], web3Data.contractInstance));
     }
   }
 }

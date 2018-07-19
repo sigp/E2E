@@ -1,7 +1,8 @@
 // Reducers relating to messages
 
 import { 
-  RETRIEVE_MESSAGES
+  RETRIEVE_MESSAGES,
+  UNREAD_MESSAGES
 } from 'actions/messageActions';
 
 import {bytesToAddress} from "utils/ethereum-helpers.js";
@@ -12,7 +13,9 @@ var web3 = new Web3(); //decoding strings
 
 const initialState = {
   status: 'UNINITIALISED',
-  messages: []
+  messages: [],
+  unreadMsgStatus: 'UNINTIALISED',
+  unreadMsgs: 0
 }
 
 const messageReducer = (state = initialState, action) => {
@@ -24,7 +27,6 @@ const messageReducer = (state = initialState, action) => {
           return Object.assign({}, state, { status: 'FAIL' })
         case 'SUCCESS': 
           let messageObject = processMessageLog(action.value);
-          console.log(messageObject);
           return Object.assign({}, state, { 
             status: 'SUCCESS', 
             messages : messageObject 
@@ -33,6 +35,20 @@ const messageReducer = (state = initialState, action) => {
         default:
           return Object.assign({}, state, { status: 'PENDING' })
       }
+
+    case UNREAD_MESSAGES: 
+      switch (action.status) { 
+        case 'FAIL': 
+          return Object.assign({}, state, { unreadMsgStatus: 'FAIL' })
+        case 'SUCCESS': 
+          return Object.assign({}, state, { 
+            unreadMsgStatus: 'SUCCESS', 
+            unreadMsgs: action.value
+          })
+         default: 
+          return Object.assign({}, state, { unreadMsgStatus: 'PENDING' })
+      }
+
     default:
       return state;
   }

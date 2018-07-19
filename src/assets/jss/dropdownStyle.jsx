@@ -48,7 +48,7 @@ const dropdownStyle = theme => ({
     },
     dropdown: {
         borderRadius: '3px',
-        border: '0',
+        // border: '1px solid ' + theme.palette.primary.main,
         boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.26)',
         top: '100%',
         zIndex: '1000',

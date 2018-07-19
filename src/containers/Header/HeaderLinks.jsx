@@ -5,7 +5,9 @@ const mapStateToProps = state => {
   return {
     accounts: state.web3.accounts,
     network: state.web3.network,
-    provider: state.web3.provider
+    provider: state.web3.provider,
+    unreadMessages: state.messages.unreadMsgs,
+    messages: state.messages.messages
   } 
 }; 
 

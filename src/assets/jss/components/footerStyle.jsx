@@ -20,7 +20,6 @@ const footerStyle = theme => ({
   },
   rightblock: {
     color: "inherit",
-    //textTransform: "uppercase",
     borderRadius: "3px",
     textDecoration: "none",
     position: "relative",

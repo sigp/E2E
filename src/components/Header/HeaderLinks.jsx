@@ -71,7 +71,6 @@ class HeaderLinks extends React.Component {
   ]
   // set default network lists
   renderNetworkList() { 
-
     const { classes, network }  = this.props;
     return this.infuraAvailableNetworks.map((value,key) => {
       if (network !== value){
@@ -88,16 +87,67 @@ class HeaderLinks extends React.Component {
     })
   }
 
+  // build the notifcation list
+  notificationList() { 
+    const { classes, unreadMessages, messages } = this.props; 
+    if (unreadMessages === 0) {
+      return (
+        <MenuItem
+          button={false}
+          className={classes.dropdownItem}
+        >
+        No unread Messages
+        </MenuItem>
+      )}
+    else { 
+      let menulist = []; 
+      menulist.push( 
+        <MenuItem
+          button={false}
+          className={classes.dropdownItem}
+          key={0}
+        >
+        Unread Messages
+        </MenuItem>
+      )
+      for(var i =0; i < messages.length && i < 5;i++) { 
+        menulist.push(
+        <MenuItem
+          className={classes.dropdownItem}
+          key={i+1}
+        >
+          {messages[i].sender} 
+        </MenuItem>
+        )
+      }
+      if (i === 5) {
+        menulist.push(
+        <MenuItem
+          key={6}
+          className={classes.dropdownItem}
+        >
+        ...
+        </MenuItem>
+        )}
+      menulist.push( 
+        <MenuItem
+          key={7}
+          className={classes.dropdownItem}
+        >
+        Clear Unread Messages 
+        </MenuItem>
+      )
+      return menulist
+    }
+    
+  }
+
+
   render() {
-    const { classes, accounts, network, provider } = this.props;
+    const { classes, accounts, network, provider, unreadMessages } = this.props;
     const { notificationOpen, accountOpen, networkOpen } = this.state;
 
-
-    // TODO @ Age - pass currentAccount
-    let currentAccount;
-    if (accounts.status === "SUCCESS" && accounts.value.length > 0 ) {
-      currentAccount = accounts.value[0].toLowerCase()
-    }
+    let currentAccount = accounts.active.toLowerCase();
 
     return (
       <div>
@@ -152,7 +202,9 @@ class HeaderLinks extends React.Component {
               className={classes.buttonLink}
             >
               <Notifications className={classes.icons} />
-              <span className={classes.notifications}>5</span>
+              { unreadMessages > 0 && 
+              <span className={classes.notifications}>{unreadMessages}</span>
+              }
               <Hidden mdUp>
                 <p onClick={this.handleNotificationClick} className={classes.linkText}>
                   Notifications
@@ -177,36 +229,7 @@ class HeaderLinks extends React.Component {
               >
                 <Paper className={classes.dropdown}>
                   <MenuList role="menu">
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      Mike John responded to your email
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      You have 5 new tasks
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      Youre now friend with Andrew
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      Another Notification
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      Another One
-                    </MenuItem>
+                    { this.notificationList() } 
                   </MenuList>
                 </Paper>
               </Grow>

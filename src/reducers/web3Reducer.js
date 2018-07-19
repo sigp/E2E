@@ -67,7 +67,7 @@ const updateAccountReducer = (state, action) => {
   switch (action.status) { 
     case 'FAIL': 
       return Object.assign({}, state,  {
-        accounts : {status: 'FAIL'}
+        accounts : {active: '', status: 'FAIL', value: []}
       })
 
     case 'SUCCESS': 
@@ -80,12 +80,12 @@ const updateAccountReducer = (state, action) => {
       })
       else 
         return Object.assign({}, state,  {
-          accounts : {status: 'UNKNOWN', value: action.value}
+          accounts : {status: 'UNKNOWN', value: action.value, active:''}
       })
 
    default: 
       return Object.assign({}, state,  {
-        accounts : {status: 'PENDING'}
+        accounts : {active: '', status: 'PENDING', value: []}
       })
    }
 };
