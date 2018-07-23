@@ -16,7 +16,6 @@ import Reply from '@material-ui/icons/Reply'
 import ContentCopy from '@material-ui/icons/ContentCopy'
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider'
-import Forward from '@material-ui/icons/Forward'
 import Add from '@material-ui/icons/Add'
 import Tooltip from '@material-ui/core/Tooltip'
 import { CopyToClipboard} from 'react-copy-to-clipboard'
@@ -42,15 +41,15 @@ const MessageList = ({ ...props}) => {
 
   let renderedList = (
       messages.map((value, key) => {
-        let topLine = (
-          <span className={classes.topLine}>
-          {value.sender}
-          <Hidden smDown>
-            <Forward />
-            {value.recipientAddress}
-          </Hidden>
-          </span>
-        )
+        // let topLine = (
+        //   <span className={classes.topLine}>
+        //   {value.sender}
+        //   <Hidden smDown>
+        //     <Forward />
+        //     {value.recipientAddress}
+        //   </Hidden>
+        //   </span>
+        // )
 
         return (
             <ListItem key={key} button divider={true} className={classes.listItem}
@@ -65,7 +64,7 @@ const MessageList = ({ ...props}) => {
                 />
               </ListItemAvatar>
               <ListItemText
-                primary={topLine}
+                primary={value.sender}
                 secondary={value.message}
               />
               <ListItemSecondaryAction>
