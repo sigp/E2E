@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import HeaderLinks from 'components/Header/HeaderLinks.jsx';
+import { retrieveMessages } from 'actions/messageActions'
 
 const mapStateToProps = state => {
   return {
@@ -19,6 +20,7 @@ const mapDispatchToProps = dispatch => {
         status: 'ACTIVE',
         value: acc
       })
+      dispatch(retrieveMessages())
     }
   }
 }

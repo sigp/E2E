@@ -39,7 +39,7 @@ export function updateMessages() {
   if (web3Data.accounts.status === 'SUCCESS') { 
     if (curState.messages.status === 'UNINITIALISED' && web3Data.contracts[web3Data.network] !== undefined && web3Data.accounts.active !== '' && web3Data.contractInstance._address !== undefined) {
       unsubscribe();
-      store.dispatch(retrieveMessages(web3Data.web3, web3Data.accounts.active, web3Data.contracts[web3Data.network], web3Data.contractInstance));
+      store.dispatch(retrieveMessages());
     }
   }
 }

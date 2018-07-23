@@ -14,9 +14,17 @@ export const CLEAR_REPLY = 'CLEAR_REPLY';
  * contractInfo gives the contract and blocknumber for the network
  * we are currently using. These are specified in web3reducer. 
  */
-export function retrieveMessages (web3, account, contractInfo, contractInstance) { 
+export function retrieveMessages () {
 
-  return function (dispatch) { 
+  return function (dispatch, getState) { 
+    let { web3 } = getState()
+    console.log("web3")
+    console.log(web3)
+    let account = web3.accounts.active
+    let contractInfo = web3.contracts[web3.network]
+    let contractInstance = web3.contractInstance
+    web3 = web3.web3
+
     dispatch({type: RETRIEVE_MESSAGES});
     dispatch({type: UNREAD_MESSAGES});
 
