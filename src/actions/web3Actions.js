@@ -1,5 +1,5 @@
 
-import { UPDATE_THEME} from 'actions/appActions';
+import { UPDATE_THEME } from 'actions/appActions';
 
 export const WEB3_LOADED = 'WEB3_LOADED';
 export const WEB3_FOUND = 'WEB3_FOUND';

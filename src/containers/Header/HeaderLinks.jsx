@@ -12,10 +12,19 @@ const mapStateToProps = state => {
 }; 
 
 const mapDispatchToProps = dispatch => {
-  return { }
+  return { 
+    updateActive: (acc) => {
+      dispatch({
+        type: 'WEB3_UPDATE_ACCOUNTS',
+        status: 'ACTIVE',
+        value: acc
+      })
+    }
+  }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(HeaderLinks)
+  mapDispatchToProps
+)(HeaderLinks)
 

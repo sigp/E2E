@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 import Hidden from '@material-ui/core/Hidden'
@@ -20,7 +21,7 @@ class SendMessagePage extends React.Component {
   state = { 
     encryptToggle: true,
     gasUse: "51000",
-    recipient: '',
+    recipient: this.props.currentReply,
     message: ''
   };
 
@@ -171,6 +172,11 @@ class SendMessagePage extends React.Component {
       </Card>
     );
   }
+}
+
+SendMessagePage.proptypes = {
+  classes: PropTypes.object,
+  currentReply: PropTypes.string.isRequired,
 }
 
 export default withStyles(sendMessageStyle)(SendMessagePage);

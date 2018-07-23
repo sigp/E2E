@@ -145,7 +145,7 @@ class HeaderLinks extends React.Component {
 
 
   render() {
-    const { classes, accounts, network, provider, unreadMessages } = this.props;
+    const { classes, accounts, network, provider, unreadMessages, updateActive } = this.props;
     const { notificationOpen, accountOpen, networkOpen } = this.state;
 
     let currentAccount = accounts.active.toLowerCase();
@@ -317,7 +317,7 @@ class HeaderLinks extends React.Component {
                         return (
                           <MenuItem
                             key={key}
-                            onClick={this.handleAccountClose}
+                            onClick={() => {updateActive(value)}}
                             className={classes.dropdownItem}
                           >
                           <section className={classes.menuIdenticon}>

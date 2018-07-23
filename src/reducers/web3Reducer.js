@@ -8,7 +8,7 @@ import {
   WEB3_LOADED,
   WEB3_UPDATE_ACCOUNTS,
   WEB3_UPDATE_NETWORK,
-  WEB3_UPDATE_PROVIDER
+  WEB3_UPDATE_PROVIDER,
 } from 'actions/web3Actions';
 
 const initialState = {
@@ -81,6 +81,15 @@ const updateAccountReducer = (state, action) => {
       else 
         return Object.assign({}, state,  {
           accounts : {status: 'UNKNOWN', value: action.value, active:''}
+      })
+
+    case 'ACTIVE':
+      return Object.assign({}, state, {
+        accounts:{
+            status: 'SUCCESS',
+            value: state.accounts.value,
+            active: action.value,
+        }
       })
 
    default: 
