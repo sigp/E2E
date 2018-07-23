@@ -68,24 +68,24 @@ const MessageList = ({ ...props}) => {
                 secondary={value.message}
               />
               <ListItemSecondaryAction>
-                  <CopyToClipboard text={value.senderAddress}>
-                      <IconButton aria-label="Copy">
-                          <ContentCopy />
-                      </IconButton>
-                  </CopyToClipboard>
+                  <Hidden smDown>
+                    <CopyToClipboard text={value.senderAddress}>
+                        <IconButton aria-label="Copy">
+                            <ContentCopy />
+                        </IconButton>
+                    </CopyToClipboard>
+                  </Hidden>
 
                   {
                   // @NOTE: TOOLTIP removed until paging implemented
-                  //value.sender === value.senderAddress &&
-                  // <Hidden smDown>
-                    // <Tooltip id='tooltip-add' title='Add Contact'>
+                    value.sender === value.senderAddress &&
+                    <Hidden smDown>
                     <IconButton
                     aria-label="Add Contact"
                     >
                         <Add />
                     </IconButton>
-                    // </Tooltip>
-                  // </Hidden>
+                    </Hidden>
                   }
                   {
                   // <Tooltip id='tooltip-reply' title='Reply'>
