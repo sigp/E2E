@@ -15,7 +15,7 @@ const styles = theme => ({
 
 class InputField extends React.Component {
   render() {
-    const { classes, title, id, name, onChange} = this.props;
+    const { classes, title, id, name, onChange, value} = this.props;
     return (
       <FormControl>
         <InputLabel htmlFor={id}>
@@ -25,6 +25,7 @@ class InputField extends React.Component {
           id={id}
           name={name}
           onChange={onChange}
+          value={value}
         />
       </FormControl>
     );

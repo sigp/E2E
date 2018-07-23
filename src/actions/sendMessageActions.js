@@ -10,6 +10,7 @@ export function sendMessage(contractInstance, recipient, message,account) {
 
   return function (dispatch) { 
 
+    dispatch({type: 'CLEAR_REPLY'})
     dispatch({type: SEND_MSG});
     let txHash = ''
     return contractInstance.methods.send(recipient, message).send({from: account})

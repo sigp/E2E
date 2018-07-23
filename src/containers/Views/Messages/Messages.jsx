@@ -9,7 +9,14 @@ const mapStateToProps = state => {
 }; 
 
 const mapDispatchToProps = dispatch => {
-  return { }
+  return {
+    replyTo: (recipient) => {
+      dispatch({type: 'REPLY_TO', value: recipient})
+    },
+    clearReply: () => {
+      dispatch({type: 'CLEAR_REPLY'})
+    }
+  }
 }
 
 export default connect(

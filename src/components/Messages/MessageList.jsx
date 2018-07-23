@@ -25,7 +25,7 @@ import Blockies from 'react-blockies'
 
 const MessageList = ({ ...props}) => {
 
-  const { classes, messages } = props
+  const { classes, messages, replyAction } = props
 
   let getColour = (str) => {
     str = str.substr(2)
@@ -92,6 +92,7 @@ const MessageList = ({ ...props}) => {
                   <IconButton
                     tooltip="Reply"
                     aria-label="Reply"
+                    onClick={() => {replyAction(value.senderAddress)}}
                   >
                       <Reply />
                   </IconButton>

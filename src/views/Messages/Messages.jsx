@@ -12,7 +12,10 @@ import MessageList from 'components/Messages/MessageList.jsx'
 import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx'
 
 const MessagesPage = (props) => {
-  const { classes, messages, messageStatus } = props;
+  const { classes, messages, messageStatus, replyTo, clearReply } = props;
+
+  // Clear the reply field
+  clearReply()
 
   let content;
 
@@ -58,6 +61,7 @@ const MessagesPage = (props) => {
         content = (
         <MessageList
           messages={messages}
+          replyAction={replyTo}
         />
         )
       }

@@ -86,7 +86,7 @@ class SendMessagePage extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, currentReply } = this.props;
     
     const smallGC = classNames({
       [classes.gasCounter]: true,
@@ -107,6 +107,7 @@ class SendMessagePage extends React.Component {
             id="to-recipient"
             name="recipient"
             onChange={this.handleChange.bind(this)}
+            value={currentReply}
           />
           </div>
           <div>

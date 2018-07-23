@@ -2,6 +2,8 @@ import { addressTo32Bytes } from 'utils/ethereum-helpers.js'
 
 export const RETRIEVE_MESSAGES = 'RETRIEVE_MESSAGES';
 export const UNREAD_MESSAGES = 'UNREAD_MESSAGES';
+export const REPLY_TO = 'REPLY_TO';
+export const CLEAR_REPLY = 'CLEAR_REPLY';
 
 /* 
  * Action creators 

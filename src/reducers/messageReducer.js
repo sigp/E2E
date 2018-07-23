@@ -2,7 +2,9 @@
 
 import { 
   RETRIEVE_MESSAGES,
-  UNREAD_MESSAGES
+  UNREAD_MESSAGES,
+  REPLY_TO,
+  CLEAR_REPLY,
 } from 'actions/messageActions';
 
 import {bytesToAddress} from "utils/ethereum-helpers.js";
@@ -15,7 +17,8 @@ const initialState = {
   status: 'UNINITIALISED',
   messages: [],
   unreadMsgStatus: 'UNINTIALISED',
-  unreadMsgs: 0
+  unreadMsgs: 0,
+  currentReply: '',
 }
 
 const messageReducer = (state = initialState, action) => {
@@ -48,6 +51,14 @@ const messageReducer = (state = initialState, action) => {
          default: 
           return Object.assign({}, state, { unreadMsgStatus: 'PENDING' })
       }
+
+    case REPLY_TO:
+      return Object.assign({}, state, {
+        currentReply: action.value
+      })
+
+    case CLEAR_REPLY:
+      return Object.assign({}, state, { currentReply: '', })
 
     default:
       return state;
