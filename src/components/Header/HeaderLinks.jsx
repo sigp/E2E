@@ -104,7 +104,7 @@ class HeaderLinks extends React.Component {
       menulist.push( 
         <MenuItem
           button={false}
-          className={classes.dropdownItem}
+          className={classes.dropdownItemTitle}
           key={0}
         >
         Unread Messages
@@ -132,7 +132,7 @@ class HeaderLinks extends React.Component {
       menulist.push( 
         <MenuItem
           key={7}
-          className={classes.dropdownItem}
+          className={classes.dropdownItemSubTitle}
         >
         Clear Unread Messages 
         </MenuItem>
@@ -298,7 +298,7 @@ class HeaderLinks extends React.Component {
                             <MenuItem
                               button={false}
                               key={key}
-                              className={classes.currentAccount}
+                              className={classes.dropdownItemTitle}
                             >
                             <section className={classes.currentAccIdenticon}>
                               <Blockies

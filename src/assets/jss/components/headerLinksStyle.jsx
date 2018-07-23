@@ -133,7 +133,7 @@ const headerLinksStyle = theme => ({
     boxSizing: 'content-box !important',
     padding: '0px 10px',
   },
-    currentAccount: {
+    dropdownItemTitle: {
       height: 'auto',
       background: '#5d5d5d',
       borderBottom: `1px solid ${theme.palette.text.primary}`,
@@ -142,6 +142,11 @@ const headerLinksStyle = theme => ({
         backgroundColor: '#5d5d5d',
         background: '#5d5d5d',
       }
+    },
+    dropdownItemSubTitle: {
+      height: 'auto',
+      fontSize: '14px',
+      borderTop: `1px solid ${theme.palette.background.default}`,
     },
     currentAccIdenticon: {
       width: '48px',
