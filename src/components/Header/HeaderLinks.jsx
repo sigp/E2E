@@ -16,6 +16,7 @@ import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 import Add from "@material-ui/icons/Add"
+import MoreHoriz from '@material-ui/icons/MoreHoriz'
 // core components
 import CustomInput from "components/Custom/CustomInput.jsx";
 import Button from "components/Custom/Button.jsx";
@@ -126,7 +127,7 @@ class HeaderLinks extends React.Component {
           key={6}
           className={classes.dropdownItem}
         >
-        ...
+        <MoreHoriz />
         </MenuItem>
         )}
       menulist.push( 
