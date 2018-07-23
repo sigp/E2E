@@ -8,7 +8,7 @@ const contactStyle = theme => ({
       margin: '10px',
       '&:hover': {
         background: 'rgba(255,255,255,0.2)',
-        padding: '10px 60px',
+        padding: '10px 30px',
         cursor: 'pointer',
       }
   },
@@ -65,6 +65,21 @@ const contactStyle = theme => ({
     display: 'table-cell',
     padding: '10px',
   },
+  '@media (max-width: 2089px)': {
+      contactContainer: {
+        margin: '10px 20px',
+      }
+  },
+  '@media (max-width: 1725px)': {
+      contactContainer: {
+        margin: '10px 30px',
+      }
+  },
+  '@media (max-width: 1725px)': {
+      contactContainer: {
+        margin: '10px 50px',
+      }
+  }
   // '@media (max-width: 703px)': {
   //   contactName: {
   //     width: '100%',
