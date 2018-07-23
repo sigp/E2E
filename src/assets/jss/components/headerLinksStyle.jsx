@@ -175,6 +175,22 @@ const headerLinksStyle = theme => ({
       width: '26px',
       textAlign: 'center',
     },
+
+    '@media(max-width: 959px)': {
+      identiconHolder: {
+        marginLeft: '5px',
+        marginRight: '15px',
+      },
+      menuIdenticonContainer: {
+        padding: '10px 10px',
+      },
+      manager: {
+        textAlign: 'center',
+      },
+      networkButton: {
+        marginTop: '20px',
+      },
+    }
 });
 
 export default headerLinksStyle;
