@@ -43,11 +43,25 @@ const MessagesPage = (props) => {
       )
       break
     case "SUCCESS":
-      content = (
-      <MessageList
-        messages={messages}
-      />
-      )
+      if(messages.length == 0) {
+        content = (
+        <div className={classes.emptyBody}>
+          <div className={classes.placeholderInner}>
+            <Drafts
+              style={{fontSize: 70}}
+            />
+            <p> You have no messages... </p>
+          </div>
+        </div>
+        )
+      } else {
+        content = (
+        <MessageList
+          messages={messages}
+        />
+        )
+      }
+
     break
   }
 

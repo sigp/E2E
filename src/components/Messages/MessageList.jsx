@@ -13,11 +13,13 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Reply from '@material-ui/icons/Reply'
+import ContentCopy from '@material-ui/icons/ContentCopy'
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider'
 import Forward from '@material-ui/icons/Forward'
 import Add from '@material-ui/icons/Add'
 import Tooltip from '@material-ui/core/Tooltip'
+import { CopyToClipboard} from 'react-copy-to-clipboard'
 // import Checkbox from '@material-ui/core/Checkbox';
 // import Avatar from '@material-ui/core/Avatar';
 import Blockies from 'react-blockies'
@@ -67,6 +69,12 @@ const MessageList = ({ ...props}) => {
                 secondary={value.message}
               />
               <ListItemSecondaryAction>
+                  <CopyToClipboard text={value.senderAddress}>
+                      <IconButton aria-label="Copy">
+                          <ContentCopy />
+                      </IconButton>
+                  </CopyToClipboard>
+
                   {
                   // @NOTE: TOOLTIP removed until paging implemented
                   //value.sender === value.senderAddress &&
