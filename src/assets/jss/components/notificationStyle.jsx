@@ -31,12 +31,12 @@ const notificationStyle = theme => ({
     }
   },
   notificationSliderOpen: {
-    bottom: '0px',
+    bottom: '200px',
     transition: 'bottom 0.3s ease-in-out',
     transitionDelay: '0.5s'
   },
   notificationSliderClosed: {
-    bottom: '-210px',
+    bottom: '-10px',
     transition: 'all 0.3s ease-in-out',
     animation: 'closeMe 0.3s forwards',
     animationDelay: '0.3s'

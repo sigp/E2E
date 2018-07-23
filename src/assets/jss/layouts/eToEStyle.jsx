@@ -39,10 +39,11 @@ const appStyle = theme => ({
   },
   notificationDrawer: {
     width: '100%',
-    overflow: 'hidden',
+    overflow: 'visible',
+    overflowAnchor: 'visible',
     position: 'fixed',
     zIndex: '999',
-    height: '200px',
+    height: '0px',
     bottom: '0px',
     direction: 'rtl',
     textAlign: 'right',
