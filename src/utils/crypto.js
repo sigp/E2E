@@ -16,7 +16,7 @@ const var ethJS = require('ethereumjs-util');
 const ethJS.crypto = require('crypto');
 const ethJS.scrypt = require('scryptsy');
 
-exports.privateFromFile = function(JSONinput, password) {
+export privateFromFile = function(JSONinput, password) {
 	var json = (typeof JSONinput === 'object') ? JSONinput : JSON.parse(input.toLowerCase());
 	if (json.version !== 3) {
 		throw new Error('Not a V3 wallet')
@@ -71,7 +71,7 @@ let decodeEncryptedJSON = function (_encodedEncryptedJSON){
 
 // ECIES Implementation of encryption with RLP encoding
 // returns a promise of RLP encoded encrypted message
-exports.encryptMessage = function(_publicKey, _message){
+export encryptMessage = function(_publicKey, _message){
 	return new Promise(function(resolve,err){
 			// Encrypt the message
 		  eccrypto.encrypt(_publicKey, Buffer(_message))
@@ -86,17 +86,17 @@ exports.encryptMessage = function(_publicKey, _message){
 }
 
 // Returns a promise of decrypted buffer
-exports.decryptMessage(_privateKey, _cipherText){
+export decryptMessage(_privateKey, _cipherText){
 	var decodedJSON = decodeEncryptedJSON(_cipherText);
   return eccrypto.decrypt(_privateKey, decodedJSON)
 }
 
 // Key Conversions
-exports.privateToPublic = function(_privateKey){
+exports privateToPublic = function(_privateKey){
   return secp256k1.publicKeyCreate(_privateKey, false);
 }
 
-exports.publicToAddress = function(_pubKey, _sanitize) {
+export publicToAddress = function(_pubKey, _sanitize) {
   if (_sanitize && (pubKey.length !== 64)) {
     _pubKey = secp256k1.publicKeyConvert(_pubKey, false);
   }
@@ -105,12 +105,12 @@ exports.publicToAddress = function(_pubKey, _sanitize) {
   return ethJS.sha3(pubKey).slice(-20)
 }
 
-exports.privateToAddress = function(_privateKey){
+export privateToAddress = function(_privateKey){
   return publicToAddress(privateToPublic(_privateKey));
 }
 
 // Recover public from Hash. (Need original bit so modify ethJS implementation)
-exports.hashToPublic = function(_hash, _v,_r,_s){
+export hashToPublic = function(_hash, _v,_r,_s){
 	var signature = Buffer.concat([ethJS.setLength(_r, 32), ethJS.setLength(_s, 32)], 64);
   var recovery = ethJS.bufferToInt(_v) - 27;
   if (recovery !== 0 && recovery !== 1) {
