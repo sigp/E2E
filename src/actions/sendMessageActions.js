@@ -1,14 +1,26 @@
+import pkCollectorDetails from 'utils/pubkeyCollectorConfig.js';
 
+const ecies = require('ecies-parity');
 export const SEND_MSG = 'SEND_MSG';
+export const GET_PUBKEY = "GET_PUBKEY";
 
 /* 
  * Action creators 
  *
  */
 
-export function sendMessage(contractInstance, recipient, message,account) {
+export function sendMessage(contractInstance, recipient, pubKey, message,account, encrypt) {
 
-  return function (dispatch) { 
+  return async function (dispatch) { 
+
+    // Perform encryption
+    if (encrypt) { 
+      if (pubKey.length != 65) 
+         dispatch({type: SEND_MSG, status: 'ERROR', value: "Invalid public key"});
+
+      // TODO: Extended Error handling here
+      message = await ecies.encrypt(Buffer.from(pubKey,'hex'), Buffer.from(message,'hex'));
+    }
 
     dispatch({type: 'CLEAR_REPLY'})
     dispatch({type: SEND_MSG});
@@ -30,5 +42,12 @@ export function sendMessage(contractInstance, recipient, message,account) {
      */
      .once('error', (err) => {dispatch({type: SEND_MSG, status: 'ERROR', value: {hash: txHash, error: err}})
      })
+  }
+}
+
+export function checkForPubKey(recipient) {
+  return function (dispatch) { 
+    // TODO: Build HTTP RPC Call 
+    // pkCollectorDetails.hostname 
   }
 }

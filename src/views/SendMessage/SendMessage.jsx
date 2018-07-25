@@ -19,7 +19,7 @@ import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx";
 class SendMessagePage extends React.Component {
 
   state = { 
-    encryptToggle: true,
+    encrypt: true,
     gasUse: "51000",
     recipient: this.props.currentReply,
     message: ''
@@ -29,6 +29,16 @@ class SendMessagePage extends React.Component {
   async handleChange(event) { 
     await this.setState({[event.target.name]: event.target.value})
     this.checkGasPrice() 
+
+    //TODO: Once the correct length has been input, check for public key
+    if (this.state.recipient.length === 40 || this.state.recipient.length === 42) {
+       // check for correct address
+       if (this.props.web3.utils.isAddress(this.state.recipient))  
+          this.props.checkForPubKey(this.state.recipient);
+   } 
+
+    //TODO: Check for ENS addresses
+
   }
 
   checkGasPrice() { 
@@ -64,7 +74,7 @@ class SendMessagePage extends React.Component {
 
   // creates the sendMessage action
   sendMessage() { 
-    const { network, contractInstance, account } = this.props; 
+    const { network, contractInstance, account, recipientPubKey } = this.props; 
     // ensure the recpient address is correct
     if(!this.props.web3.utils.isAddress(this.state.recipient)) {
       alert("Incorrect Address") 
@@ -77,13 +87,20 @@ class SendMessagePage extends React.Component {
       return
     }
 
+    if (this.state.encrypt && recipientPubKey === undefined) { 
+      alert("A known public key is required to perform encryption.\n Either enter an account that has done a transaction, or enter the public key manually. See help for further details");
+      return;
+    }
+
     let recipient = this.state.recipient;
     let message = this.state.message; 
-    this.props.sendMessage(contractInstance, recipient, message, account);
+
+    
+    this.props.sendMessage(contractInstance, recipient, recipientPubKey, message, account, this.state.encrypt);
   }
 
   handleEncryptToggleChange = () => {
-    this.setState({ encryptToggle: !this.state.encryptToggle });
+    this.setState({ encrypt: !this.state.encrypt });
   };
 
   render() {
@@ -137,7 +154,7 @@ class SendMessagePage extends React.Component {
             <span>Encrypt
             <Switch 
               color="primary"
-              checked={this.state.encryptToggle}
+              checked={this.state.encrypt}
               onChange={this.handleEncryptToggleChange}
             />
             </span>
@@ -157,7 +174,7 @@ class SendMessagePage extends React.Component {
             <span>Encrypt
             <Switch 
               color="primary"
-              checked={this.state.encryptToggle}
+              checked={this.state.encrypt}
               onChange={this.handleEncryptToggleChange}
             />
             </span>

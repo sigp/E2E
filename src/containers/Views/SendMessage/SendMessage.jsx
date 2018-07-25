@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { sendMessage } from 'actions/sendMessageActions.js'
+import { sendMessage, checkForPubKey } from 'actions/sendMessageActions.js'
 
 import SendMessagePage from 'views/SendMessage/SendMessage.jsx';
 
@@ -12,7 +12,8 @@ const mapStateToProps = state => {
     contractInstance: state.web3.contractInstance,
     web3: state.web3.web3,
     account: state.web3.accounts.active,
-    currentReply: state.messages.currentReply
+    currentReply: state.messages.currentReply,
+    recipientPubKey: state.sendMessage.recipientPubKey
   } 
 }; 
 
@@ -23,6 +24,9 @@ const mapDispatchToProps = dispatch => {
     },
     clearReply: () => {
       dispatch({type: 'CLEAR_REPLY'})
+    },
+    checkForPubKey: (recipient) => { 
+      dispatch(checkForPubKey(recipient))
     }
   }
 }
