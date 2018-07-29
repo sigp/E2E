@@ -14,7 +14,9 @@ import SendButton from 'components/Buttons/SendButton.jsx'
 import InputField from 'components/InputField/InputField.jsx'
 import GasCounter from 'components/GasCounter/GasCounter.jsx'
 import TextField from '@material-ui/core/TextField';
-import ErrorOutline from '@material-ui/icons/ErrorOutline'
+//import ErrorOutline from '@material-ui/icons/ErrorOutline'
+import Close from '@material-ui/icons/Close'
+
 // styles
 import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx";
 
@@ -145,7 +147,7 @@ class SendMessagePage extends React.Component {
           }
           { !this.state.validRecipient &&
               <section className={classes.invalidRecipientIcon}>
-                <ErrorOutline />
+                <Close />
               </section>
           }
           </section>
@@ -155,6 +157,7 @@ class SendMessagePage extends React.Component {
             name="recipient"
             onChange={this.handleChange.bind(this)}
             value={this.state.recipient}
+            classes={classes}
           />
           </div>
           <div>

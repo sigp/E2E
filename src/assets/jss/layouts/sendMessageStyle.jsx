@@ -64,7 +64,7 @@ const sendMessageStyle = theme => ({
   },
   recipient: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   invalidRecipientIcon: {
     background: '#612929',
@@ -76,8 +76,11 @@ const sendMessageStyle = theme => ({
 
     '& > svg': {
       margin: 'auto',
-      fontSize: '30px',
+      fontSize: '30px'
     }
+  },
+  recipientField: {
+    width: '100%',
   },
 })
 export default sendMessageStyle
