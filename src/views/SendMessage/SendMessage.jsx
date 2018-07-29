@@ -14,7 +14,6 @@ import SendButton from 'components/Buttons/SendButton.jsx'
 import InputField from 'components/InputField/InputField.jsx'
 import GasCounter from 'components/GasCounter/GasCounter.jsx'
 import TextField from '@material-ui/core/TextField';
-//import ErrorOutline from '@material-ui/icons/ErrorOutline'
 import Close from '@material-ui/icons/Close'
 
 // styles

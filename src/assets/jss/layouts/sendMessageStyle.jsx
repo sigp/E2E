@@ -75,8 +75,8 @@ const sendMessageStyle = theme => ({
     textAlign: 'center',
 
     '& > svg': {
-      margin: 'auto',
-      fontSize: '30px'
+      margin: '0px auto 0px 5px',
+      fontSize: '23px'
     }
   },
   recipientField: {
