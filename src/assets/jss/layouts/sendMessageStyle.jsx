@@ -48,6 +48,36 @@ const sendMessageStyle = theme => ({
     "&.sm": {
       float: "none",
     },
-  }
+  },
+  recipientIconContainer: {
+    width: '35px',
+    height: '35px',
+    borderRadius: '50%',
+    overflow: 'hidden',
+    fontSize: 'initial',
+    marginRight: '15px',
+
+    '& > canvas': {
+      height: '35px !important',
+      width: '35px !important',
+    }
+  },
+  recipient: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  invalidRecipientIcon: {
+    background: '#612929',
+    width: '35px',
+    height: '35px',
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+
+    '& > svg': {
+      margin: 'auto',
+      fontSize: '30px',
+    }
+  },
 })
 export default sendMessageStyle

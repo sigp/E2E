@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 import Hidden from '@material-ui/core/Hidden'
+import Blockies from 'react-blockies'
 // core components
 import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
@@ -13,6 +14,7 @@ import SendButton from 'components/Buttons/SendButton.jsx'
 import InputField from 'components/InputField/InputField.jsx'
 import GasCounter from 'components/GasCounter/GasCounter.jsx'
 import TextField from '@material-ui/core/TextField';
+import ErrorOutline from '@material-ui/icons/ErrorOutline'
 // styles
 import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx";
 
@@ -22,7 +24,8 @@ class SendMessagePage extends React.Component {
     encrypt: true,
     gasUse: "51000",
     recipient: this.props.currentReply,
-    message: ''
+    message: '',
+    validRecipient: false,
   };
 
   // update state on-change
@@ -50,26 +53,38 @@ class SendMessagePage extends React.Component {
     }
 
     let recipient = this.state.recipient;
-    if (recipient === '') {
-      //this.setState({gasUse: "no recipient"})
-      recipient = "0x1234567890123456789012345678901234567890"
-      //return
-    };
-     
-    // check the recipient checksum address 
-    if(!this.props.web3.utils.isAddress(recipient)) {
-      this.setState({gasUse: "invalid recipient address"})
+    console.log(recipient)
+    if(this.state.recipient === '') {
+      this.setState({validRecipient: false})
+      contractInstance.methods.send(
+          "0x1234567890123456789012345678901234567890",
+          this.state.message
+      ).estimateGas({from: account, gas:1e6}, (err, gas) => { 
+        if (gas == 1e6){
+          this.setState({gasUse:'revert'});
+        }
+        else
+          this.setState({gasUse: gas});
+      });
+    } else if(!this.props.web3.utils.isAddress(recipient)) {
+      this.setState({
+        gasUse: "invalid recipient address",
+        validRecipient: false,
+      })
       return
+    } else {
+      this.setState({validRecipient: true})
+      contractInstance.methods.send(
+          recipient,
+          this.state.message
+      ).estimateGas({from: account, gas:1e6}, (err, gas) => { 
+        if (gas == 1e6){
+          this.setState({gasUse:'revert'});
+        }
+        else
+          this.setState({gasUse: gas});
+      });
     }
-
-    contractInstance.methods.send(recipient, this.state.message)
-    .estimateGas({from: account, gas:1e6}, (err, gas) => { 
-      if (gas == 1e6){
-        this.setState({gasUse:'revert'});
-      }
-      else
-        this.setState({gasUse: gas});
-    });
   }
 
   // creates the sendMessage action
@@ -119,13 +134,27 @@ class SendMessagePage extends React.Component {
         <CardBody>
 
         <form className={classes.container} noValidate autoComplete="off">
-          <div>
+          <div className={classes.recipient}>
+          <section className={classes.recipientIconContainer}>
+          { this.state.validRecipient &&
+            <Blockies
+              seed={this.state.recipient.toLowerCase()}
+              size={8}
+              scale={6}
+            />
+          }
+          { !this.state.validRecipient &&
+              <section className={classes.invalidRecipientIcon}>
+                <ErrorOutline />
+              </section>
+          }
+          </section>
           <InputField
             title="Recipient"
             id="to-recipient"
             name="recipient"
             onChange={this.handleChange.bind(this)}
-            value={currentReply}
+            value={this.state.recipient}
           />
           </div>
           <div>
