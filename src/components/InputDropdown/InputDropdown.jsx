@@ -11,10 +11,12 @@ import TextField from '@material-ui/core/TextField'
 
 import inputDropdownStyle from 'assets/jss/components/inputDropdownStyle.jsx'
 
+// Input component - handles the text during typing
 function inputComponent({ inputRef, ...props }) {
   return <div ref={inputRef} {...props} />;
 }
 
+// Handles the placeholder and design of the input
 function Control(props) {
   return (
     <TextField
@@ -32,6 +34,7 @@ function Control(props) {
   );
 }
 
+// Every option in the select dropdown - rendering
 function Option(props) {
   return (
     <MenuItem
@@ -49,6 +52,7 @@ function Option(props) {
   );
 }
 
+// Placeholder rendering
 function Placeholder(props) {
   return (
     <Typography
@@ -61,6 +65,7 @@ function Placeholder(props) {
   );
 }
 
+// Single value container
 function SingleValue(props) {
   return (
     <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
@@ -69,6 +74,7 @@ function SingleValue(props) {
   );
 }
 
+// Value once selected
 function ValueContainer(props) {
   return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
@@ -93,10 +99,28 @@ class InputDropDown extends React.Component<*, State>{
       }
     })
 
+    var selected = undefined
+
+    if (props.initial !== '') {
+      selected = {
+        id: props.initial,
+        name: props.initial,
+      }
+      options.push(selected)
+    }
+
     this.state = {
-      selectedOption: undefined,
+      selectedOption: selected,
       options: options
     }
+
+    props.sendChangeHandler({
+      target: {
+        name: 'recipient',
+        value: props.initial
+      }
+    })
+    //this.handleChange({id: props.initial, name: props.initial}, 'create-option')
   }
 
   isValidNewOption = (inputValue, selectValue, selectOptions) => {
@@ -119,13 +143,55 @@ class InputDropDown extends React.Component<*, State>{
     return `${option.name} (${option.id})`
   }
 
+  handleChange = (option, action) => {
+      switch(action) {
+        case 'select-option':
+          this.setState({ selectedOption: option });
+          break;
+        case 'create-option':
+          let options = this.state.options;
+          options.push(option);
+          this.setState({ selectedOption: option, options });
+          break;
+        case 'pop-value':
+          options = this.state.options;
+          this.inputValue = ""
+          this.setState({selectedOption: undefined, options: options})
+          break;
+      }
+
+      // Fix for blank
+      if(option.id === undefined) {
+        option.id = ''
+      }
+
+      this.props.sendChangeHandler({
+        target: {
+          name: 'recipient',
+          value: option.id
+        }
+      })
+  }
+
+  inputChange = (value) => {
+      if (value === '') {
+        return
+      }
+      this.props.sendChangeHandler({
+        target: {
+          name: 'recipient',
+          value: value
+        }
+      })
+  }
+
   render() {
 
     let { classes } = this.props
-    let selectedOption = this.state.val
+    let selectedOption = this.state.selectedOption
 
     return (
-    <div>
+    <div className={classes.container}>
       <Creatable
           classes={classes}
           className={classes.dropdown}
@@ -133,23 +199,17 @@ class InputDropDown extends React.Component<*, State>{
           getOptionLabel={option => this.renderOptionLabel(option)}
           getOptionValue={option => option.id}
           components={components}
+          name={this.props.name}
+          value={selectedOption}
           formatCreateLabel={inputValue => `Address: ${inputValue}`}
           getNewOptionData={(inputValue, optionLabel) => ({
             id: inputValue,
             name: optionLabel,
           })}
           placeholder='Recipient'
+          onInputChange={(value) => this.inputChange(value)}
           onChange={(option, { action }) => {
-            switch(action) {
-              case 'select-option':
-                this.setState({ selectedOption: option });
-                break;
-              case 'create-option':
-                let options = this.state.options;
-                options.push(option);
-                this.setState({ selectedOption: option, options });
-                break;
-            }
+            this.handleChange(option, action)
           }}
           isValidNewOption={this.isValidNewOption}
         />

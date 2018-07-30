@@ -56,7 +56,6 @@ class SendMessagePage extends React.Component {
     }
 
     let recipient = this.state.recipient;
-    console.log(recipient)
     if(this.state.recipient === '') {
       this.setState({validRecipient: false})
       contractInstance.methods.send(
@@ -136,6 +135,25 @@ class SendMessagePage extends React.Component {
         </CardHeader>
         <CardBody>
 
+
+        <form className={classes.container} noValidate autoComplete="off">
+          <div className={classes.recipient}>
+          <Hidden xsDown>
+          <section className={classes.recipientIconContainer}>
+          { this.state.validRecipient &&
+            <Blockies
+              seed={this.state.recipient.toLowerCase()}
+              size={8}
+              scale={6}
+            />
+          }
+          { !this.state.validRecipient &&
+              <section className={classes.invalidRecipientIcon}>
+                <Close />
+              </section>
+          }
+          </section>
+          </Hidden>
           <InputDropdown 
             options={[
                 {
@@ -159,34 +177,20 @@ class SendMessagePage extends React.Component {
                     pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
                 }
             ]}
-          />
-
-        <form className={classes.container} noValidate autoComplete="off">
-          <div className={classes.recipient}>
-          <Hidden xsDown>
-          <section className={classes.recipientIconContainer}>
-          { this.state.validRecipient &&
-            <Blockies
-              seed={this.state.recipient.toLowerCase()}
-              size={8}
-              scale={6}
-            />
-          }
-          { !this.state.validRecipient &&
-              <section className={classes.invalidRecipientIcon}>
-                <Close />
-              </section>
-          }
-          </section>
-          </Hidden>
-          <InputField
-            title="Recipient"
-            id="to-recipient"
+            sendChangeHandler={this.handleChange.bind(this)}
             name="recipient"
-            onChange={this.handleChange.bind(this)}
-            value={this.state.recipient}
-            classes={classes}
+            initial={this.state.recipient}
           />
+      {
+          // <InputField
+          //   title="Recipient"
+          //   id="to-recipient"
+          //   name="recipient"
+          //   onChange={this.handleChange.bind(this)}
+          //   value={this.state.recipient}
+          //   classes={classes}
+          // />
+      }
           </div>
           <div>
           <TextField

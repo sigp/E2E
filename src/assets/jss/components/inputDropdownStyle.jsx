@@ -1,4 +1,7 @@
 const inputDropdownStyle = theme => ({
+  container: {
+    width: '100%',
+  },
   input: {
     display: 'flex',
     flex: 1,
