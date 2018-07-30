@@ -52,10 +52,14 @@ const sendMessageStyle = theme => ({
   recipientIconContainer: {
     width: '35px',
     height: '35px',
+    minWidth: '35px',
+    minHeight: '35px',
     borderRadius: '50%',
     overflow: 'hidden',
     fontSize: 'initial',
     marginRight: '15px',
+    flexShrink: 'unset',
+    flexGrow: 'unset',
 
     '& > canvas': {
       height: '35px !important',
@@ -70,9 +74,13 @@ const sendMessageStyle = theme => ({
     background: '#612929',
     width: '35px',
     height: '35px',
+    minWidth: '35px',
+    minHeight: '35px',
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center',
+    flexShrink: 'unset',
+    flexGrow: 'unset',
 
     '& > svg': {
       margin: '0px auto 0px 5px',

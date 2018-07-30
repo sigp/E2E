@@ -15,6 +15,7 @@ import InputField from 'components/InputField/InputField.jsx'
 import GasCounter from 'components/GasCounter/GasCounter.jsx'
 import TextField from '@material-ui/core/TextField';
 import Close from '@material-ui/icons/Close'
+import InputDropdown from 'components/InputDropdown/InputDropdown.jsx'
 
 // styles
 import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx";
@@ -27,6 +28,7 @@ class SendMessagePage extends React.Component {
     recipient: this.props.currentReply,
     message: '',
     validRecipient: false,
+    contacts: []
   };
 
   // update state on-change
@@ -134,8 +136,34 @@ class SendMessagePage extends React.Component {
         </CardHeader>
         <CardBody>
 
+          <InputDropdown 
+            options={[
+                {
+                    contactName: 'Miriam	Holmes',
+                    address: '0x0000000000000000000000000000000000000000',
+                    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e9f78a987afr9f879f8b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
+                },
+                {
+                    contactName: 'Tony Wallace',
+                    address: '0x0000000000000000000000000000000000000001',
+                    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e109238012983091832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
+                },
+                {
+                    contactName: 'Reginald Howdecker',
+                    address: '0x0000000000000000000000000000000000000002',
+                    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
+                },
+                {
+                    contactName: 'Thomas Sellino',
+                    address: '0x1337000000000000000000000000000000001337',
+                    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
+                }
+            ]}
+          />
+
         <form className={classes.container} noValidate autoComplete="off">
           <div className={classes.recipient}>
+          <Hidden xsDown>
           <section className={classes.recipientIconContainer}>
           { this.state.validRecipient &&
             <Blockies
@@ -150,6 +178,7 @@ class SendMessagePage extends React.Component {
               </section>
           }
           </section>
+          </Hidden>
           <InputField
             title="Recipient"
             id="to-recipient"
