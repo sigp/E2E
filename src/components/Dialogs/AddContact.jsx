@@ -20,9 +20,9 @@ class AddContactDialog extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        address: '',
-        name: '',
-        pubkey: '',
+        address: props.address,
+        name: props.name,
+        pubkey: props.pubkey,
       }
     }
 
@@ -44,7 +44,7 @@ class AddContactDialog extends React.Component {
 
     // TODO call to check if actual valid address from web3!
     validAddress() {
-      return (this.state.address.length == 40 && this.state.address.startsWith('0x'))
+      return (this.state.address.length == 42 && this.state.address.startsWith('0x'))
     }
 
 
@@ -67,7 +67,7 @@ class AddContactDialog extends React.Component {
 
       let helperText=""
       if (!this.validAddress()) {
-        helperText="Invalid Address"
+        helperText="Invalid Address - Address starts with '0x'"
       }
 
       return (
@@ -116,7 +116,7 @@ class AddContactDialog extends React.Component {
               id="address"
               label="Address"
               type="text"
-              inputProps={{ maxLength:"40" }}
+              inputProps={{ maxLength:"42" }}
               helperText={helperText}
               error={!this.validAddress()}
               onChange={this.handleChange.bind(this)}

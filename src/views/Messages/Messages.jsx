@@ -11,8 +11,42 @@ import CardBody from "components/Card/CardBody.jsx";
 import MessageList from 'components/Messages/MessageList.jsx'
 import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx'
 
-const MessagesPage = (props) => {
-  const { classes, messages, messageStatus, replyTo, clearReply } = props;
+import AddContactDialog from 'components/Dialogs/AddContact.jsx'
+
+class MessagesPage extends React.Component {
+
+  constructor(props) {
+    super(props)
+    
+    this.state = {
+      addContactDialog: false,
+      currentAdd: '',
+    }
+  }
+
+  handleDialogClose() {
+    this.setState({ addContactDialog: false })
+  }
+
+  handleAddClick(addr) {
+    this.setState({
+      addContactDialog: true,
+      currentAdd: addr
+    })
+    console.log("Setting state to true")
+  }
+
+  handleNewContact = (name, address, pubkey) => {
+    this.props.addContact({
+      name: name,
+      address: address,
+      pub: pubkey
+    })
+  }
+
+  render() {
+
+  const { classes, messages, messageStatus, replyTo, clearReply } = this.props;
 
   // Clear the reply field
   clearReply()
@@ -62,6 +96,7 @@ const MessagesPage = (props) => {
         <MessageList
           messages={messages}
           replyAction={replyTo}
+          addAction={this.handleAddClick.bind(this)}
         />
         )
       }
@@ -86,8 +121,17 @@ const MessagesPage = (props) => {
             {content}
           </div>
     </Hidden>
+    <AddContactDialog 
+      show={this.state.addContactDialog}
+      handleDialogClose={this.handleDialogClose.bind(this)}
+      handleNewContact={this.handleNewContact.bind(this)}
+      pubLoading={false}
+      showPub={true}
+      address={this.state.currentAdd}
+    />
   </div>
   );
+  }
 }
 
 export default withStyles(messagesStyle)(MessagesPage);

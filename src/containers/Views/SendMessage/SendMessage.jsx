@@ -5,7 +5,7 @@ import SendMessagePage from 'views/SendMessage/SendMessage.jsx';
 
 const mapStateToProps = state => {
   return {
-   // contacts: state.contacts.contactList, 
+    contacts: state.contacts.contacts,
     messageStatus: state.messages.status,
     messages : state.messages.messages,
     network: state.web3.contracts[state.web3.network],

@@ -9,34 +9,11 @@ import ContactList from 'components/Contact/ContactsList.jsx'
 import AddIcon from '@material-ui/icons/Add'
 import Button from '@material-ui/core/Button'
 import AddContactDialog from 'components/Dialogs/AddContact.jsx'
+import PersonOutline from '@material-ui/icons/PersonOutline'
 
 import contactsPageStyles from 'assets/jss/layouts/contacts.jsx'
 
 // import style from "./style.css";
-
-
-let testingContacts = [
-  {
-    contactName: 'Miriam	Holmes',
-    address: '0x0000000000000000000000000000000000000000',
-    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e9f78a987afr9f879f8b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
-  },
-  {
-    contactName: 'Tony Wallace',
-    address: '0x0000000000000000000000000000000000000001',
-    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e109238012983091832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
-  },
-  {
-    contactName: 'Reginald Howdecker',
-    address: '0x0000000000000000000000000000000000000002',
-    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
-  },
-  {
-    contactName: 'Thomas Sellino',
-    address: '0x1337000000000000000000000000000000001337',
-    pubkey: '0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
-  }
-]
 
 class ContactsView extends React.Component {
 
@@ -44,7 +21,8 @@ class ContactsView extends React.Component {
     super(props)
 
     this.state ={
-      addContactDialog: false
+      addContactDialog: false,
+      contacts: this.props.contacts,
     }
   }
 
@@ -58,15 +36,15 @@ class ContactsView extends React.Component {
   }
 
   handleNewContact = (name, address, pubkey) => {
-    testingContacts.push({
-      contactName: name,
+    this.props.addContact({
+      name: name,
       address: address,
-      pubkey: pubkey
+      pub: pubkey
     })
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, contacts } = this.props;
     // TODO remove after testing:
     return (
       <div>
@@ -75,9 +53,21 @@ class ContactsView extends React.Component {
         <h4 className={classes.cardTitleWhite}>Contacts</h4>
         </CardHeader>
         <CardBody>
-        <ContactList
-      contacts={testingContacts}  
-        />
+        {contacts.length > 0 &&
+          <ContactList
+            contacts={contacts}
+          />
+        }
+        { contacts.length == 0 &&
+        <div className={classes.emptyBody}>
+          <div className={classes.placeholderInner}>
+            <PersonOutline
+              style={{fontSize: 70}}
+            />
+            <p> You have no contacts</p>
+          </div>
+        </div>
+        }
         <Button variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={this.handleAddClick.bind(this)}>
         <AddIcon />
         </Button>

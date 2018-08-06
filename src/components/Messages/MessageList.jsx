@@ -82,6 +82,7 @@ const MessageList = ({ ...props}) => {
                     <Hidden smDown>
                     <IconButton
                     aria-label="Add Contact"
+                    onClick={() => {props.addAction(value.senderAddress)}}
                     >
                         <Add />
                     </IconButton>
