@@ -79,6 +79,8 @@ class ContactsView extends React.Component {
           handleNewContact={this.handleNewContact.bind(this)}
           pubLoading={false}
           showPub={true}
+          address=""
+          web3={this.props.web3}
         />
       </div>
   );

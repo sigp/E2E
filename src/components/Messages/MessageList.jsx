@@ -128,6 +128,7 @@ const MessageList = ({ ...props}) => {
 MessageList.propTypes = {
   classes: propTypes.object.isRequired,
   messages: propTypes.array.isRequired,
+  web3: propTypes.object.isRequired,
 }
 
 

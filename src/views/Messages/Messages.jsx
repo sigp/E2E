@@ -25,7 +25,10 @@ class MessagesPage extends React.Component {
   }
 
   handleDialogClose() {
-    this.setState({ addContactDialog: false })
+    this.setState({
+      addContactDialog: false,
+      currentAdd: '',
+    })
   }
 
   handleAddClick(addr) {
@@ -121,6 +124,7 @@ class MessagesPage extends React.Component {
             {content}
           </div>
     </Hidden>
+    {this.state.currentAdd.length > 0 &&
     <AddContactDialog 
       show={this.state.addContactDialog}
       handleDialogClose={this.handleDialogClose.bind(this)}
@@ -128,7 +132,9 @@ class MessagesPage extends React.Component {
       pubLoading={false}
       showPub={true}
       address={this.state.currentAdd}
+      web3={this.props.web3}
     />
+    }
   </div>
   );
   }

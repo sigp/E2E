@@ -39,12 +39,16 @@ class AddContactDialog extends React.Component {
           this.state.pubkey
       )
 
-      this.handleClose()
+      this._handleClose()
     }
 
     // TODO call to check if actual valid address from web3!
-    validAddress() {
-      return (this.state.address.length == 42 && this.state.address.startsWith('0x'))
+    _isValidAddress() {
+      if (this.state.address.length == 42 && this.state.address.startsWith('0x')) {
+        return(this.props.web3.utils.isAddress(this.state.address))
+      }
+
+      return(false)
     }
 
 
@@ -52,7 +56,14 @@ class AddContactDialog extends React.Component {
       await this.setState({[event.target.name]: event.target.value})
     }
 
-    handleClose = () => {
+    // Check for enter key
+    _onKeyPress(event) {
+      if (event.charCode === 13) {
+        this.handleSuccess()
+      }
+    }
+
+    _handleClose = () => {
         this.setState({
           address: '',
           name: '',
@@ -66,15 +77,18 @@ class AddContactDialog extends React.Component {
       const { classes,show, fullScreen } = this.props;
 
       let helperText=""
-      if (!this.validAddress()) {
-        helperText="Invalid Address - Address starts with '0x'"
+      if (!this._isValidAddress()) {
+        helperText="Invalid Address"
+        if(!this.state.address.startsWith('0x')) {
+          helperText+= " - Address starts with '0x'"
+        }
       }
 
       return (
         <Dialog
           open={show}
           fullScreen={fullScreen}
-          onClose={this.handleClose}
+          onClose={this._handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Add Contact</DialogTitle>
@@ -83,15 +97,15 @@ class AddContactDialog extends React.Component {
           >
             <section className={classes.topRow}>
             <div className={classes.identiContainer}>
-              { this.validAddress() &&
+              { this._isValidAddress() &&
                 <Blockies
                 seed={this.state.address}
                 size={8}
                 scale={6}
               />
               }
-              { !this.validAddress() &&
-                  <div className={classes.invalidAddress}>
+              { !this._isValidAddress() &&
+                  <div className={classes.in_isValidAddress}>
                     <Close 
                       className={classes.invalidIcon}
                     />
@@ -107,9 +121,11 @@ class AddContactDialog extends React.Component {
               type="text"
               onChange={this.handleChange.bind(this)}
               inputProps={{ maxLength:"24" }}
+              onKeyPress={this._onKeyPress.bind(this)}
               fullWidth
             />
             </section>
+            {this.props.address && 
             <TextField
               margin="dense"
               name='address'
@@ -118,10 +134,30 @@ class AddContactDialog extends React.Component {
               type="text"
               inputProps={{ maxLength:"42" }}
               helperText={helperText}
-              error={!this.validAddress()}
+              error={!this._isValidAddress()}
               onChange={this.handleChange.bind(this)}
+              disabled={true}
+              fullWidth
+              onKeyPress={this._onKeyPress.bind(this)}
+              value={this.props.address}
+            />
+            }
+            {!this.props.address && 
+            <TextField
+              margin="dense"
+              name='address'
+              id="address"
+              label="Address"
+              type="text"
+              inputProps={{ maxLength:"42" }}
+              helperText={helperText}
+              error={!this._isValidAddress()}
+              onChange={this.handleChange.bind(this)}
+              onKeyPress={this._onKeyPress.bind(this)}
+              disabled={this.props.adress}
               fullWidth
             />
+            }
             {this.props.pubLoading &&
               <div className={classes.loader}>
                 <CircularProgress color="primary" />
@@ -135,15 +171,16 @@ class AddContactDialog extends React.Component {
               label="Public Key"
               type="text"
               onChange={this.handleChange.bind(this)}
+              onKeyPress={this._onKeyPress.bind(this)}
               fullWidth
             />
             }
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this._handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSuccess} disabled={!this.validAddress()} color="primary">
+            <Button onClick={this.handleSuccess} disabled={!this._isValidAddress() || !this.state.name } color="primary">
               Add
             </Button>
           </DialogActions>
@@ -158,6 +195,8 @@ AddContactDialog.propTypes = {
   handleDialogClose: PropTypes.func.isRequired,
   handleNewContact: PropTypes.func.isRequired,
   fullScreen: PropTypes.bool.isRequired,
+  address: PropTypes.string,
+  web3: PropTypes.object.isRequired,
 }
 
 export default withMobileDialog()(withStyles(AddContactStyles)(AddContactDialog))

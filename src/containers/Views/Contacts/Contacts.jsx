@@ -4,6 +4,7 @@ import ContactsView from 'views/Contacts/Contacts.jsx'
 const mapStateToProps = state => {
   return {
     contacts: state.contacts.contacts,
+    web3: state.web3.web3,
   }
 }
 
