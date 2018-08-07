@@ -92,11 +92,12 @@ class InputDropDown extends React.Component<*, State>{
     super(props)
 
     // Set up the contacts map
-    let options = props.options.map((value, key) => {
-      return {
-        id: value.address,
-        name: value.contactName
-      }
+    let options = []
+    Object.keys(props.options).forEach((key) => {
+      options.push({
+        id: key,
+        name: props.options[key].contactName,
+      })
     })
 
     var selected = undefined
