@@ -50,6 +50,9 @@ const MessageList = ({ ...props}) => {
         //   </Hidden>
         //   </span>
         // )
+        if ( props.contacts.hasOwnProperty(value.senderAddress) ) {
+          value.sender = props.contacts[value.senderAddress].contactName
+        }
 
         return (
             <ListItem key={key} button divider={true} className={classes.listItem}

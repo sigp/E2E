@@ -100,6 +100,8 @@ class MessagesPage extends React.Component {
           messages={messages}
           replyAction={replyTo}
           addAction={this.handleAddClick.bind(this)}
+          contacts={this.props.contacts}
+          web3={this.props.web3}
         />
         )
       }
