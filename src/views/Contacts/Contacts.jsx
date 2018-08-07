@@ -22,7 +22,6 @@ class ContactsView extends React.Component {
 
     this.state ={
       addContactDialog: false,
-      contacts: this.props.contacts,
     }
   }
 
@@ -32,7 +31,6 @@ class ContactsView extends React.Component {
 
   handleAddClick() {
     this.setState({ addContactDialog: true })
-    console.log("Setting state to true")
   }
 
   handleNewContact = (name, address, pubkey) => {
@@ -45,7 +43,6 @@ class ContactsView extends React.Component {
 
   render() {
     const { classes, contacts } = this.props;
-    // TODO remove after testing:
     return (
       <div>
         <Card className={classes.card}>
@@ -53,12 +50,12 @@ class ContactsView extends React.Component {
         <h4 className={classes.cardTitleWhite}>Contacts</h4>
         </CardHeader>
         <CardBody>
-        {contacts.length > 0 &&
+        {Object.keys(contacts).length > 0 &&
           <ContactList
             contacts={contacts}
           />
         }
-        { contacts.length == 0 &&
+        {Object.keys(contacts).length == 0 &&
         <div className={classes.emptyBody}>
           <div className={classes.placeholderInner}>
             <PersonOutline

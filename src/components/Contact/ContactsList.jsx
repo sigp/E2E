@@ -7,33 +7,40 @@ import List from "@material-ui/core/List";
 import Contact from 'components/Contact/Contact.jsx'
 import ContactListStyles from 'assets/jss/components/contactListStyles.jsx'
 
-const ContactList = ({...props}) => {
-  const { classes, contacts } = props
-  let contactItems = (
-    contacts.map((prop, key) => {
-      return (
-        <Contact
-          contactName={prop.contactName}
-          address={prop.address}
-          pubkey={prop.pubkey}
-        />
-      )
-    })
-  )
+class ContactList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-  return (
-    <div className={classes.wrapper}>
-    {
-      contacts.length > 0 &&
-      contactItems
-    }
-    </div>
-  )
+  render() {
+    const { classes, contacts } = this.props
+
+    let contactItems = []
+      Object.keys(contacts).forEach((key) => {
+          let c = contacts[key]
+          contactItems.push(
+          <Contact
+            contactName={c.contactName}
+            address={key}
+            key={key}
+            pubkey={c.pubkey}
+          />
+          )
+    })
+    return (
+      <div className={classes.wrapper}>
+      {
+        Object.keys(contacts).length > 0 &&
+        contactItems
+      }
+      </div>
+    )
+  }
 }
 
 ContactList.propTypes = {
   classes: PropTypes.object.isRequired,
-  contacts: PropTypes.array.isRequired,
+  contacts: PropTypes.object.isRequired,
 }
 
 export default withStyles(ContactListStyles)(ContactList)

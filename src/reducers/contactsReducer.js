@@ -7,23 +7,24 @@ import {
 } from 'actions/contactActions'
 
 const initialState = {
-  contacts: []
+  contacts: {}
 }
 
 const contactsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CONTACT:
       let contactsUpdate = state.contacts
-      contactsUpdate.push({
+      contactsUpdate[action.contactAddress] = {
           contactName: action.contactName,
-          address: action.contactAddress,
           pubkey: action.contactPub,
-      })
+      }
       return Object.assign({}, state, {
         contacts: contactsUpdate,
       })
+      break
+
     default:
-      return state;
+      return state
   }
 }
 
