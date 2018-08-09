@@ -12,6 +12,7 @@ import {
 
 const initialState = {
   web3:   undefined,
+  ens:  undefined,
   accounts: { 
     status: 'UNKNOWN', 
     value:  [],
@@ -27,8 +28,9 @@ const web3Reducer = (state = initialState, action) => {
 
     case WEB3_LOADED: 
       return Object.assign({}, state,  {
-        web3: action.value,
-        accounts: action.value.eth.getAccounts((err, acc) => {return acc})
+        web3: action.value.web3,
+        ens: action.value.ens,
+        accounts: action.value.web3.eth.getAccounts((err, acc) => {return acc})
       })
 
     case WEB3_UPDATE_ACCOUNTS: 
@@ -36,7 +38,6 @@ const web3Reducer = (state = initialState, action) => {
 
     case WEB3_UPDATE_NETWORK: 
       let networkState = updateNetworkReducer(state, action)
-      console.log(networkState)
       if (networkState.network === state.network || networkState.contracts[networkState.network] === undefined)  
         return networkState; 
 

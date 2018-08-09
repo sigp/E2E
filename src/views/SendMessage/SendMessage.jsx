@@ -33,17 +33,30 @@ class SendMessagePage extends React.Component {
 
   // update state on-change
   async handleChange(event) { 
+    //TODO: Make this more elegant. Icon to display if public key or not
+    //exists.
+
     await this.setState({[event.target.name]: event.target.value})
+
+    // if the address has a '.' in it with at least 3 letters after it, lets check if there is an ens address
+    let recipient = this.state.recipient;
+    if (recipient.length - recipient.indexOf('.') > 3 && recipient.indexOf('.') > 0) { 
+      try {
+        let ensAddress = await this.props.ens.resolver(recipient).addr()
+        await this.setState({recipient: ensAddress})
+        await this.setState({validRecipient: true});
+      }
+      catch(err) {} // ENS throws if name not found
+    }
+
     this.checkGasPrice() 
 
-    //TODO: Once the correct length has been input, check for public key
     if (this.state.recipient.length === 40 || this.state.recipient.length === 42) {
        // check for correct address
        if (this.props.web3.utils.isAddress(this.state.recipient))  
           this.props.checkForPubKey(this.state.recipient);
    } 
 
-    //TODO: Check for ENS addresses
 
   }
 

@@ -3,6 +3,7 @@ import { render} from "react-dom";
 import { Provider } from "react-redux";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
+import ENS from 'ethereum-ens'
 //import "assets/css/material-dashboard-react.css?v=1.3.0";
 import indexRoutes from "./routes/index.jsx";
 import configureStore from 'store/configureStore';
@@ -17,8 +18,10 @@ const hist = createBrowserHistory();
 
 
 /* Intialise state when web3 is found */
-function loadWeb3(web3) {
-    store.dispatch({type: WEB3_LOADED, value: web3});
+function loadWeb3(provider) {
+    let web3 = new Web3(provider)
+    let ens = new ENS(provider)
+    store.dispatch({type: WEB3_LOADED, value: {web3: web3, ens: ens}});
     store.dispatch({type: WEB3_UPDATE_PROVIDER, value: 'INJECTED'});
     store.dispatch(updateAccounts(web3, false));
     store.dispatch(updateNetwork(web3, false));
@@ -28,14 +31,12 @@ function loadWeb3(web3) {
 window.addEventListener('load', function() { 
 
   if (typeof window.web3 !== 'undefined') { // old browsers parity etc..
-    let web3 = new Web3(window.web3.currentProvider); 
-    loadWeb3(web3)
+    loadWeb3(window.web3.currentProvider)
   }
   else {  // new metamask functionality
     window.addEventListener('message', ({ data }) => { 
       if (data && data.type && data.type === 'ETHEREUM_PROVIDER_SUCCESS'){
-        let web3 = new Web3(window.web3.currentProvider);
-        loadWeb3(web3)
+        loadWeb3(window.web3.currentProvider)
       }
     });
     window.postMessage({ type: 'ETHEREUM_PROVIDER_REQUEST'}, '*');
