@@ -15,18 +15,30 @@ var Web3 = require('web3');
 const store = configureStore();
 const hist = createBrowserHistory();
 
-/* Check for injected web3 */
-let web3Found = false;
-window.addEventListener('load', function() { 
 
-  if (typeof window.web3 !== 'undefined') { // metamask?
-    web3Found = true; 
-    var web3 = new Web3(window.web3.currentProvider); 
+/* Intialise state when web3 is found */
+function loadWeb3(web3) {
     store.dispatch({type: WEB3_LOADED, value: web3});
-    store.dispatch({type: WEB3_FOUND, value: web3Found});
-    store.dispatch({type: WEB3_UPDATE_PROVIDER, value: 'METAMASK'});
+    store.dispatch({type: WEB3_UPDATE_PROVIDER, value: 'INJECTED'});
     store.dispatch(updateAccounts(web3, false));
     store.dispatch(updateNetwork(web3, false));
+}
+
+/* Check for injected web3 */
+window.addEventListener('load', function() { 
+
+  if (typeof window.web3 !== 'undefined') { // old browsers parity etc..
+    let web3 = new Web3(window.web3.currentProvider); 
+    loadWeb3(web3)
+  }
+  else {  // new metamask functionality
+    window.addEventListener('message', ({ data }) => { 
+      if (data && data.type && data.type === 'ETHEREUM_PROVIDER_SUCCESS'){
+        let web3 = new Web3(window.web3.currentProvider);
+        loadWeb3(web3)
+      }
+    });
+    window.postMessage({ type: 'ETHEREUM_PROVIDER_REQUEST'}, '*');
   }
   startApp()
 })
@@ -49,7 +61,7 @@ unsubscribe = store.subscribe(updateMessages);
 // subscribe events yet 
 setInterval( () => { 
   let state = store.getState()
-  if (state.web3.web3Found) {
+  if (state.web3.web3 !== undefined) {
     // check if our accounts have changed
     store.dispatch(updateAccounts(state.web3.web3, true));
     // check if the network has changed

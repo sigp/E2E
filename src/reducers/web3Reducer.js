@@ -4,7 +4,6 @@
 import contractDetails from 'utils/contractDetails.js';
 
 import { 
-  WEB3_FOUND,
   WEB3_LOADED,
   WEB3_UPDATE_ACCOUNTS,
   WEB3_UPDATE_NETWORK,
@@ -12,7 +11,6 @@ import {
 } from 'actions/web3Actions';
 
 const initialState = {
-  web3Found: false, 
   web3:   undefined,
   accounts: { 
     status: 'UNKNOWN', 
@@ -31,11 +29,6 @@ const web3Reducer = (state = initialState, action) => {
       return Object.assign({}, state,  {
         web3: action.value,
         accounts: action.value.eth.getAccounts((err, acc) => {return acc})
-      })
-
-    case WEB3_FOUND:
-      return Object.assign({}, state,  {
-        web3Found: action.value
       })
 
     case WEB3_UPDATE_ACCOUNTS: 
