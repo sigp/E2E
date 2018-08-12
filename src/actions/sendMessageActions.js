@@ -1,5 +1,5 @@
-import pkCollectorDetails from 'utils/pubkeyCollectorConfig.js';
-
+import pkCollector from 'utils/pubkeyCollectorConfig.js';
+const https = require('https')
 const ecies = require('ecies-parity');
 export const SEND_MSG = 'SEND_MSG';
 export const GET_PUBKEY = "GET_PUBKEY";
@@ -47,7 +47,22 @@ export function sendMessage(contractInstance, recipient, pubKey, message,account
 
 export function checkForPubKey(recipient) {
   return function (dispatch) { 
-    // TODO: Build HTTP RPC Call 
-    // pkCollectorDetails.hostname 
+
+       dispatch({type: GET_PUBKEY});
+
+       // Call the api
+       fetch('https://' + pkCollector.hostname + pkCollector.apiPath + '/' + recipient) 
+        .then( (response) => {
+          if (response.status != 200) {
+           dispatch({type: GET_PUBKEY, status: 'ERROR'});
+          }
+          return response.json()
+        })
+        .then((json) => { 
+          if (json.publickey === undefined) 
+             dispatch({type: GET_PUBKEY,  status: 'NOTFOUND'});
+          else
+             dispatch({type: GET_PUBKEY, status: 'SUCCESS', value: json.publickey})
+        })
   }
 }

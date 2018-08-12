@@ -14,7 +14,8 @@ const mapStateToProps = state => {
     ens: state.web3.ens,
     account: state.web3.accounts.active,
     currentReply: state.messages.currentReply,
-    recipientPubKey: state.sendMessage.recipientPubKey
+    recipientPubKey: state.sendMessage.pubkey,
+    pubkeyStatus: state.sendMessage.pubkeyStatus
   } 
 }; 
 
@@ -28,6 +29,9 @@ const mapDispatchToProps = dispatch => {
     },
     checkForPubKey: (recipient) => { 
       dispatch(checkForPubKey(recipient))
+    },
+    clearPubkeyStatus: () => { 
+      dispatch({type: 'GET_PUBKEY', status: 'NONE'})
     }
   }
 }

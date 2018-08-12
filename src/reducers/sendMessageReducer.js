@@ -1,12 +1,15 @@
 // Reducers relating to sending messages
 
 import { 
-  SEND_MSG
+  SEND_MSG,
+  GET_PUBKEY
 } from 'actions/sendMessageActions';
 
 const initialState = {
   status: '',
   sentMessages: {}, 
+  pubkey: '',
+  pubkeyStatus: 'NONE'
 }
 
 const sendMessageReducer = (state = initialState, action) => {
@@ -46,10 +49,41 @@ const sendMessageReducer = (state = initialState, action) => {
             }
           })
           */
-
         default: 
           return Object.assign({}, state,  {
               status:  'PENDING' 
+          })
+      }
+
+    case GET_PUBKEY:
+      switch (action.status) {
+        case 'SUCCESS':
+          return Object.assign({}, state, { 
+            pubkeyStatus: action.status,
+            pubkey: action.value
+          })
+
+        case 'NOTFOUND':
+          return Object.assign({}, state, { 
+            pubkeyStatus: action.status,
+            pubkey: '' 
+          })
+
+        case 'NONE':
+          return Object.assign({}, state, { 
+            pubkeyStatus: 'NONE',
+            pubkey: '' 
+          })
+
+        case 'ERROR':
+          return Object.assign({}, state, { 
+            pubkeyStatus: 'ERROR',
+            pubkey: '' 
+          })
+
+        default: 
+          return Object.assign({}, state,  {
+              pubkeyStatus:  'PENDING' 
           })
       }
 

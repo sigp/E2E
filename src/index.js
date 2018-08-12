@@ -17,7 +17,7 @@ const store = configureStore();
 const hist = createBrowserHistory();
 
 
-/* Intialise state when web3 is found */
+/* Initialise state when web3 is found */
 function loadWeb3(provider) {
     let web3 = new Web3(provider)
     let ens = new ENS(provider)

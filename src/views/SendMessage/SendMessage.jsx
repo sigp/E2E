@@ -16,6 +16,9 @@ import GasCounter from 'components/GasCounter/GasCounter.jsx'
 import TextField from '@material-ui/core/TextField';
 import Close from '@material-ui/icons/Close'
 import InputDropdown from 'components/InputDropdown/InputDropdown.jsx'
+import { FadeLoader } from 'react-spinners'
+import Tick from 'components/common/tickcross/Tick.jsx'
+import Cross from 'components/common/tickcross/Cross.jsx'
 
 // styles
 import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx";
@@ -28,7 +31,7 @@ class SendMessagePage extends React.Component {
     recipient: this.props.currentReply,
     message: '',
     validRecipient: false,
-    contacts: this.props.contacts
+    contacts: this.props.contacts,
   };
 
   // update state on-change
@@ -53,11 +56,13 @@ class SendMessagePage extends React.Component {
 
     if (this.state.recipient.length === 40 || this.state.recipient.length === 42) {
        // check for correct address
-       if (this.props.web3.utils.isAddress(this.state.recipient))  
+       if (this.props.web3.utils.isAddress(this.state.recipient))  {
           this.props.checkForPubKey(this.state.recipient);
+          return
+       }
    } 
-
-
+    if (this.props.pubkeyStatus != 'NONE')
+      this.props.clearPubkeyStatus(); 
   }
 
   checkGasPrice() { 
@@ -134,7 +139,7 @@ class SendMessagePage extends React.Component {
   };
 
   render() {
-    const { classes, currentReply } = this.props;
+    const { classes, currentReply, pubkeyStatus } = this.props;
     
     const smallGC = classNames({
       [classes.gasCounter]: true,
@@ -174,7 +179,23 @@ class SendMessagePage extends React.Component {
             sendChangeHandler={this.handleChange.bind(this)}
             name="recipient"
             initial={this.state.recipient}
+       
+      />
+      {
+      //TODO: Fix this loader
+      }
+          <FadeLoader 
+          sizeUnit={'px'}
+          radius={5}
+          color={'#777'} 
+          loading={pubkeyStatus === 'PENDING'}
           />
+      { pubkeyStatus === 'SUCCESS' && 
+        <Tick />
+      }
+      { ( pubkeyStatus === 'NOTFOUND' || pubkeyStatus === 'ERROR') && 
+        <Cross />
+      }
       {
           // <InputField
           //   title="Recipient"
