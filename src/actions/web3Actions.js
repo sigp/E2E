@@ -2,7 +2,6 @@
 import { UPDATE_THEME } from 'actions/appActions';
 
 export const WEB3_LOADED = 'WEB3_LOADED';
-export const WEB3_FOUND = 'WEB3_FOUND';
 export const WEB3_UPDATE_ACCOUNTS = 'WEB3_UPDATE_ACCOUNTS';
 export const WEB3_UPDATE_NETWORK = 'WEB3_UPDATE_NETWORK';
 export const WEB3_UPDATE_PROVIDER = 'WEB3_UPDATE_PROVIDER';

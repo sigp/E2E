@@ -3,6 +3,7 @@ import { render} from "react-dom";
 import { Provider } from "react-redux";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
+import ENS from 'ethereum-ens'
 //import "assets/css/material-dashboard-react.css?v=1.3.0";
 import indexRoutes from "./routes/index.jsx";
 import configureStore from 'store/configureStore';
@@ -15,18 +16,30 @@ var Web3 = require('web3');
 const store = configureStore();
 const hist = createBrowserHistory();
 
-/* Check for injected web3 */
-let web3Found = false;
-window.addEventListener('load', function() { 
 
-  if (typeof window.web3 !== 'undefined') { // metamask?
-    web3Found = true; 
-    var web3 = new Web3(window.web3.currentProvider); 
-    store.dispatch({type: WEB3_LOADED, value: web3});
-    store.dispatch({type: WEB3_FOUND, value: web3Found});
-    store.dispatch({type: WEB3_UPDATE_PROVIDER, value: 'METAMASK'});
+/* Initialise state when web3 is found */
+function loadWeb3(provider) {
+    let web3 = new Web3(provider)
+    let ens = new ENS(provider)
+    store.dispatch({type: WEB3_LOADED, value: {web3: web3, ens: ens}});
+    store.dispatch({type: WEB3_UPDATE_PROVIDER, value: 'INJECTED'});
     store.dispatch(updateAccounts(web3, false));
     store.dispatch(updateNetwork(web3, false));
+}
+
+/* Check for injected web3 */
+window.addEventListener('load', function() { 
+
+  if (typeof window.web3 !== 'undefined') { // old browsers parity etc..
+    loadWeb3(window.web3.currentProvider)
+  }
+  else {  // new metamask functionality
+    window.addEventListener('message', ({ data }) => { 
+      if (data && data.type && data.type === 'ETHEREUM_PROVIDER_SUCCESS'){
+        loadWeb3(window.web3.currentProvider)
+      }
+    });
+    window.postMessage({ type: 'ETHEREUM_PROVIDER_REQUEST'}, '*');
   }
   startApp()
 })
@@ -49,7 +62,7 @@ unsubscribe = store.subscribe(updateMessages);
 // subscribe events yet 
 setInterval( () => { 
   let state = store.getState()
-  if (state.web3.web3Found) {
+  if (state.web3.web3 !== undefined) {
     // check if our accounts have changed
     store.dispatch(updateAccounts(state.web3.web3, true));
     // check if the network has changed
