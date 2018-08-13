@@ -5,8 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import MessageListStyles from 'assets/jss/components/messageListStyles.jsx'
 import Hidden from '@material-ui/core/Hidden'
 // Messages
-// TODO: add Message compoenent
-// import MessageListItem from 'components/Messages/MessageListItem.jsx'
+// TODO: add Message component
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -19,9 +18,8 @@ import Divider from '@material-ui/core/Divider'
 import Add from '@material-ui/icons/Add'
 import Tooltip from '@material-ui/core/Tooltip'
 import { CopyToClipboard} from 'react-copy-to-clipboard'
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Avatar from '@material-ui/core/Avatar';
 import Blockies from 'react-blockies'
+import {checkForCipher, isHex } from 'utils/ethereum-helpers.js'
 
 const MessageList = ({ ...props}) => {
 
@@ -53,6 +51,12 @@ const MessageList = ({ ...props}) => {
         if ( props.contacts.hasOwnProperty(value.senderAddress) ) {
           value.sender = props.contacts[value.senderAddress].contactName
         }
+        let displayMessage = value.message
+        if (isHex(value.message)) { 
+          if (checkForCipher(value.message))
+            displayMessage = "Encrypted Message"
+        }
+
 
         return (
             <ListItem key={key} button divider={true} className={classes.listItem}
@@ -68,7 +72,7 @@ const MessageList = ({ ...props}) => {
               </ListItemAvatar>
               <ListItemText
                 primary={value.sender}
-                secondary={value.message}
+                secondary={displayMessage}
               />
               <ListItemSecondaryAction>
                   <Hidden smDown>

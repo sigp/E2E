@@ -16,3 +16,13 @@ export function bytesToAddress(byteString) {
   return  '0x' + byteString.substr(26);
 }
 
+export function checkForCipher(message) { 
+  let cipherText = Buffer.from(message, "hex")
+  if (cipherText[0] >= 2 && cipherText[0] <= 4)
+    return true
+  return false
+}
+
+export function isHex(s) { 
+   return (s.length && s.length%2 == 0 && !(isNaN(parseInt(s,16))))
+}
