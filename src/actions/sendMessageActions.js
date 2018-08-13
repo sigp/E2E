@@ -55,6 +55,7 @@ export function checkForPubKey(recipient) {
         .then( (response) => {
           if (response.status != 200) {
            dispatch({type: GET_PUBKEY, status: 'ERROR'});
+           return {}
           }
           return response.json()
         })
