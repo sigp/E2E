@@ -13,7 +13,7 @@ class ContactList extends React.Component {
   }
 
   render() {
-    const { classes, contacts } = this.props
+    const { classes, contacts, clickHandler} = this.props
 
     let contactItems = []
       Object.keys(contacts).forEach((key) => {
@@ -24,6 +24,7 @@ class ContactList extends React.Component {
             address={key}
             key={key}
             pubkey={c.pubkey}
+            clickHandler={clickHandler}
           />
           )
     })
@@ -41,6 +42,7 @@ class ContactList extends React.Component {
 ContactList.propTypes = {
   classes: PropTypes.object.isRequired,
   contacts: PropTypes.object.isRequired,
+  clickHandler: PropTypes.func.isRequired,
 }
 
 export default withStyles(ContactListStyles)(ContactList)

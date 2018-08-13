@@ -17,23 +17,23 @@ class AccountOptions extends React.Component {
     const { classes } = this.props;
 
     let defaultContent = { 
-      parity: (
-      <div>
-        <div>
-          Recommended for decrypting messages.
-        </div>
-        <div>
-          <a href="https://www.parity.io/">Parity Ethereum</a>Parity-ethereum is a node software which has a chrome-extension to view and interact with Dapps through the browser. Parity natively supports decryption of E2E messages. 
-        </div>
-        <span>
-          Install the parity software at <a href="https://parity.io/">parity.io</a> and get the parity chrome extension for easy access to the features of this Dapp.
-        </span>
-        <hr />
-        <span>
-          Note: If the chrome extension is installed correctly, you will be logged in automatically. 
-        </span>
-      </div>
-    ),
+//      parity: (
+//      <div>
+//        <div>
+//          Recommended for decrypting messages.
+//        </div>
+//        <div>
+//          <a href="https://www.parity.io/">Parity Ethereum</a>Parity-ethereum is a node software which has a chrome-extension to view and interact with Dapps through the browser. Parity natively supports decryption of E2E messages. 
+//        </div>
+//        <span>
+//          Install the parity software at <a href="https://parity.io/">parity.io</a> and get the parity chrome extension for easy access to the features of this Dapp.
+//        </span>
+//        <hr />
+//        <span>
+//          Note: If the chrome extension is installed correctly, you will be logged in automatically. 
+//        </span>
+//      </div>
+//    ),
       metamask: (
       <div>
         <span>
@@ -94,11 +94,6 @@ class AccountOptions extends React.Component {
         contentGrid: { xs: 8, sm: 9, md: 10, lg: 10 }
       }}
       tabs={[
-        {
-          tabButton: "Parity",
-          tabIcon: Parity,
-          tabContent: defaultContent.parity
-        },
         {
           tabButton: "Metamask",
           tabIcon: MetaMask,

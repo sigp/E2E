@@ -5,9 +5,11 @@ import Close from '@material-ui/icons/Close'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 import DialogStyles from 'assets/jss/components/dialogStyle'
+import Blockies from 'react-blockies'
+import ContactDialogContent from 'components/Contact/DialogContent.jsx'
 
 const Dialog = ({...props}) => {
-  const { classes, onClose, show, header, children } = props;
+  const { classes, onClose, show, address, name, children } = props;
 
   if (!show) {
     return (
@@ -20,7 +22,18 @@ const Dialog = ({...props}) => {
         onClick={onClose}></div>
         <div class={classes.dialog}>
             <header className={classes.dialogHeader}>
-                {header}
+                <section className={classes.contactDialogHeaderStyle}>
+                  <div className={classes.contactDialogHeaderIconStyle}>
+                    <Blockies
+                      seed={props.address.toLowerCase()}
+                      size={8}
+                      scale={6}
+                    />
+                  </div>
+                  <div>
+                    {name}
+                  </div>
+                </section>
                 <button
                   className={classes.closebutton}
                   onClick={onClose}>
@@ -39,7 +52,8 @@ const Dialog = ({...props}) => {
 Dialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     show: PropTypes.bool,
-    header: PropTypes.element.isRequired,
+    address: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     children: PropTypes.node,
 }
 

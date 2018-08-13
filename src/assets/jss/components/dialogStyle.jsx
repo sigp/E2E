@@ -1,4 +1,4 @@
-const dialogStyle = {
+const dialogStyle = theme => ({
   darkbg: {
     position: 'fixed',
     top: '0',
@@ -9,10 +9,8 @@ const dialogStyle = {
     zIndex: '9',
   },
   dialog: {
-    background: '#fff',
+    background: theme.palette.background.paper,
     borderRadius: '3px',
-    //boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
-    boxShadow: '0 12px 15px 0 rgba(0,0,0,0.24)',
     padding: '0px 0px 10px 0px',
     width: '60%',
     maxWidth: '700px',
@@ -47,8 +45,8 @@ const dialogStyle = {
     padding: '10px',
     fontSize: '18px',
     fontWeight: '100',
-    color: '#444',
-    background: '#f7f7f7',
+    color: theme.palette.text.primary,
+    background: theme.palette.background.paper,
 
     '& h4': {
       float: 'left',
@@ -61,6 +59,23 @@ const dialogStyle = {
   clear: {
     clear: 'both',
   },
-}
+  contactDialogHeaderStyle:{
+        'display': 'flex',
+        'alignItems': 'center',
+        padding: '10px',
+    },
+  contactDialogHeaderIconStyle: {
+      width: '48px',
+      height: '48px',
+      borderRadius: '50%',
+      overflow: 'hidden',
+      boxShadow: '0 0 1px 6px #e8e8e8',
+      margin: '0px 20px',
+      '& .identicon': {
+        width: '48px !important',
+        height: '48px !important',
+      }
+    }
+})
 
 export default dialogStyle

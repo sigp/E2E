@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Close from '@material-ui/icons/Close'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import withStyles from '@material-ui/core/styles/withStyles'
 
@@ -13,6 +18,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";
 import pillsStyle from "assets/jss/components/pillsStyle.jsx";
 import EthLoader from "components/EthLoader/Loader.jsx";
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 // icons
 const Web3LoaderDialog = ({...props}) => {
@@ -45,25 +51,27 @@ const Web3LoaderDialog = ({...props}) => {
   }
 
   return(
-      <div className={classes.darkbg}>
-        <div className={classes.dialog}>
-            <section className={classes.dialogBody}>
-              { accountStatus == "PENDING" && 
-                content.connecting 
-              }
-              { accountStatus != "PENDING" && 
-                content.noAccounts
-                
-              }
-            </section>
-        </div>
-      </div>
+      <Dialog
+        open={show}
+        fullScreen={props.fullScreen}
+      >
+        <section className={classes.dialogBody}>
+          { accountStatus == "PENDING" &&
+            content.connecting
+          }
+          { accountStatus != "PENDING" &&
+            content.noAccounts
+
+          }
+        </section>
+      </Dialog>
   )
 }
 
 Web3LoaderDialog.propTypes = {
     show: PropTypes.bool,
     children: PropTypes.node,
+    fullscreen: PropTypes.bool,
 }
 
-export default withStyles(Web3LoaderDialogStyles)(Web3LoaderDialog)
+export default withMobileDialog()(withStyles(Web3LoaderDialogStyles)(Web3LoaderDialog))

@@ -11,9 +11,12 @@ import ethlogo from 'assets/img/ethlogo.png'
 import Typography from '@material-ui/core/Typography';
 
 const Contact = ({...props}) => {
-  const { classes, contactName, address, pubkey } = props
+  const { contactName, address, pubkey, classes, clickHandler } = props
   return (
-      <section className={classes.contactContainer}>
+      <section 
+        className={classes.contactContainer}
+        onClick={() => { props.clickHandler(contactName, address, pubkey)}}
+      >
           <section className={classes.contactId}>
             <section className={classes.circleHolder}>
               <Blockies
@@ -45,6 +48,7 @@ Contact.propTypes = {
   address: PropTypes.string.isRequired,
   pubkey: PropTypes.string,
   classes: PropTypes.object.isRequired,
+  clickHandler: PropTypes.func.isRequired,
 }
 
 export default withStyles(contactStyle)(Contact)
