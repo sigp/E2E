@@ -122,6 +122,7 @@ class InputDropDown extends React.Component<*, State>{
         value: props.initial
       },
     }, 'INPUT')
+    this.props.checkGasPrice()
     //this.handleChange({id: props.initial, name: props.initial}, 'create-option')
   }
 
@@ -150,11 +151,13 @@ class InputDropDown extends React.Component<*, State>{
       switch(action) {
         case 'select-option':
           this.setState({ selectedOption: option });
+          this.props.checkGasPrice();
           break;
         case 'create-option':
           let options = this.state.options;
           options.push(option);
           this.setState({ selectedOption: option, options });
+          this.props.checkGasPrice();
           break;
         case 'pop-value':
           options = this.state.options;

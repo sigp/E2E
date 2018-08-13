@@ -188,7 +188,7 @@ class SendMessagePage extends React.Component {
             sendChangeHandler={this.handleChange.bind(this)}
             name="recipient"
             initial={this.state.recipient}
-       
+            checkGasPrice={this.checkGasPrice.bind(this)}
       />
       {
       //TODO: Fix this loader
