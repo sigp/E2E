@@ -35,7 +35,7 @@ class SendMessagePage extends React.Component {
   };
 
   // update state on-change
-  async handleChange(event) { 
+  async handleChange(event, origin) { 
     //TODO: Make this more elegant. Icon to display if public key or not
     //exists.
 
@@ -52,17 +52,21 @@ class SendMessagePage extends React.Component {
       catch(err) {} // ENS throws if name not found
     }
 
-    this.checkGasPrice() 
 
-    if (this.state.recipient.length === 40 || this.state.recipient.length === 42) {
-       // check for correct address
-       if (this.props.web3.utils.isAddress(this.state.recipient))  {
+    if (origin === 'INPUT') {
+      if (this.state.recipient.length === 40 || (this.state.recipient.length === 42 && this.state.recipient.startsWith('0x'))) {
+        // check for correct address
+        if (this.props.web3.utils.isAddress(this.state.recipient))  {
           this.props.checkForPubKey(this.state.recipient);
           return
-       }
-   } 
-    if (this.props.pubkeyStatus != 'NONE')
-      this.props.clearPubkeyStatus(); 
+        }
+      }
+
+      if (this.props.pubkeyStatus != 'NONE')
+        this.props.clearPubkeyStatus();
+    }
+
+    this.checkGasPrice()
   }
 
   checkGasPrice() { 
@@ -146,6 +150,7 @@ class SendMessagePage extends React.Component {
       "sm": true
     })
 
+    console.log(this.state.gasUse)
     return (
       <Card className={classes.card}>
         <CardHeader color="primary">
@@ -217,7 +222,7 @@ class SendMessagePage extends React.Component {
             className={classes.textField}
             margin="normal"
             name="message"
-            onChange={this.handleChange.bind(this)}
+            onChange={(event) => { this.handleChange(event, 'TEXTFIELD')}}
           />
           </div>
           <section>
@@ -226,7 +231,7 @@ class SendMessagePage extends React.Component {
             <GasCounter
               classes={classes}
               id="gas-counter"
-              gas={this.state.gasUse} 
+              gas={this.state.gasUse}
             />
           </div>
           <div className={classes.actionContainers}>
@@ -248,6 +253,7 @@ class SendMessagePage extends React.Component {
               <GasCounter
                 classes={classes}
                 id="gas-counter"
+                gas={this.state.gasUse}
               />
             </div>
             <span>Encrypt

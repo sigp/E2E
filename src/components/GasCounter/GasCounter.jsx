@@ -7,6 +7,7 @@ import Hidden from '@material-ui/core/Hidden'
 
 const GasCounter = (props) => {
     const { classes, id, gas } = props
+    console.log(gas)
     return (
         <section>
           Gas Cost:&nbsp;
@@ -20,6 +21,7 @@ const GasCounter = (props) => {
 GasCounter.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
+  gas: PropTypes.number,
 };
 
 export default GasCounter

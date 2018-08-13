@@ -24,6 +24,7 @@ function Control(props) {
       InputProps={{
         inputComponent,
         inputProps: {
+          maxLength: '10',
           className: props.selectProps.classes.input,
           ref: props.innerRef,
           children: props.children,
@@ -119,8 +120,8 @@ class InputDropDown extends React.Component<*, State>{
       target: {
         name: 'recipient',
         value: props.initial
-      }
-    })
+      },
+    }, 'INPUT')
     //this.handleChange({id: props.initial, name: props.initial}, 'create-option')
   }
 
@@ -144,7 +145,8 @@ class InputDropDown extends React.Component<*, State>{
     return `${option.name} (${option.id})`
   }
 
-  handleChange = (option, action) => {
+  handleChange = (option, action, caller='INPUT') => {
+      console.log(action)
       switch(action) {
         case 'select-option':
           this.setState({ selectedOption: option });
@@ -166,12 +168,37 @@ class InputDropDown extends React.Component<*, State>{
         option.id = ''
       }
 
-      this.props.sendChangeHandler({
-        target: {
-          name: 'recipient',
-          value: option.id
-        }
-      })
+      if(caller !== 'BLUR') {
+        this.props.sendChangeHandler({
+          target: {
+            name: 'recipient',
+            value: option.id
+          }
+        }, 'INPUT')
+      }
+  }
+
+  handleBlur = (value) => {
+      if (value === '') {
+        return
+      }
+
+      // else let's see if it is already in the list
+      if(this.state.options.find(option => option.name === value) ||
+        this.state.options.find(option => option.id === value)
+      ){
+        this.handleChange(
+          {id: value, name: value},
+          'select-option',
+          'BLUR'
+        )
+      } else {
+        this.handleChange(
+          {id: value, name: value},
+          'create-option',
+          'BLUR'
+        )
+      }
   }
 
   inputChange = (value) => {
@@ -183,7 +210,7 @@ class InputDropDown extends React.Component<*, State>{
           name: 'recipient',
           value: value
         }
-      })
+      }, 'INPUT')
   }
 
   render() {
@@ -209,6 +236,7 @@ class InputDropDown extends React.Component<*, State>{
           })}
           placeholder='Recipient'
           onInputChange={(value) => this.inputChange(value)}
+          onBlur={(event) => { this.handleBlur(event.target.value)}}
           onChange={(option, { action }) => {
             this.handleChange(option, action)
           }}
