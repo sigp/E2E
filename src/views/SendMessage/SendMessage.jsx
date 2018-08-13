@@ -283,6 +283,20 @@ class SendMessagePage extends React.Component {
             type="error"
             onConfirm={()=> this.setState({invalidAddressAlert:false})}
         />
+          <SweetAlert 
+            show={this.state.networkUnavailableAlert}
+            title="Network Unavailable"
+            text="Please connect to a known ethereum network."
+            type="error"
+            onConfirm={()=> this.setState({networkUnavailableAlert:false})}
+        />
+          <SweetAlert 
+            show={this.state.pubkeyAlert}
+            title="Public Key Not Found"
+            text="The public key of the recipient has not been found. This means the account has not done no prior transactions. Either enter a public key manually via contacts, or consider sending an unencrypted message."
+            type="error"
+            onConfirm={()=> this.setState({pubkeyAlert:false})}
+        />
         </form>
         </CardBody>
       </Card>
