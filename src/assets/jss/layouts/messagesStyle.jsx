@@ -45,6 +45,11 @@ const messagesStyle = theme =>  ({
     '100%': {
       transform: 'scaleX(-1) rotate(90deg)',
     }
+  },
+  refreshButton: { 
+    position: 'absolute',
+    top: '4px',
+    right: '10px'
   }
 })
 

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import MessagePage from 'views/Messages/Messages.jsx';
+import { retrieveMessages } from 'actions/messageActions.js';
 
 const mapStateToProps = state => {
   return {
@@ -12,6 +13,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    retrieveMessages : () => { 
+      dispatch(retrieveMessages());
+    },
     replyTo: (recipient) => {
       dispatch({type: 'REPLY_TO', value: recipient})
     },

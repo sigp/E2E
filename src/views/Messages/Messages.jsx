@@ -1,15 +1,17 @@
 import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import Hidden from '@material-ui/core/Hidden'
-import Drafts from '@material-ui/icons/Drafts'
-import Sync from '@material-ui/icons/Sync'
+import Hidden from '@material-ui/core/Hidden';
+import Drafts from '@material-ui/icons/Drafts';
+import Sync from '@material-ui/icons/Sync';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 // core components
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import MessageList from 'components/Messages/MessageList.jsx'
-import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx'
+import MessageList from 'components/Messages/MessageList.jsx';
+import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx';
 
 import AddContactDialog from 'components/Dialogs/AddContact.jsx'
 
@@ -49,7 +51,7 @@ class MessagesPage extends React.Component {
 
   render() {
 
-  const { classes, messages, messageStatus, replyTo, clearReply } = this.props;
+  const { classes, messages, messageStatus, replyTo, clearReply, retrieveMessages } = this.props;
 
   // Clear the reply field
   clearReply()
@@ -115,6 +117,14 @@ class MessagesPage extends React.Component {
       <Card className={classes.card}>
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Messages</h4>
+            <Tooltip title="Refresh messages">
+              <IconButton 
+                  className={classes.refreshButton}
+                  onClick={retrieveMessages}
+                  >
+                <Sync style={{fontSize: 30}} />
+              </IconButton>
+            </Tooltip>
         </CardHeader>
         <CardBody >
           { content }

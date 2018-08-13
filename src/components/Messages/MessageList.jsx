@@ -57,7 +57,6 @@ const MessageList = ({ ...props}) => {
             displayMessage = "Encrypted Message"
         }
 
-
         return (
             <ListItem key={key} button divider={true} className={classes.listItem}
                 style={{
