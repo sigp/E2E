@@ -145,7 +145,7 @@ class MessagesPage extends React.Component {
       show={this.state.addContactDialog}
       handleDialogClose={this.handleDialogClose.bind(this)}
       handleNewContact={this.handleNewContact.bind(this)}
-      pubLoading={false}
+      pubLoading={true}
       showPub={true}
       address={this.state.currentAdd}
       web3={this.props.web3}

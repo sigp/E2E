@@ -1,4 +1,4 @@
-import pkCollector from 'utils/pubkeyCollectorConfig.js';
+import lookupPubkey from 'utils/pubkeyCollectorConfig.js';
 const https = require('https')
 const ecies = require('ecies-parity');
 export const SEND_MSG = 'SEND_MSG';
@@ -54,7 +54,7 @@ export function checkForPubKey(recipient) {
     dispatch({type: GET_PUBKEY});
 
     // Call the api
-    fetch('https://' + pkCollector.hostname + pkCollector.apiPath + '/' + recipient) 
+    lookupPubkey(recipient)
       .then( (response) => {
         if (response.status != 200) {
           dispatch({type: GET_PUBKEY, status: 'ERROR'});

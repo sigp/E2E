@@ -12,6 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Blockies from 'react-blockies'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Close from '@material-ui/icons/Close'
+import lookupPubkey from 'utils/pubkeyCollectorConfig.js';
 
 import AddContactStyles from 'assets/jss/components/addContactDialogStyles.jsx'
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -23,7 +24,21 @@ class AddContactDialog extends React.Component {
         address: props.address,
         name: props.name,
         pubkey: props.pubkey,
+        pubLoading: true
       }
+      // lookup public key
+      lookupPubkey(props.address)
+        .then( (response) => {
+          if (response.status != 200) 
+            this.setState({pubLoading: false})
+          else 
+            return response.json()
+        })
+        .then((json) => { 
+          if (json.publickey !== undefined) 
+            this.setState({pubkey: json.publickey})
+          this.setState({pubLoading: false})
+        })
     }
 
     handleSuccess = () => {
@@ -125,7 +140,6 @@ class AddContactDialog extends React.Component {
               fullWidth
             />
             </section>
-            {this.props.address && 
             <TextField
               margin="dense"
               name='address'
@@ -136,29 +150,12 @@ class AddContactDialog extends React.Component {
               helperText={helperText}
               error={!this._isValidAddress()}
               onChange={this.handleChange.bind(this)}
-              disabled={true}
-              fullWidth
               onKeyPress={this._onKeyPress.bind(this)}
+              disabled={this.props.address}
+              fullWidth
               value={this.props.address}
             />
-            }
-            {!this.props.address && 
-            <TextField
-              margin="dense"
-              name='address'
-              id="address"
-              label="Address"
-              type="text"
-              inputProps={{ maxLength:"42" }}
-              helperText={helperText}
-              error={!this._isValidAddress()}
-              onChange={this.handleChange.bind(this)}
-              onKeyPress={this._onKeyPress.bind(this)}
-              disabled={this.props.adress}
-              fullWidth
-            />
-            }
-            {this.props.pubLoading &&
+            {this.state.pubLoading &&
               <div className={classes.loader}>
                 <CircularProgress color="primary" />
               </div>
@@ -172,6 +169,8 @@ class AddContactDialog extends React.Component {
               type="text"
               onChange={this.handleChange.bind(this)}
               onKeyPress={this._onKeyPress.bind(this)}
+              value={this.state.pubkey}
+              disabled={this.state.pubkey}
               fullWidth
             />
             }
