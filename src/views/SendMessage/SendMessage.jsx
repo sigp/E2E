@@ -154,7 +154,6 @@ class SendMessagePage extends React.Component {
       "sm": true
     })
 
-    console.log(this.state.gasUse)
     return (
       <Card className={classes.card}>
         <CardHeader color="primary">

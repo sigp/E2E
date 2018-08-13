@@ -21,8 +21,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendMessage: (instance, recipient, message, account) => { 
-      dispatch(sendMessage(instance, recipient,message, account))
+    sendMessage: (instance, recipient, recipientPubKey, message, account, encrypt) => { 
+      dispatch(sendMessage(instance, recipient, recipientPubKey, message, account, encrypt))
     },
     clearReply: () => {
       dispatch({type: 'CLEAR_REPLY'})
