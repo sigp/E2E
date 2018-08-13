@@ -19,6 +19,8 @@ import InputDropdown from 'components/InputDropdown/InputDropdown.jsx'
 import { FadeLoader } from 'react-spinners'
 import Tick from 'components/common/tickcross/Tick.jsx'
 import Cross from 'components/common/tickcross/Cross.jsx'
+import SweetAlert from 'sweetalert-react'
+import 'sweetalert/dist/sweetalert.css'
 
 // styles
 import sendMessageStyle from "assets/jss/layouts/sendMessageStyle.jsx";
@@ -32,6 +34,10 @@ class SendMessagePage extends React.Component {
     message: '',
     validRecipient: false,
     contacts: this.props.contacts,
+    // alert states
+    invalidAddressAlert: false,
+    networkUnavailableAlert: false,
+    pubkeyAlert: false
   };
 
   // update state on-change
@@ -116,25 +122,23 @@ class SendMessagePage extends React.Component {
     const { network, contractInstance, account, recipientPubKey } = this.props; 
     // ensure the recpient address is correct
     if(!this.props.web3.utils.isAddress(this.state.recipient)) {
-      alert("Incorrect Address") 
+      this.setState({invalidAddressAlert: true})
       return
     }
 
     // ensure the contract is known for this network
     if (network === undefined || contractInstance.address === null) {
-      alert("network unavailable");
+      this.setState({networkUnavailableAlert: true})
       return
     }
 
     if (this.state.encrypt && recipientPubKey === undefined) { 
-      alert("A known public key is required to perform encryption.\n Either enter an account that has done a transaction, or enter the public key manually. See help for further details");
+      this.setState({pubkeyAlert: true})
       return;
     }
 
     let recipient = this.state.recipient;
     let message = this.state.message; 
-
-    
     this.props.sendMessage(contractInstance, recipient, recipientPubKey, message, account, this.state.encrypt);
   }
 
@@ -269,6 +273,16 @@ class SendMessagePage extends React.Component {
              />
           </Hidden>
           </section>
+          { 
+            // Alerts
+          } 
+          <SweetAlert 
+            show={this.state.invalidAddressAlert}
+            title="Invalid Address"
+            text="The entered recipient address is invalid."
+            type="error"
+            onConfirm={()=> this.setState({invalidAddressAlert:false})}
+        />
         </form>
         </CardBody>
       </Card>
