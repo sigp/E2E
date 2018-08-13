@@ -38,7 +38,11 @@ class MessagesPage extends React.Component {
       addContactDialog: true,
       currentAdd: addr
     })
-    console.log("Setting state to true")
+  }
+
+  handleReply(addr) {
+    this.props.history.push('/send')
+    this.props.replyTo(addr)
   }
 
   handleNewContact = (name, address, pubkey) => {
@@ -51,7 +55,7 @@ class MessagesPage extends React.Component {
 
   render() {
 
-  const { classes, messages, messageStatus, replyTo, clearReply, retrieveMessages } = this.props;
+  const { classes, messages, messageStatus, clearReply, retrieveMessages } = this.props;
 
   // Clear the reply field
   clearReply()
@@ -100,7 +104,7 @@ class MessagesPage extends React.Component {
         content = (
         <MessageList
           messages={messages}
-          replyAction={replyTo}
+          replyAction={this.handleReply.bind(this)}
           addAction={this.handleAddClick.bind(this)}
           contacts={this.props.contacts}
           web3={this.props.web3}
