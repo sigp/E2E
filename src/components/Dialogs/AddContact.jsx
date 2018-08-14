@@ -140,6 +140,7 @@ class AddContactDialog extends React.Component {
               fullWidth
             />
             </section>
+            { this.props.address &&
             <TextField
               margin="dense"
               name='address'
@@ -155,12 +156,31 @@ class AddContactDialog extends React.Component {
               fullWidth
               value={this.props.address}
             />
+            }
+            { !this.props.address &&
+            <TextField
+              margin="dense"
+              name='address'
+              id="address"
+              label="Address"
+              type="text"
+              inputProps={{ maxLength:"42" }}
+              helperText={helperText}
+              error={!this._isValidAddress()}
+              onChange={this.handleAddressChange.bind(this)}
+              onKeyPress={this._onKeyPress.bind(this)}
+              fullWidth
+            />
+            }
             {this.state.pubLoading &&
               <div className={classes.loader}>
                 <CircularProgress color="primary" />
               </div>
             }
-            {this.props.showPub &&
+            {!this.state.pubLoading &&              // Not loading/searching
+                this.state.showPub &&               // Show pub key field
+                this.state.pubFound &&               // If it's full -- disable
+                this.state.pubkey !== undefined &&  // Make sure not empty
             <TextField
               margin="dense"
               id="pubkey"
@@ -171,6 +191,20 @@ class AddContactDialog extends React.Component {
               onKeyPress={this._onKeyPress.bind(this)}
               value={this.state.pubkey}
               disabled={this.state.pubkey}
+              fullWidth
+            />
+            }
+            {!this.state.pubLoading &&              // Not loading/searching
+                this.state.showPub &&               // Show pub key field
+                !this.state.pubFound &&              // Pub not found
+            <TextField
+              margin="dense"
+              id="pubkey"
+              name="pubkey"
+              label="Public Key"
+              type="text"
+              onChange={this.handlePubKeyChange.bind(this)}
+              onKeyPress={this._onKeyPress.bind(this)}
               fullWidth
             />
             }

@@ -62,6 +62,7 @@ const MessageList = ({ ...props}) => {
                 style={{
                     borderLeft: `4px solid #${getColour(value.recipientAddress)}`
                   }}
+                button={true}
               >
               <ListItemAvatar>
                 <Blockies

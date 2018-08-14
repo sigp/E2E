@@ -27,11 +27,13 @@ const AddContactStyles = theme => ({
     verticalAlign: 'middle',
   },
   invalidIcon: {
-    height: '30px',
-    width: '30px',
+    height: '48px',
+    width: '48px',
     color: '#b95252',
     display: 'block',
     margin: 'auto auto',
+    textAlign: 'center',
+
   },
   errorText: {
     color: '#b95252 !important'

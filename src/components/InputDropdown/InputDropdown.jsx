@@ -151,7 +151,12 @@ class InputDropDown extends React.Component<*, State>{
       switch(action) {
         case 'select-option':
           this.setState({ selectedOption: option });
-          this.props.checkGasPrice();
+          this.props.sendChangeHandler({
+            target: {
+              name: 'recipient',
+              value: option.id
+            }
+          })
           break;
         case 'create-option':
           let options = this.state.options;
