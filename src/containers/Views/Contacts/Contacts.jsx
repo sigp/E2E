@@ -21,6 +21,15 @@ const mapDispatchToProps = dispatch => {
         type: 'STORE_CONTACTS',
       })
     },
+    deleteContact: (address) => {
+      dispatch({
+        type: 'DELETE_CONTACT',
+        address: address,
+      })
+      dispatch({
+        type: 'STORE_CONTACTS',
+      })
+    },
   }
 }
 

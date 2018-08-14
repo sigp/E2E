@@ -37,6 +37,14 @@ const AddContactStyles = theme => ({
   },
   errorText: {
     color: '#b95252 !important'
+  },
+  errorBar: {
+    background: '#b95252',
+    color: '#fff',
+    width: '100%',
+    textAlign: 'center',
+    padding: '5px 0px',
+    margin: '5px auto',
   }
 })
 

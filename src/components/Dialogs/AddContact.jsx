@@ -20,7 +20,9 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 class AddContactDialog extends React.Component {
     constructor(props) {
       super(props)
+      console.log(props.name)
       this.state = {
+        error: false,
         address: props.address,
         name: props.name,
         pubkey: props.pubkey,
@@ -29,13 +31,30 @@ class AddContactDialog extends React.Component {
         showPub: false,
       }
 
+      if (props.pubkey) {
+        console.log(props.pubkey)
+        this.state = Object.assign( {}, this.state, {
+          showPub: true,
+          pubLoading: false
+        })
+      } else {
+
       // lookup public key
       lookupPubkey(props.address)
         .then( (response) => {
-          if (response.status != 200) 
+          if (response.status != 200)
             this.setState({pubLoading: false})
           else 
             return response.json()
+        })
+        .catch((err) => {
+          this.setState({
+            pubkey: undefined,
+            showPub: false,
+            pubFound: false,
+            pubLoading: false
+          })
+          return
         })
         .then((json) => { 
           if(json === undefined) {
@@ -48,20 +67,48 @@ class AddContactDialog extends React.Component {
             return
           }
 
-          if (json.publickey !== undefined)
+          if (json.publickey !== undefined) {
+            alert(json.publickey)
             this.setState({
-              pubkey: json.publickey,
               pubFound: true,
+              pubkey: json.publickey,
               showPub: true,
               pubLoading: false,
             })
-          else
+          } else {
             this.setState({pubkey: undefined})
+          }
 
+          return
         })
+      }
+    }
+
+    _checkValidNewContact = () => {
+      if (
+        // name
+        this.state.name === undefined || this.state.name === '' ||
+        // name
+        this.state.address === undefined || this.state.address === '' ||
+
+        // name
+        this.state.pubkey === undefined || this.state.pubkey === ''
+      ) {
+        this.setState({
+          error: true,
+        })
+        return false
+      }
+      this.setState({
+        error: false
+      })
+      return true
     }
 
     handleSuccess = () => {
+      if (!this._checkValidNewContact()) {
+        return
+      }
       console.group("New Contact")
       console.log(`Name: ${this.state.name}`)
       console.log(`Address: ${this.state.address}`)
@@ -79,6 +126,9 @@ class AddContactDialog extends React.Component {
 
     // TODO call to check if actual valid address from web3!
     _isValidAddress() {
+      if(this.state.address === undefined) {
+        return false
+      }
       if (this.state.address.length == 42 && this.state.address.startsWith('0x')) {
         return(this.props.web3.utils.isAddress(this.state.address))
       }
@@ -125,15 +175,16 @@ class AddContactDialog extends React.Component {
             return
           }
 
-          if (json.publickey !== undefined) 
+          if (json.publickey !== undefined) {
             this.setState({
               pubkey: json.publickey,
               pubFound: true,
             })
-          else
+          } else {
             this.setState({
               pubkey: undefined
             })
+          }
 
           this.setState({
             pubLoading: false,
@@ -174,7 +225,7 @@ class AddContactDialog extends React.Component {
       const { classes,show, fullScreen } = this.props;
 
       let helperText=""
-      if (!this._isValidAddress()) {
+      if (!this._isValidAddress() && this.state.address !== undefined) {
         helperText="Invalid Address"
         if(!this.state.address.startsWith('0x')) {
           helperText+= " - Address starts with '0x'"
@@ -189,6 +240,12 @@ class AddContactDialog extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Add Contact</DialogTitle>
+          {
+          this.state.error &&
+          <section className={classes.errorBar}>
+            Invalid Contact
+          </section>
+          }
           <DialogContent
             className={classes.content}
           >
@@ -272,7 +329,7 @@ class AddContactDialog extends React.Component {
               onChange={this.handleChange.bind(this)}
               onKeyPress={this._onKeyPress.bind(this)}
               value={this.state.pubkey}
-              disabled={this.state.pubkey}
+              disabled={this.state.pubkey !== undefined}
               fullWidth
             />
             }
@@ -295,7 +352,7 @@ class AddContactDialog extends React.Component {
             <Button onClick={this._handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSuccess} disabled={!this._isValidAddress() || !this.state.name } color="primary">
+            <Button onClick={() => {this.handleSuccess()}} disabled={!this._isValidAddress() || !this.state.name } color="primary">
               Add
             </Button>
           </DialogActions>

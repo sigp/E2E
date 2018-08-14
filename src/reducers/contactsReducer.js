@@ -24,6 +24,13 @@ const contactsReducer = (state = initialState, action) => {
         contacts: contactsUpdate,
       })
       break
+    case DELETE_CONTACT:
+      let currentContacts = state.contacts
+      delete currentContacts[action.address]
+      return Object.assign({}, state, {
+        currentContacts
+      })
+      break
     case STORE_CONTACTS:
       let stringContacts = Buffer.from(
         JSON.stringify(state.contacts)

@@ -21,11 +21,15 @@ import { CopyToClipboard} from 'react-copy-to-clipboard'
 import Blockies from 'react-blockies'
 import {checkForCipher, isHex } from 'utils/ethereum-helpers.js'
 
-const MessageList = ({ ...props}) => {
+// const MessageList = ({ ...props}) => {
 
-  const { classes, messages, replyAction } = props
+class MessageList extends React.Component {
 
-  let getColour = (str) => {
+  constructor(props) {
+    super(props)
+  }
+
+  getColour = (str) => {
     str = str.substr(2)
     let h = 0;
     for (var i = 0; i < str.length; i++) {
@@ -36,100 +40,109 @@ const MessageList = ({ ...props}) => {
     return "000000".substring(0, 6-c.length) + c
   }
 
+  render() {
+    const { classes, messages, replyAction } = this.props
 
-  let renderedList = (
-      messages.map((value, key) => {
-        // let topLine = (
-        //   <span className={classes.topLine}>
-        //   {value.sender}
-        //   <Hidden smDown>
-        //     <Forward />
-        //     {value.recipientAddress}
-        //   </Hidden>
-        //   </span>
-        // )
-        if ( props.contacts.hasOwnProperty(value.senderAddress) ) {
-          value.sender = props.contacts[value.senderAddress].contactName
-        }
-        let displayMessage = value.message
-        if (isHex(value.message)) { 
-          if (checkForCipher(value.message))
-            displayMessage = "Encrypted Message"
-        }
+    // NOTE: JSON method to deep copy array with objects
+    // If there is a better way, please use - I couldn't find one
+    // for an array with objects...
+    let msg = JSON.parse(JSON.stringify(messages))
 
-        return (
-            <ListItem key={key} button divider={true} className={classes.listItem}
-                style={{
-                    borderLeft: `4px solid #${getColour(value.recipientAddress)}`
-                  }}
-                button={true}
-              >
-              <ListItemAvatar>
-                <Blockies
-                  seed={value.senderAddress}
-                  size={8}
+    let renderedList = (
+        msg.map((value, key) => {
+          // let topLine = (
+          //   <span className={classes.topLine}>
+          //   {value.sender}
+          //   <Hidden smDown>
+          //     <Forward />
+          //     {value.recipientAddress}
+          //   </Hidden>
+          //   </span>
+          // )
+          if ( this.props.contacts.hasOwnProperty(value.senderAddress) ) {
+            value.sender = this.props.contacts[value.senderAddress].contactName
+          }
+          let displayMessage = value.message
+          if (isHex(value.message)) { 
+            if (checkForCipher(value.message))
+              displayMessage = "Encrypted Message"
+          }
+
+          return (
+              <ListItem key={key} button divider={true} className={classes.listItem}
+                  style={{
+                      borderLeft: `4px solid #${this.getColour(value.recipientAddress)}`
+                    }}
+                  button={true}
+                >
+                <ListItemAvatar>
+                  <Blockies
+                    seed={value.senderAddress}
+                    size={8}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={value.sender}
+                  secondary={displayMessage}
                 />
-              </ListItemAvatar>
-              <ListItemText
-                primary={value.sender}
-                secondary={displayMessage}
-              />
-              <ListItemSecondaryAction>
-                  <Hidden smDown>
-                    <CopyToClipboard text={value.senderAddress}>
-                        <IconButton aria-label="Copy">
-                            <ContentCopy />
-                        </IconButton>
-                    </CopyToClipboard>
-                  </Hidden>
-
-                  {
-                  // @NOTE: TOOLTIP removed until paging implemented
-                    value.sender === value.senderAddress &&
+                <ListItemSecondaryAction>
                     <Hidden smDown>
-                    <IconButton
-                    aria-label="Add Contact"
-                    onClick={() => {props.addAction(value.senderAddress)}}
-                    >
-                        <Add />
-                    </IconButton>
+                      <CopyToClipboard text={value.senderAddress}>
+                          <IconButton aria-label="Copy">
+                              <ContentCopy />
+                          </IconButton>
+                      </CopyToClipboard>
                     </Hidden>
-                  }
-                  {
-                  // <Tooltip id='tooltip-reply' title='Reply'>
-                  <IconButton
-                    tooltip="Reply"
-                    aria-label="Reply"
-                    onClick={() => {replyAction(value.senderAddress)}}
-                  >
-                      <Reply />
-                  </IconButton>
-                  // </Tooltip>
-                  }
-              </ListItemSecondaryAction>
-            </ListItem>
-        )
 
-        // return (
-        //   
-        //     <MessageListItem
-        //         key={key}
-        //         sender={value.sender}
-        //         message={value.message}
-        //         senderAddress={value.senderAddress}
-        //         recipientAddress={value.recipientAddress}
-        //     />
-        // )
-      })
-  )
-  return (
-    <div>
-      <List>
-        <Divider />
-        {renderedList}
-      </List>
-    </div>
-  )
+                    {
+                    // @NOTE: TOOLTIP removed until paging implemented
+                      value.sender === value.senderAddress &&
+                      <Hidden smDown>
+                      <IconButton
+                      aria-label="Add Contact"
+                      onClick={() => {this.props.addAction(value.senderAddress)}}
+                      >
+                          <Add />
+                      </IconButton>
+                      </Hidden>
+                    }
+                    {
+                    // <Tooltip id='tooltip-reply' title='Reply'>
+                    <IconButton
+                      tooltip="Reply"
+                      aria-label="Reply"
+                      onClick={() => {replyAction(value.senderAddress)}}
+                    >
+                        <Reply />
+                    </IconButton>
+                    // </Tooltip>
+                    }
+                </ListItemSecondaryAction>
+              </ListItem>
+          )
+
+          // return (
+          //   
+          //     <MessageListItem
+          //         key={key}
+          //         sender={value.sender}
+          //         message={value.message}
+          //         senderAddress={value.senderAddress}
+          //         recipientAddress={value.recipientAddress}
+          //     />
+          // )
+        })
+    )
+    return (
+      <div>
+        <List>
+          <Divider />
+          {renderedList}
+        </List>
+      </div>
+    )
+
+  }
 }
 
 MessageList.propTypes = {

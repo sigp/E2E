@@ -26,11 +26,12 @@ class ContactsView extends React.Component {
       addContactDialog: false,
       contactDetails: {},
       contactDialog: false,
+      editContact: false,
     }
   }
 
   handleAddDialogClose() {
-    this.setState({ addContactDialog: false })
+    this.setState({ addContactDialog: false, editContact: false })
   }
 
   handleAddClick() {
@@ -65,10 +66,16 @@ class ContactsView extends React.Component {
     })
   }
 
-  handleDetailClose() {
+  _handleDeleteContact(address) {
+    this.props.deleteContact(address)
+    this.handleDetailDialogClose()
+  }
+
+  _handleEditContact() {
     this.setState({
-      contactDetails: {},
-      contactDialog: false
+      editContact: true,
+      contactDialog: false,
+      addContactDialog: true,
     })
   }
 
@@ -102,20 +109,38 @@ class ContactsView extends React.Component {
         </Button>
         </CardBody>
         </Card>
+        { // Edit contact
+          this.state.editContact &&
         <AddContactDialog 
           show={this.state.addContactDialog}
           handleDialogClose={this.handleAddDialogClose.bind(this)}
           handleNewContact={this.handleNewContact.bind(this)}
           pubLoading={false}
           showPub={true}
-          address=""
+          name= {this.state.contactDetails.contactName}
+          address= {this.state.contactDetails.address}
+          pubkey= {this.state.contactDetails.pubkey}
           web3={this.props.web3}
         />
+        }
+        { // Not edit contact
+          !this.state.editContact &&
+        <AddContactDialog 
+          show={this.state.addContactDialog}
+          handleDialogClose={this.handleAddDialogClose.bind(this)}
+          handleNewContact={this.handleNewContact.bind(this)}
+          pubLoading={false}
+          showPub={true}
+          web3={this.props.web3}
+        />
+        }
         <ContactDialog
             show={this.state.contactDialog}
             onClose={this.handleDetailDialogClose.bind(this)}
             address={this.state.contactDetails.address}
             name={this.state.contactDetails.contactName}
+            deleteContact={this._handleDeleteContact.bind(this)}
+            editContact={this._handleEditContact.bind(this)}
         >
           <ContactDialogContent
               name={this.state.contactDetails.contactName}
