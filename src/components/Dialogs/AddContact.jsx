@@ -24,8 +24,11 @@ class AddContactDialog extends React.Component {
         address: props.address,
         name: props.name,
         pubkey: props.pubkey,
-        pubLoading: true
+        pubLoading: false,
+        pubFound: false,
+        showPub: false,
       }
+
       // lookup public key
       lookupPubkey(props.address)
         .then( (response) => {
@@ -35,9 +38,26 @@ class AddContactDialog extends React.Component {
             return response.json()
         })
         .then((json) => { 
-          if (json.publickey !== undefined) 
-            this.setState({pubkey: json.publickey})
-          this.setState({pubLoading: false})
+          if(json === undefined) {
+            this.setState({
+              pubkey: undefined,
+              showPub: false,
+              pubFound: false,
+              pubLoading: false
+            })
+            return
+          }
+
+          if (json.publickey !== undefined)
+            this.setState({
+              pubkey: json.publickey,
+              pubFound: true,
+              showPub: true,
+              pubLoading: false,
+            })
+          else
+            this.setState({pubkey: undefined})
+
         })
     }
 
@@ -64,6 +84,68 @@ class AddContactDialog extends React.Component {
       }
 
       return(false)
+    }
+
+
+    async handleAddressChange(event) {
+      // check if it is a valid address
+      //
+      await this.setState({ address: event.target.value })
+      if (!this._isValidAddress()) {
+          await this.setState({
+              pubkey: undefined,
+              pubLoading: false,
+              showPub: false,
+              pubFound: false,
+            })
+        return
+      }
+
+      await this.setState({ pubLoading: true })
+
+      // lookup public key
+      lookupPubkey(this.state.address)
+        .then( (response) => {
+          if (response.status != 200)
+            this.setState({
+              pubLoading: false,
+              showPub: true,
+            })
+          else
+            return response.json()
+        })
+        .then((json) => {
+          if(json === undefined) {
+            this.setState({
+              pubkey: undefined,
+              pubLoading: false,
+              showPub: true,
+              pubFound: false,
+            })
+            return
+          }
+
+          if (json.publickey !== undefined) 
+            this.setState({
+              pubkey: json.publickey,
+              pubFound: true,
+            })
+          else
+            this.setState({
+              pubkey: undefined
+            })
+
+          this.setState({
+            pubLoading: false,
+            showPub: true,
+          })
+        })
+    }
+
+    async handlePubKeyChange(event) {
+      await this.setState({
+        pubkey: event.target.value
+      })
     }
 
 
