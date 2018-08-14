@@ -9,6 +9,7 @@ import indexRoutes from "./routes/index.jsx";
 import configureStore from 'store/configureStore';
 import E2EThemeProvider from 'containers/Themes/ThemeProviderWrapper';
 import { WEB3_FOUND, WEB3_LOADED, WEB3_UPDATE_PROVIDER, updateAccounts, updateNetwork } from 'actions/web3Actions.js';
+import { restoreContacts } from 'actions/contactActions.js'
 import { retrieveMessages } from 'actions/messageActions.js';
 
 var Web3 = require('web3'); 
@@ -27,9 +28,12 @@ function loadWeb3(provider) {
     store.dispatch(updateNetwork(web3, false));
 }
 
-/* Check for injected web3 */
 window.addEventListener('load', function() { 
 
+  /* Find Contacts */
+  store.dispatch(restoreContacts())
+
+  /* Check for injected web3 */
   if (typeof window.web3 !== 'undefined') { // old browsers parity etc..
     loadWeb3(window.web3.currentProvider)
   }
@@ -57,6 +61,7 @@ export function updateMessages() {
   }
 }
 unsubscribe = store.subscribe(updateMessages);
+
 
 // set up a listener to keep track of the network. Metamask doesn't have
 // subscribe events yet 

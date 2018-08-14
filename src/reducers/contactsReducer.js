@@ -3,7 +3,9 @@
 import {
   ADD_CONTACT,
   UPDATE_CONTACT,
-  DELETE_CONTACT
+  DELETE_CONTACT,
+  STORE_CONTACTS,
+  RESTORE_CONTACTS,
 } from 'actions/contactActions'
 
 const initialState = {
@@ -20,6 +22,19 @@ const contactsReducer = (state = initialState, action) => {
       }
       return Object.assign({}, state, {
         contacts: contactsUpdate,
+      })
+      break
+    case STORE_CONTACTS:
+      let stringContacts = Buffer.from(
+        JSON.stringify(state.contacts)
+      ).toString('base64')
+      localStorage.setItem('e2e-contacts', stringContacts)
+      return state
+      break
+    case RESTORE_CONTACTS:
+      let contacts = action.value
+      return Object.assign({}, state, {
+        contacts: contacts
       })
       break
 

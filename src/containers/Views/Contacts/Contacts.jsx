@@ -17,6 +17,9 @@ const mapDispatchToProps = dispatch => {
         contactAddress: contact.address,
         contactPub: contact.pub,
       })
+      dispatch({
+        type: 'STORE_CONTACTS',
+      })
     },
   }
 }
