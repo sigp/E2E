@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import withStyles from '@material-ui/core/styles/withStyles'
-
 import LocationOn from '@material-ui/icons/LocationOn'
 import VpnKey from '@material-ui/icons/VpnKey'
-
 import contactDialogStyles from 'assets/jss/components/contactDialogStyle.jsx'
 
 const ContactDialogContent = ({...props})  => {

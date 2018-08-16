@@ -13,7 +13,7 @@ import Blockies from 'react-blockies'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Close from '@material-ui/icons/Close'
 import lookupPubkey from 'utils/pubkeyCollectorConfig.js';
-
+import {checkPubkey} from 'utils/ethereum-helpers.js'
 import AddContactStyles from 'assets/jss/components/addContactDialogStyles.jsx'
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
@@ -23,6 +23,7 @@ class AddContactDialog extends React.Component {
       console.log(props.name)
       this.state = {
         error: false,
+        pubkeyError: false,
         address: props.address,
         name: props.name,
         pubkey: props.pubkey,
@@ -78,7 +79,6 @@ class AddContactDialog extends React.Component {
           } else {
             this.setState({pubkey: undefined})
           }
-
           return
         })
       }
@@ -86,24 +86,28 @@ class AddContactDialog extends React.Component {
 
     _checkValidNewContact = () => {
       if (
-        // name
+        // invalid name or address
         this.state.name === undefined || this.state.name === '' ||
-        // name
-        this.state.address === undefined || this.state.address === '' ||
-
-        // name
-        this.state.pubkey === undefined || this.state.pubkey === ''
-      ) {
+        this.state.address === undefined || this.state.address === '') {
         this.setState({
           error: true,
         })
         return false
       }
+
+      // invalid pubkey 
+      if(!checkPubkey(this.state.pubkey, this.state.address)) { 
+        this.setState({ pubkeyError: true })
+        return false
+      }
+
+      // everything is fine 
       this.setState({
         error: false
       })
       return true
     }
+
 
     handleSuccess = () => {
       if (!this._checkValidNewContact()) {
@@ -244,6 +248,12 @@ class AddContactDialog extends React.Component {
           this.state.error &&
           <section className={classes.errorBar}>
             Invalid Contact
+          </section>
+          }
+          {
+          this.state.pubkeyError &&
+          <section className={classes.errorBar}>
+            Invalid public key for entered address 
           </section>
           }
           <DialogContent

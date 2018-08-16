@@ -1,4 +1,5 @@
 // miscellaneous Ethereum tools  
+const keccak = require('keccak');
 
 export function addressTo32Bytes(address) { 
   let padding = '0x000000000000000000000000'
@@ -26,3 +27,16 @@ export function checkForCipher(message) {
 export function isHex(s) { 
    return (s.length && s.length%2 == 0 && !(isNaN(parseInt(s,16))))
 }
+
+export function checkPubkey(pubkey,address) { 
+  if (pubkey === undefined || pubkey === '' || address === undefined || address === '')
+    return true
+  if (!isHex(pubkey))
+    return false
+  let d = keccak('keccak256');
+  d.update(Buffer.from(pubkey, 'hex'))
+  let expectedAddress = d.digest('hex').slice(-40)
+  return '0x' + expectedAddress == address;
+}
+
+

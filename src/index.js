@@ -17,7 +17,6 @@ var Web3 = require('web3');
 const store = configureStore();
 const hist = createBrowserHistory();
 
-
 /* Initialise state when web3 is found */
 function loadWeb3(provider) {
     let web3 = new Web3(provider)
@@ -61,7 +60,6 @@ export function updateMessages() {
   }
 }
 unsubscribe = store.subscribe(updateMessages);
-
 
 // set up a listener to keep track of the network. Metamask doesn't have
 // subscribe events yet 
