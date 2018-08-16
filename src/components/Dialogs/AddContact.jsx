@@ -103,7 +103,8 @@ class AddContactDialog extends React.Component {
 
       // everything is fine 
       this.setState({
-        error: false
+        error: false,
+        pubkeyError: false,
       })
       return true
     }
