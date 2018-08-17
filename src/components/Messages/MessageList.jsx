@@ -41,12 +41,9 @@ class MessageList extends React.Component {
   }
 
   render() {
-    const { classes, messages, replyAction } = this.props
+    const { classes, messages, replyAction, handleDecryption } = this.props
 
-    // NOTE: JSON method to deep copy array with objects
-    // If there is a better way, please use - I couldn't find one
-    // for an array with objects...
-    let msg = JSON.parse(JSON.stringify(messages))
+    let msg = messages.slice(0)
 
     let renderedList = (
         msg.map((value, key) => {
@@ -63,17 +60,20 @@ class MessageList extends React.Component {
             value.sender = this.props.contacts[value.senderAddress].contactName
           }
           let displayMessage = value.message
+          let isEncrypted = false;
           if (isHex(value.message)) { 
             if (checkForCipher(value.message))
               displayMessage = "Encrypted Message"
+              isEncrypted = true
           }
 
           return (
               <ListItem key={key} button divider={true} className={classes.listItem}
+                  onClick={() => handleDecryption(isEncrypted)}
                   style={{
                       borderLeft: `4px solid #${this.getColour(value.recipientAddress)}`
                     }}
-                  button={true}
+                  button={isEncrypted}
                 >
                 <ListItemAvatar>
                   <Blockies

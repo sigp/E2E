@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import MessageList from 'components/Messages/MessageList.jsx';
 import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx';
-
+import DecryptDialog from 'components/Dialogs/DecryptDialog.jsx';
 import AddContactDialog from 'components/Dialogs/AddContact.jsx'
 
 class MessagesPage extends React.Component {
@@ -22,6 +22,7 @@ class MessagesPage extends React.Component {
     
     this.state = {
       addContactDialog: false,
+      decryptDialog: false,
       currentAdd: '',
     }
   }
@@ -29,8 +30,17 @@ class MessagesPage extends React.Component {
   handleDialogClose() {
     this.setState({
       addContactDialog: false,
+      decryptDialog: false,
       currentAdd: '',
     })
+  }
+
+  handleDecryption(isEncrypted) {
+    if(isEncrypted) {
+      this.setState({
+        decryptDialog: true
+      })
+    }
   }
 
   handleAddClick(addr) {
@@ -108,6 +118,7 @@ class MessagesPage extends React.Component {
           addAction={this.handleAddClick.bind(this)}
           contacts={this.props.contacts}
           web3={this.props.web3}
+          handleDecryption={this.handleDecryption.bind(this)}
         />
         )
       }
@@ -151,6 +162,10 @@ class MessagesPage extends React.Component {
       web3={this.props.web3}
     />
     }
+    <DecryptDialog 
+      show={this.state.decryptDialog}
+      handleDialogClose={this.handleDialogClose.bind(this)}
+    />
   </div>
   );
   }
