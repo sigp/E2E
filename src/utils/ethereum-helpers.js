@@ -24,8 +24,9 @@ export function checkForCipher(message) {
   return false
 }
 
-export function isHex(s) { 
-   return (s.length && s.length%2 == 0 && !(isNaN(parseInt(s,16))))
+export function isHex(s) {
+    var regExp = /^[-+]?[0-9A-Fa-f]+\.?[0-9A-Fa-f]*?$/;
+    return (typeof s === 'string' && regExp.test(s));
 }
 
 export function checkPubkey(pubkey,address) { 
