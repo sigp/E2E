@@ -56,15 +56,17 @@ class MessageList extends React.Component {
           //   </Hidden>
           //   </span>
           // )
+          let qSender = value.senderAddress
           if ( this.props.contacts.hasOwnProperty(value.senderAddress) ) {
-            value.sender = this.props.contacts[value.senderAddress].contactName
+            qSender = this.props.contacts[value.senderAddress].contactName
           }
           let displayMessage = value.message
           let isEncrypted = false;
-          if (isHex(value.message)) { 
-            if (checkForCipher(value.message))
+          if (isHex(value.message)) {
+            if (checkForCipher(value.message)) {
               displayMessage = "Encrypted Message"
               isEncrypted = true
+            }
           }
 
           return (
@@ -82,7 +84,7 @@ class MessageList extends React.Component {
                   />
                 </ListItemAvatar>
                 <ListItemText
-                  primary={value.sender}
+                  primary={qSender}
                   secondary={displayMessage}
                 />
                 <ListItemSecondaryAction>

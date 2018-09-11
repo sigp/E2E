@@ -7,7 +7,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint ."
+
   },
   "repository": {
     "type": "git",
@@ -57,5 +59,10 @@
     "secp256k1": "^3.5.0",
     "sweetalert-react": "^0.4.11",
     "web3": "^1.0.0-beta.34"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-google": "^0.10.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }

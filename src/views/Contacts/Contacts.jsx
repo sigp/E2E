@@ -17,6 +17,11 @@ import ContactDialog from 'components/Dialogs/ContactDialog'
 import ContactDialogContent from 'components/Contact/DialogContent.jsx'
 // import style from "./style.css";
 
+const DIAGTYPES = {
+  add: 0,
+  edit: 1,
+}
+
 class ContactsView extends React.Component {
 
   constructor(props) {
@@ -24,7 +29,11 @@ class ContactsView extends React.Component {
 
     this.state ={
       addContactDialog: false,
-      contactDetails: {},
+      contactDetails: {
+        address: '',
+        pubkey: undefined,
+        contactName: undefined,
+      },
       contactDialog: false,
       editContact: false,
     }
@@ -111,7 +120,7 @@ class ContactsView extends React.Component {
         </Card>
         { // Edit contact
           this.state.editContact &&
-        <AddContactDialog 
+        <AddContactDialog
           show={this.state.addContactDialog}
           handleDialogClose={this.handleAddDialogClose.bind(this)}
           handleNewContact={this.handleNewContact.bind(this)}
@@ -121,17 +130,21 @@ class ContactsView extends React.Component {
           address= {this.state.contactDetails.address}
           pubkey= {this.state.contactDetails.pubkey}
           web3={this.props.web3}
+          editable={true}
+          dialogType={DIAGTYPES.edit}
         />
         }
         { // Not edit contact
           !this.state.editContact &&
-        <AddContactDialog 
+        <AddContactDialog
           show={this.state.addContactDialog}
           handleDialogClose={this.handleAddDialogClose.bind(this)}
           handleNewContact={this.handleNewContact.bind(this)}
           pubLoading={false}
           showPub={true}
           web3={this.props.web3}
+          editable={true}
+          dialogType={DIAGTYPES.add}
         />
         }
         <ContactDialog

@@ -26,7 +26,7 @@ export function checkForCipher(message) {
 
 export function isHex(s) {
     var regExp = /^[-+]?[0-9A-Fa-f]+\.?[0-9A-Fa-f]*?$/;
-    return (typeof s === 'string' && regExp.test(s));
+    return (typeof s === 'string' && s.length % 2 == 0 && regExp.test(s));
 }
 
 export function checkPubkey(pubkey,address) { 
@@ -37,7 +37,12 @@ export function checkPubkey(pubkey,address) {
   let d = keccak('keccak256');
   d.update(Buffer.from(pubkey, 'hex'))
   let expectedAddress = d.digest('hex').slice(-40)
-  return '0x' + expectedAddress == address;
+  let ret = false
+  if (address.startsWith('0x'))
+    ret = '0x' + expectedAddress.toLowerCase() == address.toLowerCase();
+  else
+    ret = expectedAddress.toLowerCase() == address.toLowerCase();
+  return ret
 }
 
 

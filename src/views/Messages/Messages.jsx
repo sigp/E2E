@@ -160,6 +160,8 @@ class MessagesPage extends React.Component {
       showPub={true}
       address={this.state.currentAdd}
       web3={this.props.web3}
+      dialogType={0}
+      editable={false}
     />
     }
     <DecryptDialog 
