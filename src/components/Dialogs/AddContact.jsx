@@ -50,6 +50,9 @@ class AddContactDialog extends React.Component {
       // Set the initial state
       this.state = initialState
       if (props.address) {
+        initialState.pubLoading = true
+        this.state = initialState
+
         // Check for the pubkey
         lookupPubkey(props.address)
           .then( (response) => {

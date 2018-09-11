@@ -11,7 +11,7 @@ const ContactDialogContent = ({...props})  => {
 
   return (
       <section>
-          <h3>Contact Details</h3>
+          <h3 className={classes.Heading}>Contact Details</h3>
           <div>
               {
                 // address

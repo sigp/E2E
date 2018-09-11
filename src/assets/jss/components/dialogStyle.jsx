@@ -10,6 +10,7 @@ const dialogStyle = theme => ({
   },
   dialog: {
     background: theme.palette.background.paper,
+    color: theme.palette.text.primary,
     borderRadius: '3px',
     padding: '0px 0px 10px 0px',
     width: '60%',
@@ -23,6 +24,11 @@ const dialogStyle = theme => ({
     left: '0',
     margin: 'auto',
     transform: 'translateY(-50%)',
+  },
+  topButton: {
+    float: 'right',
+    border: 'none',
+    cursor: 'pointer',
   },
   closebutton: {
     position: 'absolute',
@@ -55,6 +61,7 @@ const dialogStyle = theme => ({
   },
   dialogBody: {
     padding: '10px 50px 10px 30px',
+    color: theme.palette.text.primary,
   },
   clear: {
     clear: 'both',

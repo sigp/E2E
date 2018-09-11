@@ -14,6 +14,7 @@ import contactsPageStyles from 'assets/jss/layouts/contacts.jsx'
 
 import AddContactDialog from 'components/Dialogs/AddContact.jsx'
 import ContactDialog from 'components/Dialogs/ContactDialog'
+import ViewContactDialog from 'components/Dialogs/ContactDialog'
 import ContactDialogContent from 'components/Contact/DialogContent.jsx'
 // import style from "./style.css";
 
@@ -147,20 +148,17 @@ class ContactsView extends React.Component {
           dialogType={DIAGTYPES.add}
         />
         }
-        <ContactDialog
+        { this.state.contactDialog && 
+        <ViewContactDialog
             show={this.state.contactDialog}
             onClose={this.handleDetailDialogClose.bind(this)}
             address={this.state.contactDetails.address}
+            pubkey={this.state.contactDetails.pubkey}
             name={this.state.contactDetails.contactName}
             deleteContact={this._handleDeleteContact.bind(this)}
             editContact={this._handleEditContact.bind(this)}
-        >
-          <ContactDialogContent
-              name={this.state.contactDetails.contactName}
-              address={this.state.contactDetails.address}
-              pubkey={this.state.contactDetails.pubkey}
-          />
-        </ContactDialog>
+        />
+        }
       </div>
   );
   }
