@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import SweetAlert from 'sweetalert-react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -23,6 +24,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { MetaMask, Parity } from 'components/common/icons.jsx';
 import VpnKey from '@material-ui/icons/VpnKey';
 import { isHex } from 'utils/ethereum-helpers.js';
+import { getClientVersion, getAccounts, unlockAccount } from 'utils/parity.js';
 
 function TabContainer(props) { 
   return (
@@ -38,16 +40,18 @@ class DecryptDialog extends React.Component {
       super(props)
 
       this.state = {
+        name: props.name,
         value: 0,
         error: false,
-        pubkeyError: false,
-        address: props.address,
-        name: props.name,
-        pubkey: props.pubkey,
-        pubLoading: false,
-        pubFound: false,
-        showPub: false,
+        parityHost: 'http://localhost',
+        parityPort: '8545',
         privatekey: '', // remove instantly after decrypting. 
+        parityClientNotFoundError: false,
+        parityAccountNotFoundError: false,
+        accountUnlockError: false,
+        showRequestAccountPassword: false,
+        passwordEntered: false,
+        parityAccountPassword: '',
       }
     }
 
@@ -70,8 +74,58 @@ class DecryptDialog extends React.Component {
         this.props.handleDialogClose()
     }
 
+    /* Handle decryption through the parity client */ 
+    async handleParityDecryptValidation() { 
+     const { activeAccount } = this.props; 
+     let host = {url: this.state.parityHost, port: this.state.parityPort} 
+
+     // Check that we can connect to the parity client
+     let parityVersion = await getClientVersion(host)
+     if (!parityVersion) { // client doesn't exist. 
+       //show alert and return 
+       this.setState({parityClientNotFoundError: true})
+       return
+     }
+
+     // Check that parity has the necessary account
+     let accounts = await getAccounts(host);
+     let activeAccountIndex = -1;
+     if (accounts != false)  {
+       activeAccountIndex = accounts.indexOf(activeAccount.toLowerCase())
+     }
+
+     if (activeAccountIndex == -1) { // parity doesn't have the current eth account
+       this.setState({parityAccountNotFoundError: true})
+       return
+     }
+
+     // parity exists and has the account, request the password to unlock
+      // the account. 
+     this.setState({showRequestAccountPassword: true})
+
+    }
+
+    async unlockAndDecrypt(accountPassword) { 
+      // broken sweetalert. Use placeholder for now
+      let password = "password";
+      this.setState({showRequestAccountPassword :false}); 
+
+      const { activeAccount } = this.props; 
+      let host = {url: this.state.parityHost, port: this.state.parityPort} 
+      let accountUnlocked = await unlockAccount(host, activeAccount, password);
+
+      if (!accountUnlocked) { 
+         this.setState({accountUnlockError: true})
+         return
+      }
+
+      //parityDecrypt({ url: this.parityHost, port: this.parityPort } )
+
+    }
+
+
     render() {
-      const { classes,show, fullScreen } = this.props;
+      const { classes,show, fullScreen, activeAccount } = this.props;
       const { value } = this.state;
 
       return (
@@ -118,22 +172,28 @@ class DecryptDialog extends React.Component {
             <TextField
               margin="dense"
               id="host"
-              name='host'
+              name='parityHost'
               label="Host"
               type="url"
-              defaultValue="http://localhost"
               fullWidth
+              onChange={this.handleChange.bind(this)}
+              value={this.state.parityHost}
             />
             <TextField
               margin="dense"
               id="port"
-              name='port'
+              name='parityPort'
               label="Port"
               type="number"
-              defaultValue={8545}
               fullWidth
+              onChange={this.handleChange.bind(this)}
+              value={this.state.parityPort}
             />
-           <Button variant="outlined" className={classes.button}>
+           <Button 
+              variant="outlined" 
+              className={classes.button}
+              onClick={this.handleParityDecryptValidation.bind(this)} 
+           >
             Decrypt
            </Button>
           </TabContainer>
@@ -177,6 +237,42 @@ class DecryptDialog extends React.Component {
             }
           </TabContainer> 
         } 
+        { 
+          // Alerts 
+        }
+        <SweetAlert 
+          show={this.state.parityClientNotFoundError}
+          title="Could not connect to a parity client"
+          text='Ensure that the "--jsonrprpc-cors all" flag is set and the client is running.'
+          type="error"
+          onConfirm={()=> this.setState({parityClientNotFoundError :false})}
+      />
+        <SweetAlert 
+          show={this.state.parityAccountNotFoundError}
+          title="Ethereum Account Not Found"
+          text={'Ensure that Parity has the ' + activeAccount + ' account imported.'}
+          type="error"
+          onConfirm={()=> this.setState({parityAccountNotFoundError :false})}
+      />
+        <SweetAlert 
+          show={this.state.accountUnlockError}
+          title="Incorrect Password"
+          type="error"
+          onConfirm={()=> this.setState({accountUnlockError:false, showRequestAccountPassword:true})}
+      />
+        <SweetAlert 
+          show={this.state.showRequestAccountPassword}
+          title="Account Password"
+          text={"Enter the ethereum account's password"}
+          type="input"
+          inputType="password"
+          inputPlaceholder="password"
+          showCancelButton
+          onConfirm={inputValue => {this.unlockAndDecrypt(inputValue)}}
+          onCancel={() => {this.setState({showRequestAccountPassword: false})}}
+          onEscapeKey={() => {this.setState({showRequestAccountPassword: false})}}
+          onOutsideClick={() => {this.setState({showRequestAccountPassword: false})}}
+      />
         </div>
           </DialogContent>
           <DialogActions>
@@ -193,10 +289,7 @@ DecryptDialog.propTypes = {
   classes: PropTypes.object,
   show: PropTypes.bool.isRequired,
   handleDialogClose: PropTypes.func.isRequired,
-  handleNewContact: PropTypes.func.isRequired,
   fullScreen: PropTypes.bool.isRequired,
-  address: PropTypes.string,
-  web3: PropTypes.object.isRequired,
 }
 
 export default withMobileDialog()(withStyles(DecryptDialogStyles)(DecryptDialog))

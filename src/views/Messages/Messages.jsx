@@ -12,7 +12,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import MessageList from 'components/Messages/MessageList.jsx';
 import messagesStyle from 'assets/jss/layouts/messagesStyle.jsx';
-import DecryptDialog from 'components/Dialogs/DecryptDialog.jsx';
+import DecryptDialog from 'containers/Dialogs/DecryptDialog.jsx';
 import AddContactDialog from 'components/Dialogs/AddContact.jsx'
 
 class MessagesPage extends React.Component {

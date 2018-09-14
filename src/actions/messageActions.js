@@ -1,9 +1,11 @@
-import { addressTo32Bytes } from 'utils/ethereum-helpers.js'
+import { addressTo32Bytes } from 'utils/ethereum-helpers.js';
+import { getAccounts } from 'utils/parity.js';
 
 export const RETRIEVE_MESSAGES = 'RETRIEVE_MESSAGES';
 export const UNREAD_MESSAGES = 'UNREAD_MESSAGES';
 export const REPLY_TO = 'REPLY_TO';
 export const CLEAR_REPLY = 'CLEAR_REPLY';
+export const PARITY_DECRYPT = 'PARITY_DECRYPT';
 
 /* 
  * Action creators 
@@ -18,8 +20,6 @@ export function retrieveMessages () {
 
   return function (dispatch, getState) { 
     let { web3 } = getState()
-    console.log("web3")
-    console.log(web3)
     let account = web3.accounts.active
     let contractInfo = web3.contracts[web3.network]
     let contractInstance = web3.contractInstance
@@ -46,3 +46,24 @@ export function retrieveMessages () {
       )
   }
 }
+
+/* Decrypt Messages via Parity node
+ * This will request a parity node to decrypt the currently encrypted
+ * messages in the state. 
+ * @param host: Object containing the host url and port, eg {url:
+ * http://localhost, port: 8545}
+ */
+export function parityDecrypt(host) { 
+  
+  return function (dispatch, getState) { 
+
+    // check that the account needed exists on the parity node 
+    
+    getAccounts(host)
+
+  }
+}
+
+
+
+

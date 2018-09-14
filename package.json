@@ -9,7 +9,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint ."
-
   },
   "repository": {
     "type": "git",
@@ -27,6 +26,7 @@
     "@types/googlemaps": "3.30.9",
     "@types/markerclustererplus": "2.1.33",
     "ajv": "6.5.1",
+    "browser-request": "^0.3.3",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
     "crypto": "^1.0.1",

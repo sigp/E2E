@@ -41,7 +41,7 @@ class AddContactDialog extends React.Component {
     }
 
     // If the pubkey is given
-    // Scneario: Add Contact from Messages OR Edit Contact
+    // Scenario: Add Contact from Messages OR Edit Contact
     if (props.pubkey) {
       initialState.showPub = true
       initialState.pubLoading = false
