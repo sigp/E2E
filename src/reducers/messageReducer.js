@@ -1,6 +1,6 @@
 // Reducers relating to messages
 
-import { 
+import {
   RETRIEVE_MESSAGES,
   UNREAD_MESSAGES,
   REPLY_TO,
@@ -22,33 +22,33 @@ const initialState = {
 }
 
 const messageReducer = (state = initialState, action) => {
-  switch (action.type) { 
+  switch (action.type) {
 
-    case RETRIEVE_MESSAGES: 
+    case RETRIEVE_MESSAGES:
       switch (action.status) {
-        case 'FAIL': 
+        case 'FAIL':
           return Object.assign({}, state, { status: 'FAIL' })
-        case 'SUCCESS': 
+        case 'SUCCESS':
           let messageObject = processMessageLog(action.value);
-          return Object.assign({}, state, { 
-            status: 'SUCCESS', 
-            messages : messageObject 
+          return Object.assign({}, state, {
+            status: 'SUCCESS',
+            messages : messageObject
           })
 
         default:
           return Object.assign({}, state, { status: 'PENDING' })
       }
 
-    case UNREAD_MESSAGES: 
-      switch (action.status) { 
-        case 'FAIL': 
+    case UNREAD_MESSAGES:
+      switch (action.status) {
+        case 'FAIL':
           return Object.assign({}, state, { unreadMsgStatus: 'FAIL' })
-        case 'SUCCESS': 
-          return Object.assign({}, state, { 
-            unreadMsgStatus: 'SUCCESS', 
+        case 'SUCCESS':
+          return Object.assign({}, state, {
+            unreadMsgStatus: 'SUCCESS',
             unreadMsgs: action.value
           })
-         default: 
+         default:
           return Object.assign({}, state, { unreadMsgStatus: 'PENDING' })
       }
 
@@ -65,12 +65,12 @@ const messageReducer = (state = initialState, action) => {
   }
 };
 
-function processMessageLog(messageLog) { 
-  return messageLog.map(log => { 
-     return { 
+function processMessageLog(messageLog) {
+  return messageLog.map(log => {
+     return {
       recipientAddress : bytesToAddress(log.topics[1]),
       senderAddress: bytesToAddress(log.topics[2]),
-       sender: bytesToAddress(log.topics[2]),
+      sender: bytesToAddress(log.topics[2]),
       // modify this for proper encryption.
       message: web3.eth.abi.decodeParameter("string",log.data)
     }

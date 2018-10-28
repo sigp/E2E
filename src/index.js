@@ -12,7 +12,7 @@ import { WEB3_FOUND, WEB3_LOADED, WEB3_UPDATE_PROVIDER, updateAccounts, updateNe
 import { restoreContacts } from 'actions/contactActions.js'
 import { retrieveMessages } from 'actions/messageActions.js';
 
-var Web3 = require('web3'); 
+var Web3 = require('web3');
 
 const store = configureStore();
 const hist = createBrowserHistory();
@@ -27,7 +27,7 @@ function loadWeb3(provider) {
     store.dispatch(updateNetwork(web3, false));
 }
 
-window.addEventListener('load', function() { 
+window.addEventListener('load', function() {
 
   /* Find Contacts */
   store.dispatch(restoreContacts())
@@ -37,7 +37,7 @@ window.addEventListener('load', function() {
     loadWeb3(window.web3.currentProvider)
   }
   else {  // new metamask functionality
-    window.addEventListener('message', ({ data }) => { 
+    window.addEventListener('message', ({ data }) => {
       if (data && data.type && data.type === 'ETHEREUM_PROVIDER_SUCCESS'){
         loadWeb3(window.web3.currentProvider)
       }
@@ -49,10 +49,10 @@ window.addEventListener('load', function() {
 
 // subscribe to the store to update messages when necessary
 var unsubscribe = undefined;
-export function updateMessages() { 
+export function updateMessages() {
   let curState = store.getState();
   let web3Data = curState.web3;
-  if (web3Data.accounts.status === 'SUCCESS') { 
+  if (web3Data.accounts.status === 'SUCCESS') {
     if (curState.messages.status === 'UNINITIALISED' && web3Data.contracts[web3Data.network] !== undefined && web3Data.accounts.active !== '' && web3Data.contractInstance._address !== undefined) {
       unsubscribe();
       store.dispatch(retrieveMessages());
@@ -62,8 +62,8 @@ export function updateMessages() {
 unsubscribe = store.subscribe(updateMessages);
 
 // set up a listener to keep track of the network. Metamask doesn't have
-// subscribe events yet 
-setInterval( () => { 
+// subscribe events yet
+setInterval( () => {
   let state = store.getState()
   if (state.web3.web3 !== undefined) {
     // check if our accounts have changed
