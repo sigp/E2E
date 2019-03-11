@@ -7,9 +7,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AccountOptions from "components/Accounts/AccountOptions.jsx";
 
 // This will likely show a list of accounts if a web3 provider is connected
-export default  Accounts =>  {
-  return ( 
-    <AccountOptions />
-  )
+export default  Accounts  =>  {
+  return (<div />);
 }
 

@@ -54,11 +54,10 @@ const sidebarStyle = theme => ({
       content: '""',
       position: "absolute",
       bottom: "0",
-
       height: "1px",
       right: "15px",
       width: "calc(100% - 30px)",
-      backgroundColor: "rgba(180, 180, 180, 0.3)"
+      backgroundColor: theme.palette.primary.main// "rgba(180, 180, 180, 0.3)"
     }
   },
   logoLink: {
@@ -99,7 +98,7 @@ const sidebarStyle = theme => ({
     top: "0",
     left: "0",
     backgroundSize: "cover",
-    backgroundPosition: "center center",
+    backgroundPosition: "calc(50% - 134px) center",//"center center",
     "&:after": {
       position: "absolute",
       zIndex: "3",
@@ -137,6 +136,9 @@ const sidebarStyle = theme => ({
     display: "block",
     padding: "10px 15px",
     backgroundColor: "transparent",
+    '&:hover': {
+        background: 'rgba(255,255,255,0.1)'
+    },
     ...defaultFont
   },
   itemIcon: {
@@ -158,52 +160,12 @@ const sidebarStyle = theme => ({
   whiteFont: {
     color: "#FFFFFF"
   },
-  purple: {
-    backgroundColor: primaryColor,
-    ...primaryBoxShadow,
+  primary: {
+    backgroundColor: theme.palette.primary.main,
+    opacity: 0.8,
     "&:hover": {
-      backgroundColor: primaryColor,
-      ...primaryBoxShadow
-    }
-  },
-  blue: {
-    backgroundColor: infoColor,
-    boxShadow:
-      "0 12px 20px -10px rgba(0,188,212,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(0,188,212,.2)",
-    "&:hover": {
-      backgroundColor: infoColor,
-      boxShadow:
-        "0 12px 20px -10px rgba(0,188,212,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(0,188,212,.2)"
-    }
-  },
-  green: {
-    backgroundColor: successColor,
-    boxShadow:
-      "0 12px 20px -10px rgba(76,175,80,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(76,175,80,.2)",
-    "&:hover": {
-      backgroundColor: successColor,
-      boxShadow:
-        "0 12px 20px -10px rgba(76,175,80,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(76,175,80,.2)"
-    }
-  },
-  orange: {
-    backgroundColor: warningColor,
-    boxShadow:
-      "0 12px 20px -10px rgba(255,152,0,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(255,152,0,.2)",
-    "&:hover": {
-      backgroundColor: warningColor,
-      boxShadow:
-        "0 12px 20px -10px rgba(255,152,0,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(255,152,0,.2)"
-    }
-  },
-  red: {
-    backgroundColor: dangerColor,
-    boxShadow:
-      "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)",
-    "&:hover": {
-      backgroundColor: dangerColor,
-      boxShadow:
-        "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)"
+      backgroundColor: theme.palette.primary.main,
+      boxShadow: `0 1px 3px ${theme.palette.primary[200]} , 0 1px 2px ${theme.palette.primary[400]}`,
     }
   },
   sidebarWrapper: {

@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import withStyles from '@material-ui/core/styles/withStyles'
-
 import LocationOn from '@material-ui/icons/LocationOn'
 import VpnKey from '@material-ui/icons/VpnKey'
-
 import contactDialogStyles from 'assets/jss/components/contactDialogStyle.jsx'
 
 const ContactDialogContent = ({...props})  => {
@@ -14,7 +11,7 @@ const ContactDialogContent = ({...props})  => {
 
   return (
       <section>
-          <h3>Contact Details</h3>
+          <h3 className={classes.Heading}>Contact Details</h3>
           <div>
               {
                 // address

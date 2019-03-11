@@ -70,14 +70,17 @@ const headerLinksStyle = theme => ({
       right: "4px",
       fontSize: "9px",
       background: dangerColor,
-      color: "#FFFFFF",
+      //color: "#FFFFFF",
       minWidth: "16px",
       height: "16px",
       borderRadius: "10px",
       textAlign: "center",
       lineHeight: "16px",
       verticalAlign: "middle",
-      display: "block"
+      display: "block",
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.primary.main,
+      
     },
     [theme.breakpoints.down("sm")]: {
       ...defaultFont,
@@ -97,7 +100,97 @@ const headerLinksStyle = theme => ({
       margin: "10px 15px 0",
     },
     display: "inline-block"
-  }
+  },
+  networkButton: {
+   
+    /* This...
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.text.primary,
+    */ 
+    // Or this:
+    color: theme.palette.primary.main,
+    
+    padding: "11px 20px",
+    borderRadius: "8px",
+    fontSize:"15px",
+    textTransform: "none",
+    //fontWeight:"bold",
+
+  },
+  identiconHolder: {
+    width: '25px',
+    height: '25px',
+    borderRadius: '50%',
+    overflow: 'hidden',
+    fontSize: 'initial',
+
+    '& > canvas': {
+      height: '25px !important',
+      width: '25px !important',
+    }
+  },
+  menuIdenticonContainer: {
+    boxSizing: 'content-box !important',
+    padding: '0px 10px',
+  },
+    dropdownItemTitle: {
+      height: 'auto',
+      background: '#5d5d5d',
+      borderBottom: `1px solid ${theme.palette.text.primary}`,
+      '&:hover': {
+        cursor: 'unset',
+        backgroundColor: '#5d5d5d',
+        background: '#5d5d5d',
+      }
+    },
+    dropdownItemSubTitle: {
+      height: 'auto',
+      fontSize: '14px',
+      borderTop: `1px solid ${theme.palette.background.default}`,
+    },
+    currentAccIdenticon: {
+      width: '48px',
+      height: '48px',
+      borderRadius: '50%',
+      overflow: 'hidden',
+      margin: '0px 10px 0px 0px',
+    },
+    currentAccAddress: {
+
+    },
+    addAccountContainer: {
+      height: 'auto',
+      boxSizing: 'content-box',
+      padding: '12px 0px 10px',
+      background: '#333',
+      color: '#ccc',
+    },
+    addAccount: {
+      display: 'block',
+      margin: '0 auto',
+      padding: '2px',
+      border: '1px dashed #888',
+      borderRadius: '50%',
+      height: '26px',
+      width: '26px',
+      textAlign: 'center',
+    },
+
+    '@media(max-width: 959px)': {
+      identiconHolder: {
+        marginLeft: '5px',
+        marginRight: '15px',
+      },
+      menuIdenticonContainer: {
+        padding: '10px 10px',
+      },
+      manager: {
+        textAlign: 'center',
+      },
+      networkButton: {
+        marginTop: '20px',
+      },
+    }
 });
 
 export default headerLinksStyle;

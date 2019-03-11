@@ -1,4 +1,5 @@
-const primaryColor = "#9c27b0";
+// const primaryColor = "#9c27b0";
+// Remove all of these and apply global theme
 const warningColor = "#ff9800";
 const dangerColor = "#f44336";
 const successColor = "#4caf50";
@@ -33,18 +34,20 @@ const navPillsStyle = theme => ({
     position: "relative",
     display: "block",
     borderRadius: "30px",
-    minWidth: "100px",
+    minWidth: "80px",
+    minHeight: "80px",
     textAlign: "center",
     transition: "all .3s",
     padding: "10px 15px",
-    color: "#555555",
+    color: "inherit",
     height: "auto",
     opacity: "1",
-    maxWidth: "100%",
-    margin: "0 5px"
+    maxWidth: "80%",
+    margin: "0 5px",
+    stroke: theme.palette.text.primary // for svg icons
   },
   pillsWithIcons: {
-    borderRadius: "4px"
+    borderRadius: "5px",
   },
   tabIcon: {
     width: "30px",
@@ -61,7 +64,7 @@ const navPillsStyle = theme => ({
   },
   labelContainer: {
     padding: "0!important",
-    color: "inherit"
+    color: theme.palette.text.primary,
   },
   label: {
     lineHeight: "24px",
@@ -78,11 +81,12 @@ const navPillsStyle = theme => ({
   primary: {
     "&,&:hover": {
       color: "#FFFFFF",
-      backgroundColor: primaryColor,
+      backgroundColor: theme.palette.primary.main,
       boxShadow:
         "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4)"
     }
   },
+  
   info: {
     "&,&:hover": {
       color: "#FFFFFF",
@@ -126,7 +130,24 @@ const navPillsStyle = theme => ({
   alignCenter: {
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  '@media(max-width: 700px)': {
+    pills: {
+      minWidth: "60px",
+      minHeight: "60px",
+      maxWidth: "80px",
+      maxHeight: "80px",
+
+      '& svg': {
+        height: '44px',
+      },
+    },
+
+    label: {
+      fontSize: '10px',
+      display: 'none',
+    },
+  },
 });
 
 export default navPillsStyle;

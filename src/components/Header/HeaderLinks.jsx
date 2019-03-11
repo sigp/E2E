@@ -15,11 +15,15 @@ import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
+import Add from "@material-ui/icons/Add"
+import MoreHoriz from '@material-ui/icons/MoreHoriz'
 // core components
 import CustomInput from "components/Custom/CustomInput.jsx";
 import Button from "components/Custom/Button.jsx";
+import Blockies from 'react-blockies'
 
 import headerLinksStyle from "assets/jss/components/headerLinksStyle";
+
 
 class HeaderLinks extends React.Component {
 
@@ -36,22 +40,156 @@ class HeaderLinks extends React.Component {
       this.setState({ accountOpen: !this.state.accountOpen });
   };
 
+  handleNetworkClick = () => {
+      this.setState({ networkOpen: !this.state.networkOpen });
+  };
+
   handleNotificationClose = () => {
       this.setState({ notificationOpen : false });
       this.setState({ accountOpen : false });
   };
 
   handleAccountClose = () => {
+      this.setState({ notificationOpen : false });
       this.setState({ accountOpen : false });
   };
 
-  render() {
-    const { classes, accounts } = this.props;
-    const { notificationOpen, accountOpen } = this.state;
+  handleNetworkClose = () => {
+      this.setState({ networkOpen : false });
+      this.setState({ notificationOpen : false });
+      this.setState({ accountOpen : false });
+  };
 
+  handleNetwork = network => { 
+    this.setState({networkOpen: false});
+  };
+
+  infuraAvailableNetworks = [
+    'MAINNET',
+    'RINKEBY',
+    'ROPSTEN',
+    'KOVAN'
+  ]
+  // set default network lists
+  renderNetworkList() { 
+    const { classes, network }  = this.props;
+    return this.infuraAvailableNetworks.map((value,key) => {
+      if (network !== value){
+        return (
+            <MenuItem
+              key = {key}
+              onClick={this.handleNetwork.bind(this,value)}
+              className={classes.networkItem}
+            >
+              { value }
+            </MenuItem>
+        )
+      }
+    })
+  }
+
+  // build the notifcation list
+  notificationList() { 
+    const { classes, unreadMessages, messages } = this.props; 
+    if (unreadMessages === 0) {
+      return (
+        <MenuItem
+          button={false}
+          className={classes.dropdownItem}
+        >
+        No unread Messages
+        </MenuItem>
+      )}
+    else { 
+      let menulist = []; 
+      menulist.push( 
+        <MenuItem
+          button={false}
+          className={classes.dropdownItemTitle}
+          key={0}
+        >
+        Unread Messages
+        </MenuItem>
+      )
+      for(var i =0; i < messages.length && i < 5;i++) { 
+        menulist.push(
+        <MenuItem
+          className={classes.dropdownItem}
+          key={i+1}
+        >
+          {messages[i].sender} 
+        </MenuItem>
+        )
+      }
+      if (i === 5) {
+        menulist.push(
+        <MenuItem
+          key={6}
+          className={classes.dropdownItem}
+        >
+        <MoreHoriz />
+        </MenuItem>
+        )}
+      menulist.push( 
+        <MenuItem
+          key={7}
+          className={classes.dropdownItemSubTitle}
+        >
+        Clear Unread Messages 
+        </MenuItem>
+      )
+      return menulist
+    }
     
+  }
+
+
+  render() {
+    const { classes, accounts, network, provider, unreadMessages, updateActive } = this.props;
+    const { notificationOpen, accountOpen, networkOpen } = this.state;
+
+    let currentAccount = accounts.active.toLowerCase();
+
     return (
       <div>
+        <Manager className={classes.manager}>
+          <Target>
+            <Button className={classes.networkButton}
+              color={window.innerWidth > 959 ? "transparent" : "white"}
+//              disabled={ provider === 'INFURA' }
+              aria-label="Network"
+              aria-owns={networkOpen ? "menu-list" : null}
+              aria-haspopup="true"
+              onClick={this.handleNetworkClick}
+              //className={classes.buttonLink}
+            >
+            { network }
+            </Button>
+          </Target>
+          <Popper
+            placement="bottom-start"
+            eventsEnabled={networkOpen}
+            className={
+              classNames({ [classes.popperClose]: !networkOpen }) +
+              " " +
+              classes.pooperResponsive
+            }
+          >
+            <ClickAwayListener onClickAway={this.handleNetworkClose}>
+              <Grow
+                in={networkOpen}
+                id="menu-list"
+                style={{ transformOrigin: "0 0 0" }}
+              >
+                <Paper className={classes.dropdown}>
+                  <MenuList role="menu">
+                    { this.renderNetworkList() }
+                  </MenuList>
+                </Paper>
+              </Grow>
+            </ClickAwayListener>
+          </Popper>
+        </Manager>
         <Manager className={classes.manager}>
           <Target>
             <Button
@@ -65,7 +203,9 @@ class HeaderLinks extends React.Component {
               className={classes.buttonLink}
             >
               <Notifications className={classes.icons} />
-              <span className={classes.notifications}>5</span>
+              { unreadMessages > 0 && 
+              <span className={classes.notifications}>{unreadMessages}</span>
+              }
               <Hidden mdUp>
                 <p onClick={this.handleNotificationClick} className={classes.linkText}>
                   Notifications
@@ -90,36 +230,7 @@ class HeaderLinks extends React.Component {
               >
                 <Paper className={classes.dropdown}>
                   <MenuList role="menu">
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      Mike John responded to your email
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      You have 5 new tasks
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      You're now friend with Andrew
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      Another Notification
-                    </MenuItem>
-                    <MenuItem
-                      onClick={this.handleNotificationClose}
-                      className={classes.dropdownItem}
-                    >
-                      Another One
-                    </MenuItem>
+                    { this.notificationList() } 
                   </MenuList>
                 </Paper>
               </Grow>
@@ -133,10 +244,24 @@ class HeaderLinks extends React.Component {
               justIcon={window.innerWidth > 959}
               simple={!(window.innerWidth > 959)}
               aria-label="Person"
-              className={classes.buttonLink}
+              className={classNames({
+                  [classes.buttonLink]: true,
+                  [classes.menuIdenticonContainer]: true,
+              })}
+              // classNames={classes.buttonLink}
               onClick={this.handleAccountClick}
             >
-              <Person className={classes.icons} />
+              { ["PENDING", "UNKNOWN", "FAILURE"].indexOf(accounts.status) >= 0  &&
+              <Person className={classes.icons} /> }
+              { accounts.status === "SUCCESS" && accounts.value.length > 0 &&
+              <div className={classes.identiconHolder}>
+                <Blockies
+                  seed={accounts.value[0].toLowerCase()}
+                  size={8}
+                  scale={6}
+                />
+              </div>
+              }
               <Hidden mdUp>
                 <p className={classes.linkText}>Profile</p>
               </Hidden>
@@ -167,15 +292,47 @@ class HeaderLinks extends React.Component {
                       <p> No Accounts Loaded Yet </p> }
                     { accounts.status === "SUCCESS" && accounts.value.length > 0 &&
                       accounts.value.map((value, key) => {
+                        // TODO uncomment
+                        // if(value !== currentAccount)
+                        if (value.toLowerCase() === currentAccount) {
+                          return (
+                            <MenuItem
+                              button={false}
+                              key={key}
+                              className={classes.dropdownItemTitle}
+                            >
+                            <section className={classes.currentAccIdenticon}>
+                              <Blockies
+                                seed={value.toLowerCase()}
+                                size={8}
+                                scale={6}
+                              />
+                            </section>
+                            <section className={classes.currentAccAddress}>
+                              {value}
+                            </section>
+                            </MenuItem>
+                          )
+                        }
                         return (
                           <MenuItem
                             key={key}
-                            onClick={this.handleAccountClose}
+                            onClick={() => {updateActive(value)}}
                             className={classes.dropdownItem}
                           >
-                          Account: {key},{value}
+                          <section className={classes.menuIdenticon}>
+                            <Blockies
+                              seed={value.toLowerCase()}
+                              size={8}
+                              scale={6}
+                            />
+                          </section>
+                          <section className={classes.menuItemAddress}>
+                            {value}
+                          </section>
                           </MenuItem>
-                        )})
+                        )
+                      })
                    }
                   </MenuList>
                 </Paper>
@@ -188,27 +345,4 @@ class HeaderLinks extends React.Component {
   }
 }
 
-const headerLinks = withStyles(headerLinksStyle)(HeaderLinks);
-
-// add redux state
-
-
-
-
-
-const mapStateToProps = state => {
-  return {
-    accounts: state.web3.accounts
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    // do nothing
-    }
-}
-
-export default HeaderLinks = connect(
-  mapStateToProps,
-  mapDispatchToProps)(headerLinks)
-
+export default withStyles(headerLinksStyle)(HeaderLinks);

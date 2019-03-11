@@ -1,15 +1,24 @@
-const messageItemStyle = {
+const messageItemStyle = theme =>  ({
     messageContainer: {
         padding: '10px',
-        borderBottom: '1px solid #eee',
+        borderBottom: '1px solid ' + theme.palette.primary[50],
         display: 'block',
         position: 'relative',
         width: '100%',
         boxSizing: 'border-box',
+        // lol this shadow
+        "&:hover": {
+          cursor: 'pointer',
+          //backgroundColor: theme.palette.primary[50],
+          //opacity: 0.8,
+        }
+        /*
         '&:hover': {
             cursor: 'pointer',
-            background: '#f5f5f5',
+            background: theme.palette.secondary['300'] //'#f5f5f5',
+        
         },
+        */
     },
     messageSender: {
         fontWeight: 'bold',
@@ -17,6 +26,7 @@ const messageItemStyle = {
         textOverflow: 'ellipsis',
         overflow: 'hidden',
         wordWrap: 'normal',
+        color: theme.palette.text.primary
     },
     icon: {
         width: '5%',
@@ -33,10 +43,17 @@ const messageItemStyle = {
     },
     messageContent: {
         maxHeight: '1000px',
-        color: '#1e212b',
+        color: theme.palette.text.secondary, //'#1e212b',
         fontWeight: '200',
         overflow: 'hidden',
         transition: 'all 0.4s linear',
+    },
+    contentOpen: {
+        // width: '100%',
+        // margin: '30px auto',
+        // border: `1px solid rgba(0,0,0,0.1)`,
+        // boxShadow: `0 3px 6px ${theme.palette.primary[100]}, 0 3px 6px ${theme.palette.shadows}`,
+        // marginBottom: '10px',
     },
     contentClosed: {
         maxHeight: '25px',
@@ -53,6 +70,6 @@ const messageItemStyle = {
             width: '85%',
         }
     }
-}
+})
 
 export default messageItemStyle

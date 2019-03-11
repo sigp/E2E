@@ -1,5 +1,6 @@
-const contactDialogStyles = {
+const contactDialogStyles = theme => ({
   detailContainer: {
+    color: theme.palette.text.primary,
     display: 'flex',
     'flex-direction': 'row',
     width: '100%',
@@ -23,7 +24,10 @@ const contactDialogStyles = {
     padding: '1px 1px 1px 10px',
     'word-wrap': 'break-word',
     'word-break': 'break-all',
+  },
+  Heading: {
+    color: theme.palette.text.primary,
   }
-}
+})
 
 export default contactDialogStyles

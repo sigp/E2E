@@ -9,7 +9,7 @@ import List from "@material-ui/core/List";
 import footerStyle from "assets/jss/components/footerStyle";
 
 const Footer = ({ ...props }) => {
-  const { classes } = props;
+  const { classes, version } = props;
   return (
     <footer className={classes.footer}>
       <div className={classes.container}>
@@ -27,24 +27,27 @@ const Footer = ({ ...props }) => {
             </ListItem>
           </List>
         </div>
-        <p className={classes.right}>
-          <span>
-            Open source on &nbsp;
-            <a href="https://github.com/sigp/E2E" className={classes.a}>
+        <div className={classes.right}>
+          <List className={classes.list}>
+            <ListItem className={classes.inlineBlock}>
+            <a href="https://github.com/sigp/E2E" className={classes.rightblock}>
+              <span>v {version}&nbsp;&nbsp;&nbsp;&nbsp;</span>
               <FontAwesome
                 name="github"
                 size="2x"
               />
             </a>
-          </span>
-        </p>
+            </ListItem>
+          </List>
+        </div>
       </div>
     </footer>
   );
 }
 
 Footer.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  version: PropTypes.string.isRequired,
 };
 
 export default withStyles(footerStyle)(Footer);

@@ -10,7 +10,7 @@ import Hidden from "@material-ui/core/Hidden";
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 // core components
-import HeaderLinks from "./HeaderLinks";
+import HeaderLinks from "containers/Header/HeaderLinks.jsx";
 import Button from "components/Custom/Button.jsx";
 
 import headerStyle from "assets/jss/components/headerStyle.jsx";

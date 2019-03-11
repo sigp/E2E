@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export const Ledger = (
   <svg id="851e3d33-36d6-418a-b807-c2fa479dc650" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
     <defs>
@@ -8,7 +7,6 @@ export const Ledger = (
         {
           `.\\32 c7d4756-5441-4b6b-b846-659c95fc7d51 {
             fill: none;
-            stroke: #fff;
             stroke-miterlimit: 10;
           }`
         }
@@ -33,7 +31,6 @@ export const Trezor = (
         {
           `.\\33 e03130b-26ad-44ba-9a96-afce36420a03 {
             fill: none;
-            stroke: #fff;
           }`
         }
       </style>
@@ -92,7 +89,6 @@ export const MetaMask = (
         {`
           .\\36 2c8b009-d5dc-4d34-b47d-9b2663c59e03, .a77395d2-2c0c-4381-9940-a909fb55ffd3 {
             fill: none;
-            stroke: #fff;
             strokeLinejoin: round;
           }
           .a77395d2-2c0c-4381-9940-a909fb55ffd3 {
@@ -120,3 +116,30 @@ export const MetaMask = (
     </g>
   </svg>
 )
+
+export const Infura = (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 24">
+    <defs>
+      <style>
+        {
+          `.infura-svg {
+            fill: none;
+            stroke-miterlimit: 10;
+          }`
+        }
+      </style>
+    </defs>
+    <polygon className="infura-svg" fill="#000000" fillRule="evenodd" points=".825 0 .825 3.651 9.549 2.754 12.769 2.754 12.769 8.665 7.347 10.323 0 12.095 1.091 15.666 8.131 12.961 12.769 11.543 12.769 21.247 9.549 21.247 .825 20.348 .825 24 27.468 24 27.468 20.348 18.744 21.247 15.523 21.247 15.523 11.543 20.138 12.953 27.203 15.666 28.293 12.095 20.965 10.328 15.523 8.665 15.523 2.754 18.744 2.754 27.468 3.651 27.468 0">
+    </polygon>
+  </svg>
+)
+
+export const Parity = (
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/1999/xlink" width="63.99" height="63.99" viewBox="0 0 63.99 63.99">
+  <defs>
+  <style>
+  </style>
+  <clipPath id="clip-path" transform="translate(-1366 -203.01)"><rect class="cls-1" x="1366" y="203" width="64" height="64"/></clipPath><clipPath id="clip-path-4" transform="translate(-1366 -203.01)"><rect class="cls-1" x="1382.87" y="225.17" width="31.25" height="7.59"/></clipPath><clipPath id="clip-path-5" transform="translate(-1366 -203.01)"><rect class="cls-1" x="1382.87" y="239.35" width="31.25" height="7.59"/></clipPath></defs><title>4</title><g id="Layer_4" data-name="Layer 4"><g class="cls-2"><line class="cls-3" x1="0.2" y1="24.68" x2="39.34" y2="0.31"/></g><g class="cls-2"><line class="cls-3" x1="2.64" y1="28.57" x2="41.79" y2="4.2"/><line class="cls-3" x1="5.09" y1="32.47" x2="44.24" y2="8.11"/><line class="cls-3" x1="7.53" y1="36.38" x2="46.68" y2="12.01"/><line class="cls-3" x1="9.98" y1="40.28" x2="49.13" y2="15.91"/><line class="cls-3" x1="12.43" y1="44.17" x2="51.57" y2="19.81"/><line class="cls-3" x1="14.87" y1="48.08" x2="54.02" y2="23.71"/><line class="cls-3" x1="17.32" y1="51.98" x2="56.47" y2="27.61"/><line class="cls-3" x1="19.77" y1="55.88" x2="58.91" y2="31.51"/><line class="cls-3" x1="22.21" y1="59.78" x2="61.36" y2="35.41"/></g><g class="cls-2"><line class="cls-3" x1="24.66" y1="63.67" x2="63.8" y2="39.31"/></g><g class="cls-4"><line class="cls-3" x1="1.42" y1="26.62" x2="40.57" y2="2.26"/><line class="cls-3" x1="3.87" y1="30.53" x2="43.01" y2="6.16"/><line class="cls-3" x1="6.31" y1="34.43" x2="45.46" y2="10.06"/><line class="cls-3" x1="8.76" y1="38.32" x2="47.9" y2="13.96"/><line class="cls-3" x1="11.2" y1="42.23" x2="50.35" y2="17.86"/><line class="cls-3" x1="13.65" y1="46.13" x2="52.8" y2="21.76"/><line class="cls-3" x1="16.1" y1="50.03" x2="55.24" y2="25.66"/><line class="cls-3" x1="18.54" y1="53.93" x2="57.69" y2="29.56"/></g><g class="cls-5"><line class="cls-3" x1="8.76" y1="38.32" x2="47.9" y2="13.96"/><line class="cls-3" x1="11.2" y1="42.23" x2="50.35" y2="17.86"/><line class="cls-3" x1="13.65" y1="46.13" x2="52.8" y2="21.76"/><line class="cls-3" x1="16.1" y1="50.03" x2="55.24" y2="25.66"/><line class="cls-3" x1="18.54" y1="53.93" x2="57.69" y2="29.56"/><line class="cls-3" x1="20.99" y1="57.82" x2="60.13" y2="33.46"/><line class="cls-3" x1="23.43" y1="61.73" x2="62.58" y2="37.36"/></g></g></svg>
+)
+
+

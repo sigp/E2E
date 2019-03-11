@@ -30,9 +30,9 @@ const container = {
   }
 };
 
-const pillsStyle = {
+const pillsStyle = theme => ({
   section: {
-    padding: "70px 0"
+    padding: "70px 0px",
   },
   container,
   title: {
@@ -41,6 +41,6 @@ const pillsStyle = {
     minHeight: "32px",
     textDecoration: "none"
   }
-};
+});
 
 export default pillsStyle;

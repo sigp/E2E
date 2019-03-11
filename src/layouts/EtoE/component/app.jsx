@@ -11,17 +11,17 @@ import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import ContactDialog from 'components/Dialogs/ContactDialog.jsx'
+import Web3LoaderDialog from 'containers/Dialogs/Web3LoaderDialog.jsx'
+import NotificationSlider from 'components/NotificationSlider/NotificationSlider.jsx'
 
 import eToERoutes from "routes/e2e.jsx";
 import eToEStyle from "assets/jss/layouts/eToEStyle.jsx";
 
-import image from "assets/img/sidebar-2.jpg";
+import image from "assets/img/Ethereum-homestead-background-26.jpg";
 import logo from "assets/img/reactlogo.png";
-import 'assets/css/global.css'
+import 'assets/css/global.css';
 
 // TODO remove
-import Blockies from 'react-blockies'
-import ContactDialogContent from 'components/Contact/DialogContent.jsx'
 
 // TEST
 import EthLoader from 'components/EthLoader/Loader.jsx'
@@ -64,37 +64,21 @@ class App extends React.Component {
     }
   }
   render() {
-    const { classes, accounts, ...rest } = this.props;
+    const { classes, accounts, messages, ...rest } = this.props;
 // width: 48px; height: 48px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 1px 6px #e8e8e8
-    let testHeaderSection = {
-        'display': 'flex',
-        'alignItems': 'center',
-        padding: '10px',
-    }
-    let headerIconStyle = {
-      width: '48px',
-      height: '48px',
-      borderRadius: '50%',
-      overflow: 'hidden',
-      boxShadow: '0 0 1px 6px #e8e8e8',
-      margin: '0px 20px',
-      '& .identicon': {
-        width: '48px !important',
-        height: '48px !important',
-      }
-    }
-    let testHeader = (
-      <section style={testHeaderSection}>
-        <div style={headerIconStyle}>
-          <Blockies
-            seed="0x2b62150ffbfefddaab1fff0e41378e5b13fdd77f"
-            size={8}
-          />
-        </div>
-        <div>
-          Thomas Sellino
-        </div>
-      </section>
+
+    // Notifications
+    let txNotifications = (
+        (Object.keys(messages)).map((value, key) => {
+          return (
+            <NotificationSlider
+              //status="PENDING"
+              //status="AWAITING"
+              status={messages[value].status}
+              order={key}
+            />
+          )
+        })
     )
 
     return (
@@ -107,7 +91,7 @@ class App extends React.Component {
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
-          color="blue"
+          color="primary"
           {...rest}
         />
         <div className={classes.mainPanel} ref="mainPanel">
@@ -121,31 +105,19 @@ class App extends React.Component {
             <div className={classes.container}>{switchRoutes}</div>
           </div>
           }
-          <Footer />
-          <button onClick={this.handleDialogToggle}>Dialog</button>
+          <Footer
+            version="0.0.1"
+          />
+          {
+            //<button onClick={this.handleDialogToggle}>Dialog</button>
+          }
         </div>
 
-      { (accounts.status === 'UNKNOWN' || accounts.status === 'PENDING') && 
-      <ContactDialog
-        show={true}
-          onClose={this.handleDialogToggle}
-//          header={testHeader}
-        >
-      <p>Blah</p>
-      </ContactDialog>
-      }
-
-      <ContactDialog
-          onClose={this.handleDialogToggle}
-          show={this.state.dialogOpen}
-          header={testHeader}
-        >
-        <ContactDialogContent
-            name='Thomas Sellino'
-            address='0x1337000000000000000000000000000000001337'
-            pubkey='0xa9f8be7e987fbe987baaf9a798ea7b98ae7b987e712983719823791832b798fd7be9879e879e87b98e7b98e7897e98f79f8798a'
-        />
-      </ContactDialog>
+      <Web3LoaderDialog />
+      <section className={classes.notificationDrawer}>
+        {txNotifications}
+        <div className={classes.clear}></div>
+      </section>
       {
       /*
        *  Test Loader if needed

@@ -6,14 +6,12 @@ import { withStyles }  from '@material-ui/core/styles'
 import Hidden from '@material-ui/core/Hidden'
 
 const GasCounter = (props) => {
-    // TODO: add the handler to props
-    const { classes, id } = props
-
+    const { classes, id, gas } = props
     return (
         <section>
           Gas Cost:&nbsp;
         <span id={id}>
-          12345
+          {gas} 
         </span>
         </section>
     )
@@ -21,7 +19,8 @@ const GasCounter = (props) => {
 
 GasCounter.propTypes = {
   classes: PropTypes.object.isRequired,
-  id: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+  gas: PropTypes.number,
 };
 
 export default GasCounter

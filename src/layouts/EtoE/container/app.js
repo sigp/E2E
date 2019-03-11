@@ -1,25 +1,18 @@
 import { connect } from 'react-redux';
 import App from 'layouts/EtoE/component/app.jsx';
-//import { sendMessage } from 'core/actions/sendMessageActions.js';
 
 const mapStateToProps = state => {
   return {
     web3Found: state.web3.web3Found,
-    accounts: state.web3.accounts,
-    web3: state.web3.web3 
-//    contactDialogOpen: state.contracts.dialogOpen
+    accounts: state.web3.accounts.value,
+    messages: state.sendMessage.sentMessages,
+    web3: state.web3.web3,
+    network: state.web3.network,
   }
 }; 
 
 const mapDispatchToProps = dispatch => {
-  return {
-    /*
-    sendMessageHandler: (rawData) => { 
-      dispatch(sendMessage(rawData))
-      Do nothing for now. 
-    }
-    */ 
-  }
+  return { }
 }
 
 export default connect(

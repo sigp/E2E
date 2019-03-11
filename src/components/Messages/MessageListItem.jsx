@@ -23,30 +23,27 @@ class MessageListItem extends React.Component {
 
   render() {
     // const MessageListItem = ({ ...props }) => {
-    const { classes, sender, message, address } = this.props
+    const { classes, sender, message, senderAddress, recipientAddress } = this.props
 
-    let contentClass
-
-    if (this.state.open) {
-        contentClass = classNames({
-          [classes.messageContent]: true,
-        })
-    } else {
-      contentClass = classNames({
+    let contentClass = classNames({
         [classes.messageContent]: true,
-        [classes.contentClosed]: true
-      })
-    }
+        [classes.contentClosed]: !this.state.open
+    })
+
+    let containerClass = classNames({
+        [classes.messageContainer]: true,
+        [classes.contentOpen]: this.state.open
+    })
 
     return (
       <div
-        className={classes.messageContainer}
+        className={containerClass}
         onClick={this.handleClick}
         >
         <section className={classes.icon}>
           <section className={classes.iconWrapper}>
             <Blockies
-              seed={address}
+              seed={senderAddress}
               size={8}
             />
           </section>
@@ -54,6 +51,9 @@ class MessageListItem extends React.Component {
         <section className={classes.messageRight}>
           <section className={classes.messageSender}>
               {sender}
+          </section>
+          <section className={classes.messageSender}>
+              {recipientAddress}
           </section>
           <section className={contentClass}>
               {message}
@@ -68,7 +68,8 @@ MessageListItem.propTypes = {
   classes: propTypes.object.isRequired,
   sender: propTypes.string.isRequired,
   message: propTypes.string.isRequired,
-  address: propTypes.string.isRequired,
+  senderAddress: propTypes.string.isRequired,
+  recipientAddress: propTypes.string,
 //  onClick: propTypes.func.isRequired,
   //TODO future: give etherscan tx url etc.
 }
